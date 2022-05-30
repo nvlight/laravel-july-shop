@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [ProductController::class,'index']);
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group([
+    //'middleware' => 'auth',
+    //'prefix' => 'product',
+    //'name' => 'product.'
+], function (){
+    Route::resource('product', 'App\Http\Controllers\ProductController');
 });

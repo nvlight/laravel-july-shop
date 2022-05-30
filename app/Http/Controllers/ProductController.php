@@ -15,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -25,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
@@ -36,7 +38,11 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $product = new Product();
+        $product->fill($request->all());
+        $product->save();
+
+        return redirect()->route('product.index');
     }
 
     /**
