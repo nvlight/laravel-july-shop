@@ -10,6 +10,11 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'parent_id',
+    ];
+
     protected function RecursiveStepFind($categories, $step=1){
         $current = new Collection();
         foreach($categories as $category){

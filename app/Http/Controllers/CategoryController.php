@@ -40,7 +40,14 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        dump($request->all());
+        //dump($request->all());
+
+        $product = new Category();
+        $product->fill($request->all());
+        $product->save();
+
+        return redirect()->route('category.index');
+
     }
 
     /**
@@ -51,7 +58,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        //return $category;
+        //dump($category);
+
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -85,6 +95,28 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $haveChilds = count($category->children);
+//        if (session()->has('category_delete')){
+//            session()->remove('category_delete');
+//        }
+
+        if ($haveChilds){
+            session()->flash('category_delete', ['success' => false, 'message' => 'Нельзя удалить категорию, у которого есть потомки!']);
+            return back();
+        }
+
+        try{
+            $category->delete();
+        }catch (\Exception $e){
+            session()->flash('category_delete', ['success' => false, 'message' => 'Ошибка при удалении категории!']);
+            return back();
+        }
+
+        session()->flash('category_delete', ['success' => true, 'message' => 'Категория удалена']);
+        return back();
+
+        //dump($category);
+        //dump(count($category->children));
+        //return $category;
     }
 }

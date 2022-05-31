@@ -7,6 +7,6 @@
 
     @if(count($child->children))
         @include('category.parts.recursive_children_select_part',
-            ['children' => $child->children, 'step' => $step++])
+            ['children' => $child->children, 'step' => $step + 1])
     @endif
 @endforeach
