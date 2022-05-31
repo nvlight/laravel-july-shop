@@ -47,7 +47,6 @@ class CategoryController extends Controller
         $product->save();
 
         return redirect()->route('category.index');
-
     }
 
     /**
@@ -72,7 +71,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        //return $category;
+        $categories = Category::where('parent_id', 0)->get();
+
+        return view('category.update', compact('categories', 'category'));
     }
 
     /**
@@ -84,7 +86,28 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        //dump($request->all());
+        //dump($category);
+        //die;
+
+        $haveChilds = count($category->children);
+        //dump($haveChilds);
+
+        if ($category->parent_id != $request->parent_id && $haveChilds){ // $haveChilds &&
+            session()->flash('category_update', ['success' => false, 'message' => 'Нельзя перенести категорию, у которого есть потомки!']);
+            return redirect()->route('category.edit', $category->id);
+        }
+
+        try{
+            $category->fill($request->all());
+            $category->save();
+        }catch (\Exception $e){
+            session()->flash('category_update', ['success' => false, 'message' => 'Ошибка при обвнолении категории!']);
+            return redirect()->route('category.edit', $category->id);
+        }
+
+        session()->flash('category_update', ['success' => true, 'message' => 'Категория обновлена']);
+        return redirect()->route('category.edit', $category->id);
     }
 
     /**
@@ -109,11 +132,11 @@ class CategoryController extends Controller
             $category->delete();
         }catch (\Exception $e){
             session()->flash('category_delete', ['success' => false, 'message' => 'Ошибка при удалении категории!']);
-            return back();
+            return redirect()->route('category.index');
         }
 
         session()->flash('category_delete', ['success' => true, 'message' => 'Категория удалена']);
-        return back();
+        return redirect()->route('category.index');
 
         //dump($category);
         //dump(count($category->children));

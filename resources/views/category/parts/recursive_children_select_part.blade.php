@@ -1,12 +1,15 @@
-@foreach($children as $child)
-    @if(old('parent_id') == $child->id)
-        <option selected value="{{$child->id}}">{{ str_repeat("-", $step) }} {{$child->title}}</option>
+@foreach($categories as $category)
+    @if($target_value == $category->id)
+        <option selected value="{{$category->id}}">{{ str_repeat("-", $step) }} {{$category->title}}</option>
     @else
-        <option value="{{$child->id}}">{{ str_repeat("-", $step) }} {{$child->title}}</option>
+        <option value="{{$category->id}}">{{ str_repeat("-", $step) }} {{$category->title}}</option>
     @endif
 
-    @if(count($child->children))
-        @include('category.parts.recursive_children_select_part',
-            ['children' => $child->children, 'step' => $step + 1])
+    @if(count($category->children))
+        @include('category.parts.recursive_children_select_part', [
+            'categories' => $category->children,
+            'step' => $step + 1,
+            'target_value' => $target_value,
+        ])
     @endif
 @endforeach
