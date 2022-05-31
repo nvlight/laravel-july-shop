@@ -20,5 +20,6 @@ Route::group([
     //'prefix' => 'product',
     //'name' => 'product.'
 ], function (){
-    Route::resource('product', 'App\Http\Controllers\ProductController');
+    Route::resource('product',  'App\Http\Controllers\ProductController');
+    Route::resource('category', 'App\Http\Controllers\CategoryController');
 });

@@ -1,4 +1,4 @@
-@extends('_layouts.products_main')
+@extends('_layouts.main')
 
 @section('title', 'Laravel - July shop!')
 
