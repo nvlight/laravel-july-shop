@@ -126,8 +126,11 @@
             @error('description')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
-            <button type="submit" class="btn btn-primary">Создать</button>
+            <button type="submit" class="btn btn-primary">Обновить</button>
         </form>
+        <div class="mt-3">
+            @include('product.parts.buttons.delete', ['id' => $product->id] )
+        </div>
     </div>
 
 @endsection
