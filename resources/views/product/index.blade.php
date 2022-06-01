@@ -11,6 +11,9 @@
     <div class="mb-3">
         <a href="{{route('product.create')}}" class="btn btn-primary">Create new</a>
     </div>
+    <div class="mb-3">
+        @include('product.parts.session_messages.delete_product')
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>
@@ -25,6 +28,7 @@
                 <th>brand_id</th>
                 <th>country_id</th>
                 <th>description</th>
+                <th>actions</th>
             </tr>
             </thead>
             <tbody>
@@ -40,6 +44,9 @@
                         <td>{{ $product->brand_id }}</td>
                         <td>{{ $product->country_id }}</td>
                         <td>{{ $product->description }}</td>
+                        <td>
+                            @include('product.parts.buttons', ['product' => $product])
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

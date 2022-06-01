@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -27,7 +28,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $categories = Category::where('parent_id', 0)->get();
+
+        return view('product.create', compact('categories'));
     }
 
     /**
@@ -53,7 +56,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        //return $product;
+
+        return view('product.show', compact('product'));
     }
 
     /**
@@ -64,7 +69,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::where('parent_id', 0)->get();
+
+        return view('product.edit', compact('product','categories'));
     }
 
     /**
@@ -76,7 +83,17 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        //dump($request->all());
+        try{
+            $product->fill($request->all());
+            $product->save();
+        }catch (\Exception $e){
+            session()->flash('update_product', ['success' => false, 'message' => 'Ошибка при обновлении продукта!']);
+            return redirect()->route('category.edit', $product->id);
+        }
+
+        session()->flash('update_product', ['success' => true, 'message' => 'Продукт обновлен!']);
+        return redirect()->route('product.edit', $product->id);
     }
 
     /**
@@ -87,6 +104,16 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        //return $product;
+
+        try{
+            $product->delete();
+        }catch (\Exception $e){
+            session()->flash('product_delete', ['success' => false, 'message' => 'Ошибка при удалении продукта!']);
+            return redirect()->route('product.index');
+        }
+
+        session()->flash('product_delete', ['success' => true, 'message' => 'Продукт удален']);
+        return redirect()->route('product.index');
     }
 }

@@ -15,7 +15,7 @@
         <a href="{{route('category.create')}}" class="btn btn-primary">Create new</a>
     </div>
     <div class="mb-3">
-        @include('category.parts.edit_button', ['id' => $category->id, 'class' => ''])
+        @include('category.parts.buttons.edit_button', ['id' => $category->id, 'class' => ''])
     </div>
 
     <table class="table table-bordered table-striped">

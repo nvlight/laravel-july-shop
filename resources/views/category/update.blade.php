@@ -30,10 +30,11 @@
             @method('PATCH')
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="type title here" value="{{$category->title}}">
+                <input type="text" class="form-control" id="title" name="title" placeholder="type title here"
+                       value="{{$category->title}}">
                 <div id="textHelp" class="form-text">* required field</div>
                 @error('title')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -56,7 +57,7 @@
             <button type="submit" class="btn btn-primary">Обновить</button>
         </form>
         <div class="mt-3">
-            @include('category.parts.delete_button', ['id' => $category->id])
+            @include('category.parts.buttons.delete_button', ['id' => $category->id])
         </div>
     </div>
 
