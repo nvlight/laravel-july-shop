@@ -105,18 +105,29 @@ class GalleryController extends Controller
     public function store(StoreGalleryRequest $request)
     {
         //dump($request->all());
+        //die;
         $uploadedFiles = $this->saveUploadImages();
         //dump($uploadedFiles);
 
         // now save to DB all filenames with gallery
+        $i = 1;
+        $isMain = $request->is_main ?? 1;
         foreach($uploadedFiles['uploaded'] as $file){
+
             $gallery = new Gallery();
             $gallery->parent_id = $request->parent_id;
             //$tmp['newImageName'] = $newImageName;
             //$tmp['originalName'] = $originalName;
             $gallery->image = $file['newImageName'];
+
+            // todo - set all images with is_main=1 to 0, then current set to 1 !
+            if ($i == $isMain){
+                $gallery->is_main = 1;
+            }
+
             // todo - add check for save();
             $gallery->save();
+            $i++;
         }
 
         session()->flash('gallery_images_created',

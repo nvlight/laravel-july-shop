@@ -86,30 +86,23 @@
                 @enderror
             </div>
 
-
             <div class="mt-3">
-                <span>
-                    Выберите главную картинку
-                </span>
-            </div>
-            <div class="mb-3 form-check">
-                <input type="radio" class="form-check-input" id="is_main1" name="is_main" placeholder="type title here">
-                <label for="is_main1" class="form-check-label">Главная картинка 1</label>
-            </div>
-            <div class="mb-3 form-check">
-                <input type="radio" class="form-check-input" id="is_main2" name="is_main" placeholder="type title here">
-                <label for="is_main2" class="form-check-label">Главная картинка 2</label>
-            </div>
-            @error('is_main')
+                <label for="is_main" class="form-label">Главная картинка</label>
+                <select class="form-select" id="is_main" name="is_main" aria-label="Default select example">
+                    <option value="0" selected>Главная картинка не выбрана</option>
+                    @foreach( range(1,5) as $k => $v)
+                        @if(old('is_main') == $v)
+                            <option value="{{$v}}" selected>Картинка {{$v}}</option>
+                        @else
+                            <option value="{{$v}}">Картинка {{$v}}</option>
+                        @endif
+                    @endforeach
+                </select>
+                <div id="is_mainHelp" class="form-text">* required field</div>
+                    @error('is_main')
                 <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-{{--            <div class="mb-3 ">--}}
-{{--                <input type="checkbox" class="form-check-input" id="is_main" name="is_main" placeholder="type title here" value="{{old('is_main')}}">--}}
-{{--                <label for="is_main" class="form-check-label">Главная картинка</label>--}}
-{{--                @error('is_main')--}}
-{{--                    <div class="alert alert-danger">{{ $message }}</div>--}}
-{{--                @enderror--}}
-{{--            </div>--}}
+                @enderror
+            </div>
 
             <button type="submit" class="btn btn-primary">Создать</button>
         </form>

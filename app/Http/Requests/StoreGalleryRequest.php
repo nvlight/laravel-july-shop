@@ -31,7 +31,7 @@ class StoreGalleryRequest extends FormRequest
             'image.2' => 'image|max:5120',
             'image.3' => 'image|max:5120',
             'image.5' => 'image|max:5120',
-            'is_main' => 'required',
+            'is_main' => 'required|gt:0',
         ];
     }
 }
