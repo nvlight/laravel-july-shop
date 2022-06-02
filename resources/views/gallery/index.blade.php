@@ -12,7 +12,10 @@
         <a href="{{route('gallery.create')}}" class="btn btn-primary">Create new</a>
     </div>
     <div class="mb-3">
-{{--        @include('product.parts.session_messages.delete_product')--}}
+        @include('gallery.session_messages.gallery_delete')
+    </div>
+    <div class="mb-3">
+        @include('gallery.session_messages.gallery_images_created')
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -33,7 +36,7 @@
                     <td>{{ $gallery->image }}</td>
                     <td>{{ $gallery->is_main }}</td>
                     <td>
-{{--                        @include('product.parts.buttons', ['product' => $product])--}}
+                        @include('gallery.parts.buttons.actions_buttons', ['gallery' => $gallery])
                     </td>
                 </tr>
             @endforeach

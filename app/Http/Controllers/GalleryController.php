@@ -104,10 +104,9 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
-        dump($request->all());
-
+        //dump($request->all());
         $uploadedFiles = $this->saveUploadImages();
-        dump($uploadedFiles);
+        //dump($uploadedFiles);
 
         // now save to DB all filenames with gallery
         foreach($uploadedFiles['uploaded'] as $file){
@@ -116,9 +115,14 @@ class GalleryController extends Controller
             //$tmp['newImageName'] = $newImageName;
             //$tmp['originalName'] = $originalName;
             $gallery->image = $file['newImageName'];
+            // todo - add check for save();
             $gallery->save();
         }
 
+        session()->flash('gallery_images_created',
+            ['success' => true, 'message' => 'Картинки продукта сохранены!']);
+
+        return redirect()->route('gallery.index');
     }
 
     /**
@@ -163,6 +167,17 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
-        //
+        //return $gallery;
+
+        try{
+            Storage::disk('public')->delete($gallery->image);
+            $gallery->delete();
+        }catch (\Exception $e){
+            session()->flash('gallery_delete', ['success' => false, 'message' => 'Ошибка при удалении картинки продукта!']);
+            return redirect()->route('gallery.index');
+        }
+
+        session()->flash('gallery_delete', ['success' => true, 'message' => 'Картинка продукта удалена']);
+        return redirect()->route('gallery.index');
     }
 }

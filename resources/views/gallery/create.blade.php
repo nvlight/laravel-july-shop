@@ -30,7 +30,7 @@
     <div class="card p-3">
         <form action="{{route('gallery.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="mb-3">
+            <div class="">
                 <label for="parent_id" class="form-label">parent_id</label>
                 <select class="form-select" id="parent_id" name="parent_id" aria-label="Default select example">
                     <option value="0">Продукт не выбран</option>
@@ -47,45 +47,45 @@
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="d-flex">
-                <div>
-                    <label for="image" class="form-label">image 1</label>
-                    <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here"
-                        value="@php if (isset(old('image')[0])) { echo "$(old('image')[0])"; } @endphp">
-                    <div id="imageHelp" class="form-text">* required field</div>
-                    @error('image.0')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="image" class="form-label">image 2</label>
-                    <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
-                    @error('image.1')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="image" class="form-label">image 3</label>
-                    <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
-                    @error('image.2')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="image" class="form-label">image 4</label>
-                    <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
-                    @error('image.3')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <label for="image" class="form-label">image 5</label>
-                    <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
-                    @error('image.4')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+
+            <div>
+                <label for="image" class="form-label">image 1</label>
+                <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here"
+                    value="@php if (isset(old('image')[0])) { echo "$(old('image')[0])"; } @endphp">
+                <div id="imageHelp" class="form-text">* required field</div>
+                @error('image.0')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
+            <div>
+                <label for="image" class="form-label">image 2</label>
+                <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
+                @error('image.1')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <label for="image" class="form-label">image 3</label>
+                <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
+                @error('image.2')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <label for="image" class="form-label">image 4</label>
+                <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
+                @error('image.3')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <label for="image" class="form-label">image 5</label>
+                <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
+                @error('image.4')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
 
             <div class="mt-3">
                 <span>
