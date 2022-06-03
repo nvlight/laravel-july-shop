@@ -96,6 +96,17 @@ class GalleryController extends Controller
         //return Storage::disk('public')->download($newImageName, $originalName);
     }
 
+    protected function resetMainImage(int $productId){
+        $imgs = Gallery::where('parent_id', $productId)->get();
+        if ($imgs){
+            foreach ($imgs as $img){
+                $img->is_main = 0;
+                $img->save();
+            }
+        }
+        return true;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -111,7 +122,7 @@ class GalleryController extends Controller
 
         // now save to DB all filenames with gallery
         $i = 1;
-        $isMain = $request->is_main ?? 1;
+        $isMain = ( $request->is_main > (count($request->image))) ? 1 : $request->is_main;
         foreach($uploadedFiles['uploaded'] as $file){
 
             $gallery = new Gallery();
@@ -122,6 +133,7 @@ class GalleryController extends Controller
 
             // todo - set all images with is_main=1 to 0, then current set to 1 !
             if ($i == $isMain){
+                $this->resetMainImage($gallery->parent_id);
                 $gallery->is_main = 1;
             }
 
