@@ -12,27 +12,6 @@ use Illuminate\Support\Str;
 
 class GalleryController extends Controller
 {
-    public function test(Request $request)
-    {
-        //dump(session()->all());
-        dump($request->all());
-
-        if ($request->isMethod('post')){
-            //echo "its post <br>";
-
-            $image      = $request->file('image')[0];
-            $originalName = $image->getClientOriginalName();
-            $newImageName = Str::random() . '---' . time() . '.' . $image->extension();
-
-            //$image->store($image_name);
-            //Storage::disk('public')->putFileAs('', $image, $newImageName);// ->put($image_name, $image);
-
-            //return Storage::disk('public')->download($newImageName, $originalName);
-        }
-
-        return view('gallery.gallery-test');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -156,7 +135,7 @@ class GalleryController extends Controller
      */
     public function show(Gallery $gallery)
     {
-        return view('gallery.show', compact('gallery')); 
+        return view('gallery.show', compact('gallery'));
     }
 
     /**
@@ -167,7 +146,7 @@ class GalleryController extends Controller
      */
     public function edit(Gallery $gallery)
     {
-        //
+        return view('gallery.update', compact('gallery'));
     }
 
     /**
@@ -179,7 +158,43 @@ class GalleryController extends Controller
      */
     public function update(UpdateGalleryRequest $request, Gallery $gallery)
     {
-        //
+        //dump($request->all());
+        //dump($gallery);
+        //dump($request->exists('is_main'));
+        //dump($request->exists('image'));
+
+        if (!$request->exists('is_main') && !$request->exists('image')){
+            $defaultFlash = ['success' => true, 'message' => 'Новая картинка не выбрана и/или не помечена новой, все осталось как и было ранее'];
+            session()->flash('gallery_update', $defaultFlash);
+            return redirect()->route('gallery.edit', $gallery->id);
+        }
+
+        try{
+            // part 1 - image. Delete old image && save new image
+            if ($request->exists('image')){
+                Storage::disk('public')->delete($gallery->image);
+
+                // todo - код сохранение картинки повторяется, исправить
+                $image = request()->file('image')[0];
+                $newImageName = Str::random() . '---' . time() . '.' . $image->extension();
+                $gallery->image = $newImageName;
+                Storage::disk('public')->putFileAs('', $image, $newImageName);
+            }
+
+            // part 2 - checkbox is_main
+            if ($request->exists('is_main')){
+                $this->resetMainImage($gallery->parent_id);
+                $gallery->is_main = 1;
+            }
+
+            $gallery->save();
+        }catch (\Exception $e){
+            session()->flash('gallery_update', ['success' => false, 'message' => 'Ошибка при обновлении картинки продукта!']);
+            return redirect()->route('gallery.edit', $gallery->id);
+        }
+
+        session()->flash('gallery_update', ['success' => true, 'message' => 'Картинка продукта обновлена']);
+        return redirect()->route('gallery.edit', $gallery->id);
     }
 
     /**

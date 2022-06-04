@@ -24,5 +24,4 @@ Route::group([
     Route::resource('product',  'App\Http\Controllers\ProductController');
     Route::resource('category', 'App\Http\Controllers\CategoryController');
     Route::resource('gallery', 'App\Http\Controllers\GalleryController');
-    Route::match( ['get', 'post'] ,'gallery-test', [GalleryController::class,'test'])->name('gallery-test-get');
 });

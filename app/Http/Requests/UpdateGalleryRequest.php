@@ -13,7 +13,7 @@ class UpdateGalleryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateGalleryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'parent_id' => 'required|exists:products,id',
+            'image.0' => 'nullable|image|max:5120',
+            'is_main' => 'nullable|gt:0',
         ];
     }
 }
