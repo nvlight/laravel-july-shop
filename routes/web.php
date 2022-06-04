@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\ProductController;
-use \App\Http\Controllers\GalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +17,10 @@ Route::get('/', [ProductController::class,'index']);
 
 Route::group([
     //'middleware' => 'auth',
-    //'prefix' => 'product',
+    'prefix' => 'admin',
     //'name' => 'product.'
 ], function (){
-    Route::resource('product',  'App\Http\Controllers\ProductController');
-    Route::resource('category', 'App\Http\Controllers\CategoryController');
-    Route::resource('gallery', 'App\Http\Controllers\GalleryController');
+    Route::resource('category', 'App\Http\Controllers\Admin\CategoryController');
+    Route::resource('product', 'App\Http\Controllers\Admin\ProductController');
+    Route::resource('gallery', 'App\Http\Controllers\Admin\GalleryController');
 });

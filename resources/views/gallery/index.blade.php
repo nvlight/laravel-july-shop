@@ -33,7 +33,11 @@
                 <tr>
                     <td>{{ $gallery->id }}</td>
                     <td>{{ $gallery->parent_id }}</td>
-                    <td>{{ $gallery->image }}</td>
+                    <td>
+                        <img src="{{asset('storage/'.$gallery->image)}}" alt="" width="100px" height="100px">
+                        <br>
+                        {{ $gallery->image }}
+                    </td>
                     <td>{{ $gallery->is_main }}</td>
                     <td>
                         @include('gallery.parts.buttons.actions_buttons', ['gallery' => $gallery])
