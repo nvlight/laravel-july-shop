@@ -12,6 +12,13 @@ use Illuminate\Support\Str;
 
 class GalleryController extends Controller
 {
+    protected $maxImgsCountForProduct;
+
+    public function __construct()
+    {
+        $this->maxImgsCountForProduct = env('PRODUCT_MAX_IMGS_COUNT', 5);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -87,6 +94,20 @@ class GalleryController extends Controller
     }
 
     /**
+     * Может быть только (maxImgsCountForProduct например 5) картинок для 1 продукта
+     * @param $request
+     * @return bool
+     */
+    protected function isProductHaveMaxImageCount($request)
+    {
+        $productImagesCount = Gallery::where('parent_id', $request->parent_id)->count();
+        if ( ($productImagesCount + count($request->image)) > $this->maxImgsCountForProduct){
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreGalleryRequest  $request
@@ -94,10 +115,16 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
-        //dump($request->all());
-        //die;
+        if ($this->isProductHaveMaxImageCount($request)){
+            session()->flash('default_message',
+                ['success' => false,
+                    'message' => "Максимальное количество изображений для одного продукта = {$this->maxImgsCountForProduct}!"]);
+            return redirect()->route('gallery.index');
+        }
+
+        // todo - сохранение картинки и записи в бд нужно отрефакторить, обе действия делать не по отдельности
+        // todo   а в цикле и также в цикле перехватывать ошибки
         $uploadedFiles = $this->saveUploadImages();
-        //dump($uploadedFiles);
 
         // now save to DB all filenames with gallery
         $i = 1;
@@ -110,7 +137,6 @@ class GalleryController extends Controller
             //$tmp['originalName'] = $originalName;
             $gallery->image = $file['newImageName'];
 
-            // todo - set all images with is_main=1 to 0, then current set to 1 !
             if ($i == $isMain){
                 $this->resetMainImage($gallery->parent_id);
                 $gallery->is_main = 1;
@@ -122,7 +148,8 @@ class GalleryController extends Controller
         }
 
         session()->flash('gallery_images_created',
-            ['success' => true, 'message' => 'Картинки продукта сохранены!']);
+            ['success' => true,
+             'message' => 'Картинки продукта сохранены!']);
 
         return redirect()->route('gallery.index');
     }

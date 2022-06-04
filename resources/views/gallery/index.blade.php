@@ -12,6 +12,9 @@
         <a href="{{route('gallery.create')}}" class="btn btn-primary">Create new</a>
     </div>
     <div class="mb-3">
+        @include('gallery.session_messages.default_message')
+    </div>
+    <div class="mb-3">
         @include('gallery.session_messages.gallery_delete')
     </div>
     <div class="mb-3">
