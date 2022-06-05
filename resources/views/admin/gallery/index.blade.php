@@ -9,16 +9,16 @@
 @section('content')
     <h2>Galleries</h2>
     <div class="mb-3">
-        <a href="{{route('gallery.create')}}" class="btn btn-primary">Create new</a>
+        <a href="{{route('admin.gallery.create')}}" class="btn btn-primary">Create new</a>
     </div>
     <div class="mb-3">
-        @include('gallery.session_messages.default_message')
+        @include('admin.gallery.session_messages.default_message')
     </div>
     <div class="mb-3">
-        @include('gallery.session_messages.gallery_delete')
+        @include('admin.gallery.session_messages.gallery_delete')
     </div>
     <div class="mb-3">
-        @include('gallery.session_messages.gallery_images_created')
+        @include('admin.gallery.session_messages.gallery_images_created')
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -43,7 +43,7 @@
                     </td>
                     <td>{{ $gallery->is_main }}</td>
                     <td>
-                        @include('gallery.parts.buttons.actions_buttons', ['gallery' => $gallery])
+                        @include('admin.gallery.parts.buttons.actions_buttons', ['gallery' => $gallery])
                     </td>
                 </tr>
             @endforeach

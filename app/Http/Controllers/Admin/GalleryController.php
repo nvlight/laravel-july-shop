@@ -28,7 +28,7 @@ class GalleryController extends Controller
     {
         $galleries = Gallery::all();
 
-        return view('gallery.index', compact('galleries'));
+        return view('admin.gallery.index', compact('galleries'));
     }
 
     /**
@@ -40,7 +40,7 @@ class GalleryController extends Controller
     {
         $products = Product::all();
 
-        return view('gallery.create', compact('products'));
+        return view('admin.gallery.create', compact('products'));
     }
 
     /**
@@ -164,7 +164,7 @@ class GalleryController extends Controller
             ['success' => true,
              'message' => 'Картинки продукта сохранены!']);
 
-        return redirect()->route('gallery.index');
+        return redirect()->route('admin.gallery.index');
     }
 
     /**
@@ -175,7 +175,7 @@ class GalleryController extends Controller
      */
     public function show(Gallery $gallery)
     {
-        return view('gallery.show', compact('gallery'));
+        return view('admin.gallery.show', compact('gallery'));
     }
 
     /**
@@ -186,7 +186,7 @@ class GalleryController extends Controller
      */
     public function edit(Gallery $gallery)
     {
-        return view('gallery.update', compact('gallery'));
+        return view('admin.gallery.update', compact('gallery'));
     }
 
     /**
@@ -206,7 +206,7 @@ class GalleryController extends Controller
         if (!$request->exists('is_main') && !$request->exists('image')){
             $defaultFlash = ['success' => true, 'message' => 'Новая картинка не выбрана и/или не помечена новой, все осталось как и было ранее'];
             session()->flash('gallery_update', $defaultFlash);
-            return redirect()->route('gallery.edit', $gallery->id);
+            return redirect()->route('admin.gallery.edit', $gallery->id);
         }
 
         try{
@@ -230,11 +230,11 @@ class GalleryController extends Controller
             $gallery->save();
         }catch (\Exception $e){
             session()->flash('gallery_update', ['success' => false, 'message' => 'Ошибка при обновлении картинки продукта!']);
-            return redirect()->route('gallery.edit', $gallery->id);
+            return redirect()->route('admin.gallery.edit', $gallery->id);
         }
 
         session()->flash('gallery_update', ['success' => true, 'message' => 'Картинка продукта обновлена']);
-        return redirect()->route('gallery.edit', $gallery->id);
+        return redirect()->route('admin.gallery.edit', $gallery->id);
     }
 
     /**
@@ -252,10 +252,10 @@ class GalleryController extends Controller
             $gallery->delete();
         }catch (\Exception $e){
             session()->flash('gallery_delete', ['success' => false, 'message' => 'Ошибка при удалении картинки продукта!']);
-            return redirect()->route('gallery.index');
+            return redirect()->route('admin.gallery.index');
         }
 
         session()->flash('gallery_delete', ['success' => true, 'message' => 'Картинка продукта удалена']);
-        return redirect()->route('gallery.index');
+        return redirect()->route('admin.gallery.index');
     }
 }

@@ -14,12 +14,12 @@
             //dump($product->toArray());
             //dump(session()->all());
         @endphp
-        <a href="{{route('product.index')}}" class="">Products list</a>
-        @include('product.parts.session_messages.update_product')
+        <a href="{{route('admin.product.index')}}" class="">Products list</a>
+        @include('admin.product.parts.session_messages.update_product')
     </div>
 
     <div class="card p-3">
-        <form action="{{route('product.update', $product->id)}}" method="POST">
+        <form action="{{route('admin.product.update', $product->id)}}" method="POST">
             @csrf
             @method('PATCH')
             <div class="mb-3">
@@ -45,7 +45,7 @@
                 <label for="category_id" class="form-label">parent_id</label>
                 <select class="form-select" id="category_id" name="category_id" aria-label="Default select example">
                     <option value="0" selected>Категория не выбрана</option>
-                    @include('category.parts.recursive_children_select_part', [
+                    @include('admin.category.parts.recursive_children_select_part', [
                         'categories' => $categories,
                         'step' => 1,
                         'target_value' => $product->category_id,
@@ -129,7 +129,7 @@
             <button type="submit" class="btn btn-primary">Обновить</button>
         </form>
         <div class="mt-3">
-            @include('product.parts.buttons.delete', ['id' => $product->id] )
+            @include('admin.product.parts.buttons.delete', ['id' => $product->id] )
         </div>
     </div>
 

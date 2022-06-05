@@ -10,7 +10,7 @@
     <h2>Create Product</h2>
 
     <div class="mb-3">
-        <a href="{{route('product.index')}}" class="">Products list</a>
+        <a href="{{route('admin.product.index')}}" class="">Products list</a>
     </div>
 
     <div class="mb-3">
@@ -26,7 +26,7 @@
 {{--        @endif--}}
     </div>
     <div class="card p-3">
-        <form action="{{route('product.store')}}" method="POST">
+        <form action="{{route('admin.product.store')}}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -49,7 +49,7 @@
                 <label for="category_id" class="form-label">parent_id</label>
                 <select class="form-select" id="category_id" name="category_id" aria-label="Default select example">
                     <option value="0" selected>Категория не выбрана</option>
-                    @include('category.parts.recursive_children_select_part', [
+                    @include('admin.category.parts.recursive_children_select_part', [
                         'categories' => $categories,
                         'step' => 1,
                         'target_value' => old('category_id'),

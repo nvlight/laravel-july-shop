@@ -19,7 +19,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        return view('product.index', compact('products'));
+        return view('admin.product.index', compact('products'));
     }
 
     /**
@@ -31,7 +31,7 @@ class ProductController extends Controller
     {
         $categories = Category::where('parent_id', 0)->get();
 
-        return view('product.create', compact('categories'));
+        return view('admin.product.create', compact('categories'));
     }
 
     /**
@@ -46,7 +46,7 @@ class ProductController extends Controller
         $product->fill($request->all());
         $product->save();
 
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -59,7 +59,7 @@ class ProductController extends Controller
     {
         //return $product;
 
-        return view('product.show', compact('product'));
+        return view('admin.product.show', compact('product'));
     }
 
     /**
@@ -72,7 +72,7 @@ class ProductController extends Controller
     {
         $categories = Category::where('parent_id', 0)->get();
 
-        return view('product.edit', compact('product','categories'));
+        return view('admin.product.edit', compact('product','categories'));
     }
 
     /**
@@ -90,11 +90,11 @@ class ProductController extends Controller
             $product->save();
         }catch (\Exception $e){
             session()->flash('update_product', ['success' => false, 'message' => 'Ошибка при обновлении продукта!']);
-            return redirect()->route('category.edit', $product->id);
+            return redirect()->route('admin.category.edit', $product->id);
         }
 
         session()->flash('update_product', ['success' => true, 'message' => 'Продукт обновлен!']);
-        return redirect()->route('product.edit', $product->id);
+        return redirect()->route('admin.product.edit', $product->id);
     }
 
     /**
@@ -111,10 +111,10 @@ class ProductController extends Controller
             $product->delete();
         }catch (\Exception $e){
             session()->flash('product_delete', ['success' => false, 'message' => 'Ошибка при удалении продукта!']);
-            return redirect()->route('product.index');
+            return redirect()->route('admin.product.index');
         }
 
         session()->flash('product_delete', ['success' => true, 'message' => 'Продукт удален']);
-        return redirect()->route('product.index');
+        return redirect()->route('admin.product.index');
     }
 }

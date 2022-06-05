@@ -9,13 +9,13 @@
 @section('content')
 
     <div class="mb-3">
-        <a href="{{route('gallery.index')}}" class="">Gallery list</a>
+        <a href="{{route('admin.gallery.index')}}" class="">Gallery list</a>
     </div>
     <div class="mb-3">
-        <a href="{{route('gallery.create')}}" class="btn btn-primary">Create new</a>
+        <a href="{{route('admin.gallery.create')}}" class="btn btn-primary">Create new</a>
     </div>
     <div class="mb-3">
-        @include('gallery.parts.buttons.edit', ['id' => $gallery->id, 'class' => ''])
+        @include('admin.gallery.parts.buttons.edit', ['id' => $gallery->id, 'class' => ''])
     </div>
 
     <table class="table table-bordered table-striped">

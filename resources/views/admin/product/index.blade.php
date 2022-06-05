@@ -9,10 +9,10 @@
 @section('content')
     <h2>Products</h2>
     <div class="mb-3">
-        <a href="{{route('product.create')}}" class="btn btn-primary">Create new</a>
+        <a href="{{route('admin.product.create')}}" class="btn btn-primary">Create new</a>
     </div>
     <div class="mb-3">
-        @include('product.parts.session_messages.delete_product')
+        @include('admin.product.parts.session_messages.delete_product')
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -45,7 +45,7 @@
                         <td>{{ $product->country_id }}</td>
                         <td>{{ $product->description }}</td>
                         <td>
-                            @include('product.parts.buttons', ['product' => $product])
+                            @include('admin.product.parts.buttons', ['product' => $product])
                         </td>
                     </tr>
                 @endforeach

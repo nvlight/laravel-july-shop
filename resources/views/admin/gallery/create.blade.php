@@ -10,7 +10,7 @@
     <h2>Добавление галлереи картинок для продукта</h2>
 
     <div class="mb-3">
-        <a href="{{route('gallery.index')}}" class="">Gallery list</a>
+        <a href="{{route('admin.gallery.index')}}" class="">Gallery list</a>
     </div>
 
     <div class="mb-3">
@@ -28,7 +28,7 @@
 {{--        @endif--}}
     </div>
     <div class="card p-3">
-        <form action="{{route('gallery.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('admin.gallery.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="">
                 <label for="parent_id" class="form-label">parent_id</label>
@@ -51,7 +51,7 @@
             <div>
                 <label for="image" class="form-label">image 1</label>
                 <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here"
-                    value="@php if (isset(old('image')[0])) { echo "$(old('image')[0])"; } @endphp">
+                    value="@php if (isset(old('image')[0])) { echo old('image')[0]; } @endphp">
                 <div id="imageHelp" class="form-text">* required field</div>
                 @error('image.0')
                     <div class="alert alert-danger">{{ $message }}</div>

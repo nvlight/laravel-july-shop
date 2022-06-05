@@ -10,10 +10,10 @@
     <h2>Редактирование картинки продукта</h2>
 
     <div class="mb-3">
-        <a href="{{route('gallery.index')}}" class="">Gallery list</a>
+        <a href="{{route('admin.gallery.index')}}" class="">Gallery list</a>
     </div>
     <div class="mb-3">
-        @include('gallery.session_messages.gallery_update')
+        @include('admin.gallery.session_messages.gallery_update')
     </div>
     <div class="mb-3">
         @php
@@ -30,7 +30,7 @@
 {{--        @endif--}}
     </div>
     <div class="card p-3">
-        <form action="{{route('gallery.update', $gallery->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('admin.gallery.update', $gallery->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
 
