@@ -93,18 +93,27 @@ class GalleryController extends Controller
         return true;
     }
 
+    protected function productImagesCountByColumnAndValue($column, $equal)
+    {
+        return Gallery::where($column, $equal)->count();
+    }
+
     /**
      * Может быть только (maxImgsCountForProduct например 5) картинок для 1 продукта
      * @param $request
      * @return bool
      */
-    protected function isProductHaveMaxImageCount($request)
+    protected function isProductHaveMaxImageCount($parentId, $requestImageCount)
     {
-        $productImagesCount = Gallery::where('parent_id', $request->parent_id)->count();
-        if ( ($productImagesCount + count($request->image)) > $this->maxImgsCountForProduct){
-            return true;
-        }
-        return false;
+        $result = [];
+        $productImagesCount = $this->productImagesCountByColumnAndValue('parent_id', $parentId);
+        $result['currentProductImageCount'] = $productImagesCount;
+        $diff = $productImagesCount + $requestImageCount - $this->maxImgsCountForProduct;
+        $result['diff'] = $diff;
+
+        $result['success'] = !($diff > 0);
+
+        return $result;
     }
 
     /**
@@ -115,10 +124,14 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
-        if ($this->isProductHaveMaxImageCount($request)){
+        $diffProductImages = $this->isProductHaveMaxImageCount($request->parent_id, count($request->image));
+        if ( !($diffProductImages['success']) ){
             session()->flash('default_message',
-                ['success' => false,
-                    'message' => "Максимальное количество изображений для одного продукта = {$this->maxImgsCountForProduct}!"]);
+                [
+                    'success' => false,
+                    'message' => "Максимальное количество изображений для одного продукта = {$this->maxImgsCountForProduct}, " .
+                        " превышение составило {$diffProductImages['diff']} картинок",
+                ]);
             return redirect()->route('gallery.index');
         }
 
