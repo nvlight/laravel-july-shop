@@ -18,7 +18,7 @@ class CategoryController extends Controller
     {
         $categories = Category::where('parent_id', 0)->get();
 
-        return view('category.index', compact('categories'));
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     {
         $categories = Category::where('parent_id', 0)->get();
 
-        return view('category.create', compact('categories'));
+        return view('admin.category.create', compact('categories'));
     }
 
     /**
@@ -47,7 +47,7 @@ class CategoryController extends Controller
         $product->fill($request->all());
         $product->save();
 
-        return redirect()->route('category.index');
+        return redirect()->route('admin.category.index');
     }
 
     /**
@@ -61,7 +61,7 @@ class CategoryController extends Controller
         //return $category;
         //dump($category);
 
-        return view('category.show', compact('category'));
+        return view('admin.category.show', compact('category'));
     }
 
     /**
@@ -75,7 +75,7 @@ class CategoryController extends Controller
         //return $category;
         $categories = Category::where('parent_id', 0)->get();
 
-        return view('category.update', compact('categories', 'category'));
+        return view('admin.category.update', compact('categories', 'category'));
     }
 
     /**
@@ -96,7 +96,7 @@ class CategoryController extends Controller
 
         if ($category->parent_id != $request->parent_id && $haveChilds){ // $haveChilds &&
             session()->flash('category_update', ['success' => false, 'message' => 'Нельзя перенести категорию, у которого есть потомки!']);
-            return redirect()->route('category.edit', $category->id);
+            return redirect()->route('admin.category.edit', $category->id);
         }
 
         try{
@@ -104,11 +104,11 @@ class CategoryController extends Controller
             $category->save();
         }catch (\Exception $e){
             session()->flash('category_update', ['success' => false, 'message' => 'Ошибка при обвнолении категории!']);
-            return redirect()->route('category.edit', $category->id);
+            return redirect()->route('admin.category.edit', $category->id);
         }
 
         session()->flash('category_update', ['success' => true, 'message' => 'Категория обновлена']);
-        return redirect()->route('category.edit', $category->id);
+        return redirect()->route('admin.category.edit', $category->id);
     }
 
     /**
@@ -133,11 +133,11 @@ class CategoryController extends Controller
             $category->delete();
         }catch (\Exception $e){
             session()->flash('category_delete', ['success' => false, 'message' => 'Ошибка при удалении категории!']);
-            return redirect()->route('category.index');
+            return redirect()->route('admin.category.index');
         }
 
         session()->flash('category_delete', ['success' => true, 'message' => 'Категория удалена']);
-        return redirect()->route('category.index');
+        return redirect()->route('admin.category.index');
 
         //dump($category);
         //dump(count($category->children));

@@ -18,7 +18,7 @@ Route::get('/', [ProductController::class,'index']);
 Route::group([
     //'middleware' => 'auth',
     'prefix' => 'admin',
-    //'name' => 'product.'
+    'as' => 'admin.'
 ], function (){
     Route::resource('category', 'App\Http\Controllers\Admin\CategoryController');
     Route::resource('product', 'App\Http\Controllers\Admin\ProductController');

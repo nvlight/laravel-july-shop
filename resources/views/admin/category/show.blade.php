@@ -9,13 +9,13 @@
 @section('content')
 
     <div class="mb-3">
-        <a href="{{route('category.index')}}" class="">Category list</a>
+        <a href="{{route('admin.category.index')}}" class="">Category list</a>
     </div>
     <div class="mb-3">
-        <a href="{{route('category.create')}}" class="btn btn-primary">Create new</a>
+        <a href="{{route('admin.category.create')}}" class="btn btn-primary">Create new</a>
     </div>
     <div class="mb-3">
-        @include('category.parts.buttons.edit_button', ['id' => $category->id, 'class' => ''])
+        @include('admin.category.parts.buttons.edit_button', ['id' => $category->id, 'class' => ''])
     </div>
 
     <table class="table table-bordered table-striped">

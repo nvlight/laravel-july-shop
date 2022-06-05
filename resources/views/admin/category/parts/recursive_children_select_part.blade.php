@@ -6,7 +6,7 @@
     @endif
 
     @if(count($category->children))
-        @include('category.parts.recursive_children_select_part', [
+        @include('admin.category.parts.recursive_children_select_part', [
             'categories' => $category->children,
             'step' => $step + 1,
             'target_value' => $target_value,
