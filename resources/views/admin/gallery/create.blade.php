@@ -1,4 +1,4 @@
-@extends('_layouts.main')
+@extends('_layouts.admin_main')
 
 @section('title', 'Product - create')
 
@@ -19,13 +19,13 @@
             //dump(request()->all());
             //dump(session()->all());
         @endphp
-{{--        @if($errors->any())--}}
-{{--            @foreach($errors->all() as $error)--}}
-{{--                @php--}}
-{{--                    dump($error);--}}
-{{--                @endphp--}}
-{{--            @endforeach--}}
-{{--        @endif--}}
+        {{--        @if($errors->any())--}}
+        {{--            @foreach($errors->all() as $error)--}}
+        {{--                @php--}}
+        {{--                    dump($error);--}}
+        {{--                @endphp--}}
+        {{--            @endforeach--}}
+        {{--        @endif--}}
     </div>
     <div class="card p-3">
         <form action="{{route('admin.gallery.store')}}" method="POST" enctype="multipart/form-data">
@@ -51,38 +51,38 @@
             <div>
                 <label for="image" class="form-label">image 1</label>
                 <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here"
-                    value="@php if (isset(old('image')[0])) { echo old('image')[0]; } @endphp">
+                       value="@php if (isset(old('image')[0])) { echo old('image')[0]; } @endphp">
                 <div id="imageHelp" class="form-text">* required field</div>
                 @error('image.0')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div>
                 <label for="image" class="form-label">image 2</label>
                 <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
                 @error('image.1')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div>
                 <label for="image" class="form-label">image 3</label>
                 <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
                 @error('image.2')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div>
                 <label for="image" class="form-label">image 4</label>
                 <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
                 @error('image.3')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div>
                 <label for="image" class="form-label">image 5</label>
                 <input type="file" class="form-control" id="image" name="image[]" placeholder="type image here">
                 @error('image.4')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -99,7 +99,7 @@
                     @endforeach
                 </select>
                 <div id="is_mainHelp" class="form-text">* required field</div>
-                    @error('is_main')
+                @error('is_main')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>

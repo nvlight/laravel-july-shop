@@ -1,4 +1,4 @@
-@extends('_layouts.main')
+@extends('_layouts.admin_main')
 
 @section('title', 'Product - create')
 
@@ -24,10 +24,11 @@
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="type title here" value="{{old('title')}}">
+                <input type="text" class="form-control" id="title" name="title" placeholder="type title here"
+                       value="{{old('title')}}">
                 <div id="textHelp" class="form-text">* required field</div>
                 @error('title')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 

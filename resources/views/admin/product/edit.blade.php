@@ -1,4 +1,4 @@
-@extends('_layouts.main')
+@extends('_layouts.admin_main')
 
 @section('title', 'Product - create')
 
@@ -28,7 +28,7 @@
                        value="{{$product->title ?? old('title')}}">
                 <div id="textHelp" class="form-text">* required field</div>
                 @error('title')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -38,7 +38,7 @@
                        value="{{$product->price ?? old('price')}}">
                 <div id="priceHelp" class="form-text">* required field</div>
                 @error('price')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
@@ -52,7 +52,7 @@
                     ])
                 </select>
                 @error('category_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
@@ -76,7 +76,7 @@
                 <input type="text" class="form-control" id="size" name="size" placeholder="type size here"
                        value="{{$product->size ?? old('size')}}">
                 @error('size')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
@@ -95,7 +95,7 @@
                     @endforeach
                 </select>
                 @error('brand_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
@@ -115,16 +115,17 @@
                     <option value="1">Russia</option>
                 </select>
                 @error('country_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="description" class="form-control" id="description" cols="30" rows="10">{{$product->description ?? old('description')}}</textarea>
+                <textarea name="description" class="form-control" id="description" cols="30"
+                          rows="10">{{$product->description ?? old('description')}}</textarea>
                 <div id="descriptionHelp" class="form-text">simple description</div>
             </div>
             @error('description')
-                <div class="alert alert-danger">{{ $message }}</div>
+            <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <button type="submit" class="btn btn-primary">Обновить</button>
         </form>

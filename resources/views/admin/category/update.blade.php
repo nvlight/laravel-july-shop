@@ -1,4 +1,4 @@
-@extends('_layouts.main')
+@extends('_layouts.admin_main')
 
 @section('title', 'Product - create')
 

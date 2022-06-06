@@ -1,4 +1,4 @@
-@extends('_layouts.main')
+@extends('_layouts.admin_main')
 
 @section('title', 'Laravel - July shop!')
 
@@ -25,7 +25,7 @@
             </tr>
             </thead>
             <tbody>
-                @include('admin.category.parts.category_trs', ['categories' => $categories])
+            @include('admin.category.parts.category_trs', ['categories' => $categories])
             </tbody>
         </table>
     </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProductController;
+use \App\Http\Controllers\Guest\GuestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [ProductController::class,'index']);
+Route::get('/', [GuestController::class,'index']);
 
 Route::group([
     //'middleware' => 'auth',

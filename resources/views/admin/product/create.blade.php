@@ -1,4 +1,4 @@
-@extends('_layouts.main')
+@extends('_layouts.admin_main')
 
 @section('title', 'Product - create')
 
@@ -14,26 +14,27 @@
     </div>
 
     <div class="mb-3">
-{{--        @php--}}
-{{--            dump($errors);--}}
-{{--        @endphp--}}
-{{--        @if($errors->any())--}}
-{{--            @foreach($errors->all() as $error)--}}
-{{--                @php--}}
-{{--                    dump($error);--}}
-{{--                @endphp--}}
-{{--            @endforeach--}}
-{{--        @endif--}}
+        {{--        @php--}}
+        {{--            dump($errors);--}}
+        {{--        @endphp--}}
+        {{--        @if($errors->any())--}}
+        {{--            @foreach($errors->all() as $error)--}}
+        {{--                @php--}}
+        {{--                    dump($error);--}}
+        {{--                @endphp--}}
+        {{--            @endforeach--}}
+        {{--        @endif--}}
     </div>
     <div class="card p-3">
         <form action="{{route('admin.product.store')}}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="type title here" value="{{old('title')}}">
+                <input type="text" class="form-control" id="title" name="title" placeholder="type title here"
+                       value="{{old('title')}}">
                 <div id="textHelp" class="form-text">* required field</div>
                 @error('title')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -42,7 +43,7 @@
                 <input type="text" class="form-control" id="price" name="price" placeholder="type price here">
                 <div id="priceHelp" class="form-text">* required field</div>
                 @error('price')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
@@ -56,7 +57,7 @@
                     ])
                 </select>
                 @error('category_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
@@ -124,7 +125,8 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="description" class="form-control" id="description" cols="30" rows="10">{{$product->description ?? old('description')}}</textarea>
+                <textarea name="description" class="form-control" id="description" cols="30"
+                          rows="10">{{$product->description ?? old('description')}}</textarea>
                 <div id="descriptionHelp" class="form-text">simple description</div>
             </div>
             @error('description')

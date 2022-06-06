@@ -1,41 +1,25 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="adaptive">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>@yield('title')</title>
+    <title>@yield('title')</title>
 
-        <!-- Fonts -->
-{{--        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">--}}
+    <!-- Fonts -->
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
-        <link rel="stylesheet" href="{{asset('css/main.css')}}">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{asset('css/guest/index.css')}}">
 
-{{--        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>--}}
-
-    </head>
+</head>
 
 <body class="">
 
-<div class="container">
-    <header class="mt-2 mb-2">
-        <h1>Global header</h1>
-    </header>
-</div>
-
-<div class="container">
+<div class="wrapper">
     @yield('content')
 </div>
 
-<div class="container">
-    <footer class="mt-2 mb-2">
-        <h1>Global footer</h1>
-    </footer>
-</div>
-
-<script src="{{asset('js/bootstrap.bundle.js')}}"></script>
+<script src="{{asset('js/guest/main.js')}}"></script>
 
 </body>
 </html>

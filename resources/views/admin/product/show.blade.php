@@ -1,4 +1,4 @@
-@extends('_layouts.main')
+@extends('_layouts.admin_main')
 
 @section('title', 'Laravel - July shop!')
 
@@ -15,7 +15,7 @@
         <a href="{{route('admin.product.index')}}" class="btn btn-primary">Create new</a>
     </div>
     <div class="mb-3">
-{{--        @include('category.parts.buttons.edit_button', ['id' => $category->id, 'class' => ''])--}}
+        {{--        @include('category.parts.buttons.edit_button', ['id' => $category->id, 'class' => ''])--}}
     </div>
 
     <table class="table table-bordered table-striped">

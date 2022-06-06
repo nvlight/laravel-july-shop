@@ -1,4 +1,4 @@
-@extends('_layouts.main')
+@extends('_layouts.admin_main')
 
 @section('title', 'Product - create')
 
@@ -21,13 +21,13 @@
             //dump(request()->all());
             //dump(session()->all());
         @endphp
-{{--        @if($errors->any())--}}
-{{--            @foreach($errors->all() as $error)--}}
-{{--                @php--}}
-{{--                    dump($error);--}}
-{{--                @endphp--}}
-{{--            @endforeach--}}
-{{--        @endif--}}
+        {{--        @if($errors->any())--}}
+        {{--            @foreach($errors->all() as $error)--}}
+        {{--                @php--}}
+        {{--                    dump($error);--}}
+        {{--                @endphp--}}
+        {{--            @endforeach--}}
+        {{--        @endif--}}
     </div>
     <div class="card p-3">
         <form action="{{route('admin.gallery.update', $gallery->id)}}" method="POST" enctype="multipart/form-data">
@@ -36,7 +36,7 @@
 
             <input type="hidden" name="parent_id" value="{{$gallery->parent_id}}">
             @error('parent_id')
-                <div class="alert alert-danger">{{ $message }}</div>
+            <div class="alert alert-danger">{{ $message }}</div>
             @enderror
 
             <div class="mb-3">
@@ -48,11 +48,11 @@
             <div class="mb-3">
                 <label for="image" class="form-label">image</label>
                 <input type="file" class="form-control" name="image[]" placeholder="type image here"
-                    value="{{$gallery->image}}">
+                       value="{{$gallery->image}}">
                 <div class="form-text">{{$gallery->image}}</div>
                 <div id="imageHelp" class="form-text">Выберите новую картинку, чтобы обновить текущую</div>
                 @error('image.0')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -65,7 +65,7 @@
                 </div>
             @endif
             @error('is_main')
-                <div class="alert alert-danger">{{ $message }}</div>
+            <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <button type="submit" class="btn btn-primary">Обновить</button>
         </form>

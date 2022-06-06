@@ -1,4 +1,4 @@
-@extends('_layouts.main')
+@extends('_layouts.admin_main')
 
 @section('title', 'Laravel - July shop!')
 
@@ -32,23 +32,23 @@
             </tr>
             </thead>
             <tbody>
-                @foreach($products as $product)
-                    <tr>
-                        <td>{{ $product->id }}</td>
-                        <td>{{ $product->title }}</td>
-                        <td>{{ $product->price }}</td>
-                        <td>{{ $product->age_start }}</td>
-                        <td>{{ $product->age_end }}</td>
-                        <td>{{ $product->size }}</td>
-                        <td>{{ $product->category_id }}</td>
-                        <td>{{ $product->brand_id }}</td>
-                        <td>{{ $product->country_id }}</td>
-                        <td>{{ $product->description }}</td>
-                        <td>
-                            @include('admin.product.parts.buttons', ['product' => $product])
-                        </td>
-                    </tr>
-                @endforeach
+            @foreach($products as $product)
+                <tr>
+                    <td>{{ $product->id }}</td>
+                    <td>{{ $product->title }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td>{{ $product->age_start }}</td>
+                    <td>{{ $product->age_end }}</td>
+                    <td>{{ $product->size }}</td>
+                    <td>{{ $product->category_id }}</td>
+                    <td>{{ $product->brand_id }}</td>
+                    <td>{{ $product->country_id }}</td>
+                    <td>{{ $product->description }}</td>
+                    <td>
+                        @include('admin.product.parts.buttons', ['product' => $product])
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
