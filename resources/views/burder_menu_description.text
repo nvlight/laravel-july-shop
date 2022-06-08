@@ -1,0 +1,6 @@
+нажатие на кнопку меню бургер делает:
+button.j-menu-burger-btn on click
+
+1. к body добавляется класс .body--overflow (<body class="body--overflow">)
+2. сразу после body добавляется div - <div class="overlay overlay--menu-burger j-overlay"></div>
+3. к div.menu-burger добавляется класс .menu-burger--active

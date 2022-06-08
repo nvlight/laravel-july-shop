@@ -1,4 +1,5 @@
-<div class="menu-burger j-menu-burger menu-burger--active" data-link="
+{{--<div class="menu-burger j-menu-burger menu-burger--active" data-link="--}}
+<div class="menu-burger j-menu-burger" data-link="
      {on 'mousedown click' '.j-menu-main-item' ~wbSettings^displayMode=='d' ? ~root.$void : ~root.menuSelectedHandler}
      {on 'click' '.j-menu-burger-mobile-back' ~wbSettings^displayMode=='d' ? ~root.$void : ~root.backLinkHandler}
      {on 'click' '.j-menu-drop-list-item-subcategory' ~wbSettings^displayMode=='d' ? ~root.$void : ~root.categorySelectHandler}

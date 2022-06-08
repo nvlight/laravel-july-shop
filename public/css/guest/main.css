@@ -286,8 +286,8 @@ input, select, textarea {
     content: '';
     width: 10px;
     height: 10px;
-    top: 6px;
-    left: 6px;
+    top: 4px;
+    left: 4px;
     background: #cb11ab;
     border-radius: 50%;
     position: absolute;
