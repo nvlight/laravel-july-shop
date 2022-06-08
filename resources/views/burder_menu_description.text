@@ -4,3 +4,18 @@ button.j-menu-burger-btn on click
 1. к body добавляется класс .body--overflow (<body class="body--overflow">)
 2. сразу после body добавляется div - <div class="overlay overlay--menu-burger j-overlay"></div>
 3. к div.menu-burger добавляется класс .menu-burger--active
+и наоборот, после нажатия на кнопку закрытия - делаем обратные операции
+
+
+
+
+Нажатие бургера-меню по умолчанию открывает только меню верхнего уровня, чтобы показать 2-й уровень меню при ховере
+нужно добавить классы.
+1.
+Найти div с классами menu-burger__drop j-menu-burger-drop (это и будет div родительский для 2 уровня меню)
+ховер на элементы главного меню добавляет для него классы
+// menu-burger__drop--active j-menu-active menu-burger__drop--custom
+
+2. перекрасить каждый тег а, точнее его родителя li, отдать ему класс menu-burger__main-list-item--active
+
+Бургер-меню опять. Ховер на элементы главного меню

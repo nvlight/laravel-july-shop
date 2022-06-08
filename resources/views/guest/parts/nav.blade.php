@@ -14,10 +14,8 @@
     <div class="menu-burger__mobile-header hide-desktop">
         <input class="menu-burger__btn-search j-search-input-mobile" type="search" placeholder="Я ищу...">
     </div>
+    {{-- это само меню верхнего уровня, который выезжает слева --}}
     <div class="menu-burger__main j-menu-burger-main j-menu-active">
-
-
-
         <ul class="menu-burger__main-list">
             <li class="menu-burger__main-list-item j-menu-main-item menu-burger__main-list-item--subcategory menu-burger__main-list-item--active" data-menu-id="306" data-shown-stat-sent="true">
                 <a href="https://www.wildberries.ru/catalog/zhenshchinam" class="menu-burger__main-list-link menu-burger__main-list-link--306">Женщинам</a>
@@ -120,7 +118,10 @@
         </div>
 
     </div>
-    <div class="menu-burger__drop j-menu-burger-drop menu-burger__drop--active j-menu-active menu-burger__drop--custom" data-link="
+    {{-- по ховеру на меню верхнего уровня, должен открыть соответствующий ему меню нижнего уровня --}}
+    {{-- также должны добавиться классы с menu-burger__drop--active j-menu-active menu-burger__drop--custom --}}
+    {{-- menu-burger__drop--active j-menu-active menu-burger__drop--custom --}}
+    <div class="menu-burger__drop j-menu-burger-drop" data-link="
          {for #data tmpl='menuInnerTmpl'}
          class{merge: ~root^selectedMenuItem &amp;&amp; ~root^selectedMenuItem.childs || ~root^selectedMenuItem &amp;&amp; ~root^selectedMenuItem.banners toggle='menu-burger__drop--active j-menu-active'}
          class{merge: ~root^selectedMenuItem &amp;&amp; ~root.isCommonMenuItem(~root^selectedMenuItem.id) toggle='menu-burger__drop--custom'}
