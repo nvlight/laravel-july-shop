@@ -1,14 +1,14 @@
 console.log('guest - main.js');
 
 /**
- * Обработчик нажатия на бургер-меню
+ * Бургер-меню - открыть
  */
-function burgerMenuClick(){
+function burgerMenuOpen(){
     let btnSel = '.j-menu-burger-btn';
     let btn = document.querySelector(btnSel);
 
     btn.addEventListener('click', function (e) {
-        console.log('click: '+burgerMenuClick.name);
+        console.log('click: '+burgerMenuOpen.name);
         // 1. к body добавляется класс .body--overflow (<body class="body--overflow">), если такого класса нет
         findAndAddClassToTarget('body', "body--overflow");
 
@@ -27,6 +27,9 @@ function burgerMenuClick(){
 
     });
 }
+/**
+ * Бургер-меню - закрыть
+ */
 function burgerMenuClose(){
     let btnSel = '.menu-burger__close';
     let btn = document.querySelector(btnSel);
@@ -46,6 +49,27 @@ function burgerMenuClose(){
     });
 }
 
+function burgerMenuCloseWithAnatherAreaClickHandler(){
+    document.addEventListener('click', function(event) {
+        let e1 = document.getElementsByClassName('menu-burger');
+        let e2 = document.getElementsByClassName('nav-element__burger');
+
+        if (e1.length && e2.length){
+            if (   !e1.item(0).contains(event.target)
+                && !e2.item(0).contains(event.target) )
+            {
+                burgerMenuCloseClickHandle();
+            }
+        }
+    });
+}
+function burgerMenuCloseClickHandle() {
+    let btnSel = '.menu-burger__close';
+    let btn = document.querySelector(btnSel);
+    if (btn){
+        btn.click();
+    }
+}
 
 
 ///////////////////////////////////////
@@ -81,5 +105,6 @@ function normalizeClassListRowString(str) {
 /**
  * Вызов всех обработчиков действий
  */
-burgerMenuClick();
+burgerMenuOpen();
 burgerMenuClose();
+burgerMenuCloseWithAnatherAreaClickHandler();
