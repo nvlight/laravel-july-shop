@@ -11,7 +11,7 @@ function burgerMenuOpen(){
     btn.addEventListener('click', function (e) {
         console.log('click: '+burgerMenuOpen.name);
         // 1. к body добавляется класс .body--overflow (<body class="body--overflow">), если такого класса нет
-        findAndAddClassToTarget('body', "body--overflow");
+        findAndAddClassesToTarget('body', "body--overflow");
 
         // 2. сразу после body добавляется div - <div class="overlay overlay--menu-burger j-overlay"></div>
         let body = document.querySelector('body');
@@ -24,7 +24,7 @@ function burgerMenuOpen(){
         }
 
         // 3. к div.menu-burger добавляется класс .menu-burger--active
-        findAndAddClassToTarget('div.menu-burger', "menu-burger--active");
+        findAndAddClassesToTarget('div.menu-burger', "menu-burger--active");
 
     });
 }
@@ -37,7 +37,7 @@ function burgerMenuClose(){
     btn.addEventListener('click', function (e) {
         console.log('click: '+burgerMenuClose.name);
         // 1. у body удаляется класс .body--overflow (<body class="body--overflow">), если такого класса нет
-        findAndDeleteClassToTarget('body', ['body--overflow']);
+        findAndDeleteClassesToTarget('body', ['body--overflow']);
 
         // 2. сразу после body удаляется div - <div class="overlay overlay--menu-burger j-overlay"></div>
         let body = document.querySelector('body');
@@ -46,7 +46,10 @@ function burgerMenuClose(){
         }
 
         // 3. к div.menu-burger добавляется класс .menu-burger--active
-        findAndDeleteClassToTarget('div.menu-burger', ['menu-burger--active']);
+        findAndDeleteClassesToTarget('div.menu-burger', ['menu-burger--active']);
+
+        // 4 закрыть 2-й вложенный уровень бургера-меню
+        hideSecondLevelBurgerMenu();
     });
 }
 
@@ -87,16 +90,15 @@ function burgerHighLevelMenuMouseOverHandler(e)
 {
     // todo - 1,2.2 пока не сделано, но сделано 2.1
     // 1. нужно добавить открытие второго уровня меню
-    // 2. раз это ховер, при ховере
-    // 2.1 нужно перекрасить цвет на li родителя добавить menu-burger__main-list-item--active
-    // 2.2 :before-картинку категории
+    showSecondLevelBurgerMenu();
 
+    // 2. раз это ховер, при ховере
     // 2.0 сначала убрать красный цвет у всех тего А.
     let classToAdd = 'menu-burger__main-list-item--active';
     let classForStartRemove = classToAdd;
     deleteRedColorForBurgerHighLevelMenu(classForStartRemove);
 
-    // 2.1
+    // 2.1 нужно перекрасить цвет на li родителя добавить menu-burger__main-list-item--active
     let liParent = e.target.parentElement;
     if ( !liParent.classList.contains(classToAdd)){
         if (liParent.tagName === 'LI'){
@@ -107,6 +109,8 @@ function burgerHighLevelMenuMouseOverHandler(e)
             burgerMenuLastNormalLi.classList.add(classToAdd);
         }
     }
+
+    // todo - 2.2 :before-картинку категории. Похоже лишне, можно просто добавить на ховер картинку через css
 }
 /**
  * После наведения на элемент основного бергера-меню, сначала удаляет все цвета, потом добавляет цвет
@@ -137,21 +141,54 @@ function deleteRedColorForBurgerHighLevelMenu(classForStartRemove) {
     }
 }
 
+/**
+ * Показывает второй уровень вложенности бергера-меню
+ */
+function showSecondLevelBurgerMenu() {
+    let targetElement = ".menu-burger__drop.j-menu-burger-drop";
+    let classesToAdd  = "menu-burger__drop--active j-menu-active menu-burger__drop--custom";
+
+    // добавлю проверку на то, если есть элемент со всеми этими классами, то ничего делать не будем
+    let classesArr = ['menu-burger__drop','j-menu-burger-drop','menu-burger__drop--active','j-menu-active.menu-burger__drop--custom']
+    let isExists = document.querySelector('.'+classesArr.join('.'));
+    if ( !isExists){
+        console.log('event: '+showSecondLevelBurgerMenu.name)
+        findAndAddClassesToTarget(targetElement, classesToAdd);
+    }
+}
+
+/**
+ * Скрывает второй уровень вложенности бергера-меню
+ */
+function hideSecondLevelBurgerMenu() {
+    let targetElement = ".menu-burger__drop.j-menu-burger-drop";
+    let classesToRemove  = "menu-burger__drop--active j-menu-active menu-burger__drop--custom";
+    let normalizedClassesToRemove = normalizeClassListRowString(classesToRemove).split(' ');
+    findAndDeleteClassesToTarget(targetElement, normalizedClassesToRemove);
+}
+
 ///////////////////////////////////////
 /**
  * Helper Functions
  */
-function findAndAddClassToTarget(targetElementSelector, classToAdd){
+function findAndAddClassesToTarget(targetElementSelector, classesToAdd){
     let target = document.querySelector(targetElementSelector);
-    if (target && !target.classList.contains(classToAdd)){
-        target.classList.add(classToAdd);
+    let normalizedClasses = normalizeClassListRowString(classesToAdd).split(' ');
+    if (target){
+        for(let i=0; i<normalizedClasses.length; i++){
+            if ( !target.classList.contains(normalizedClasses[i]) ){
+                target.classList.add(normalizedClasses[i]);
+            }
+        }
     }
 }
-function findAndDeleteClassToTarget(targetElementSelector, classesToRemove){
+function findAndDeleteClassesToTarget(targetElementSelector, classesToRemove){
     let target = document.querySelector(targetElementSelector);
     if (target){
         for(let i=0; i<classesToRemove.length; i++){
-            target.classList.remove(classesToRemove[i]);
+            if ( target.classList.contains(classesToRemove[i]) ){
+                target.classList.remove(classesToRemove[i]);
+            }
         }
     }
 }
@@ -162,11 +199,8 @@ function findAndDelete(targetElementSelector) {
     }
 }
 function normalizeClassListRowString(str) {
-    return str.replace(/ {1,}/g," ").trim().split(' ');
+    return str.replace(/ {1,}/g," ").trim(); // .split(' ') .join('')
 }
-
-
-
 
 ///////////////////////////////////////
 /**
