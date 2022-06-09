@@ -86,8 +86,7 @@ function burgerMenuCloseClickHandle() {
  * Делает основную работу родителя по очищению класса от всех элементов и добавлению в нужный элемент
  * @param e
  */
-function burgerHighLevelMenuMouseOverHandler(e)
-{
+function burgerHighLevelMenuMouseOverHandler(e) {
     // todo - 1,2.2 пока не сделано, но сделано 2.1
     // 1. нужно добавить открытие второго уровня меню
     showSecondLevelBurgerMenu();
@@ -104,13 +103,11 @@ function burgerHighLevelMenuMouseOverHandler(e)
         if (liParent.tagName === 'LI'){
             liParent.classList.add(classToAdd);
             burgerMenuLastNormalLi = liParent;
-
-            showRightBlockOnSecondLevelBurgerMenu()
+            toggleSecondLevelBurgerMenuByHover();
         }else{
             // если этот чел все таки убежал - делаем вот так!
             burgerMenuLastNormalLi.classList.add(classToAdd);
-
-            showRightBlockOnSecondLevelBurgerMenu()
+            toggleSecondLevelBurgerMenuByHover();
         }
     }
 
@@ -175,9 +172,16 @@ function hideSecondLevelBurgerMenu() {
  * Показывает правильный блок 2-я уровня меню при ховере на элементы 1-о уровня меню
  */
 function showRightBlockOnSecondLevelBurgerMenu() {
+    if (!burgerMenuLastNormalLi) {
+        console.log('burgerMenuLastNormalLi exists')
+        return null;
+    }
     let sel = 'menu-burger__main-list-link--';
     let a = burgerMenuLastNormalLi.querySelector("a[class*=" + `${sel}` + "]");
-    if (!a) return;
+    if (!a) {
+        console.log('burgerMenuLastNormalLi query selector')
+        return null;
+    }
 
     let cl = a.getAttribute('class');
     let clArr = normalizeClassListRowString(cl).split(' ');
@@ -191,7 +195,36 @@ function showRightBlockOnSecondLevelBurgerMenu() {
             break;
         }
     }
-    console.log('find need class: '+find[0]+' id='+find[1]);
+    if (find===null){
+        console.log('regexp is doesn work')
+    }
+    return find;
+    //console.log('find need class: '+find[0]+' id='+find[1]);
+}
+
+/**
+ * Меняет активный элемент 2-о уровня бургера-меню
+ */
+function toggleSecondLevelBurgerMenuByHover() {
+    let rs = showRightBlockOnSecondLevelBurgerMenu()
+    if (!rs) return;
+    // rs[1] ---> data-menu-id="576" e.g.
+    let dm = document.querySelector('.j-menu-drop-item-'+rs[1]);
+    //console.log('dataMenuId: '+rs[1] + '.j-menu-drop-item: '+dm)
+    if (dm){
+        // 1 - сначала убрать текущий
+        let activeClass = '.menu-burger__drop-list-item--active';
+        let sdArr = document.querySelectorAll(activeClass);
+        if (sdArr.length){
+            for(let i=0; i<sdArr.length; i++){
+                sdArr[i].classList.remove(activeClass.substring(1));
+            }
+        }
+        // 2 - потом добавить на текущий
+        if ( !dm.classList.contains(activeClass.substring(1))){
+            dm.classList.add(activeClass.substring(1));
+        }
+    }
 }
 
 ///////////////////////////////////////
