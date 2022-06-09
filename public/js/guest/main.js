@@ -87,10 +87,6 @@ function burgerMenuCloseClickHandle() {
  * @param e
  */
 function burgerHighLevelMenuMouseOverHandler(e) {
-    // todo - 1,2.2 пока не сделано, но сделано 2.1
-    // 1. нужно добавить открытие второго уровня меню
-    showSecondLevelBurgerMenu();
-
     // 2. раз это ховер, при ховере
     // 2.0 сначала убрать красный цвет у всех тего А.
     let classToAdd = 'menu-burger__main-list-item--active';
@@ -103,11 +99,19 @@ function burgerHighLevelMenuMouseOverHandler(e) {
         if (liParent.tagName === 'LI'){
             liParent.classList.add(classToAdd);
             burgerMenuLastNormalLi = liParent;
-            toggleSecondLevelBurgerMenuByHover();
         }else{
             // если этот чел все таки убежал - делаем вот так!
             burgerMenuLastNormalLi.classList.add(classToAdd);
-            toggleSecondLevelBurgerMenuByHover();
+
+        }
+        // todo - 1,2.2 пока не сделано, но сделано 2.1
+        // 1. нужно добавить открытие второго уровня меню
+        // 4 нужно добавить проверку, а есть ли вообще дочерние элементы для этого элемента меню 1-го уровня.
+        let isExistChildrenMenuItems = toggleSecondLevelBurgerMenuByHover();
+        if (isExistChildrenMenuItems){
+            showSecondLevelBurgerMenu();
+        }else{
+            hideSecondLevelBurgerMenu();
         }
     }
 
@@ -173,13 +177,13 @@ function hideSecondLevelBurgerMenu() {
  */
 function showRightBlockOnSecondLevelBurgerMenu() {
     if (!burgerMenuLastNormalLi) {
-        console.log('burgerMenuLastNormalLi exists')
+        //console.log('burgerMenuLastNormalLi exists')
         return null;
     }
     let sel = 'menu-burger__main-list-link--';
     let a = burgerMenuLastNormalLi.querySelector("a[class*=" + `${sel}` + "]");
     if (!a) {
-        console.log('burgerMenuLastNormalLi query selector')
+        //console.log('burgerMenuLastNormalLi query selector')
         return null;
     }
 
@@ -224,7 +228,9 @@ function toggleSecondLevelBurgerMenuByHover() {
         if ( !dm.classList.contains(activeClass.substring(1))){
             dm.classList.add(activeClass.substring(1));
         }
+        return true;
     }
+    return false;
 }
 
 ///////////////////////////////////////
