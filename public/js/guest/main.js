@@ -104,9 +104,13 @@ function burgerHighLevelMenuMouseOverHandler(e)
         if (liParent.tagName === 'LI'){
             liParent.classList.add(classToAdd);
             burgerMenuLastNormalLi = liParent;
+
+            showRightBlockOnSecondLevelBurgerMenu()
         }else{
             // если этот чел все таки убежал - делаем вот так!
             burgerMenuLastNormalLi.classList.add(classToAdd);
+
+            showRightBlockOnSecondLevelBurgerMenu()
         }
     }
 
@@ -165,6 +169,29 @@ function hideSecondLevelBurgerMenu() {
     let classesToRemove  = "menu-burger__drop--active j-menu-active menu-burger__drop--custom";
     let normalizedClassesToRemove = normalizeClassListRowString(classesToRemove).split(' ');
     findAndDeleteClassesToTarget(targetElement, normalizedClassesToRemove);
+}
+
+/**
+ * Показывает правильный блок 2-я уровня меню при ховере на элементы 1-о уровня меню
+ */
+function showRightBlockOnSecondLevelBurgerMenu() {
+    let sel = 'menu-burger__main-list-link--';
+    let a = burgerMenuLastNormalLi.querySelector("a[class*=" + `${sel}` + "]");
+    if (!a) return;
+
+    let cl = a.getAttribute('class');
+    let clArr = normalizeClassListRowString(cl).split(' ');
+
+    let find = null;
+    let regExp = new RegExp("^"+sel+"(\\d+)");
+    for(let i=0; i<clArr.length; i++){
+        let res = clArr[i].match(regExp);
+        if (res !== null){
+            find = res;
+            break;
+        }
+    }
+    console.log('find need class: '+find[0]+' id='+find[1]);
 }
 
 ///////////////////////////////////////
