@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Guest\GuestController;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'admin.'
 ], function (){
+    Route::delete('category_destroy_image/{category}', [CategoryController::class,'destroyImage'])->name('category.destroy-image');
     Route::resource('category', 'App\Http\Controllers\Admin\CategoryController');
     Route::resource('product', 'App\Http\Controllers\Admin\ProductController');
     Route::resource('gallery', 'App\Http\Controllers\Admin\GalleryController');

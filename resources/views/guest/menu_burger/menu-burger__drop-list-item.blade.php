@@ -25,8 +25,8 @@
                         target="_self" title="Игровые консоли" rel="true" data-banner-index="0">
                         <div class="menu-burger__banner-photo img-plug">
                             <img class="j-menu-image" alt=""
-                                 src="{{asset(env('BURGER_MENU_1ST_LEVEL_IMAGES_PATH').$category->image)}}"
-                                 data-src="{{asset(env('BURGER_MENU_1ST_LEVEL_IMAGES_PATH').$category->image)}}"
+                                 src="{{asset(env('BURGER_MENU_1ST_LEVEL_IMAGES_SHOW_PATH').$category->image)}}"
+                                 data-src="{{asset(env('BURGER_MENU_1ST_LEVEL_IMAGES_SHOW_PATH').$category->image)}}"
                                  width="352" height="428"/>
                         </div>
                         <h3 class="menu-burger__banner-title">Fixed - fav menu url</h3>

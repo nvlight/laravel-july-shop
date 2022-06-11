@@ -77,8 +77,8 @@ class CategoryController extends Controller
     {
         //dd($request->all());
 
-        $product = new Category();
-        $product->fill($request->all());
+        $category = new Category();
+        $category->fill($request->all());
         $image = $request->file('image');
         //$originalName = $image->getClientOriginalName();
 
@@ -87,10 +87,10 @@ class CategoryController extends Controller
         $imageName = Str::random() . '---' . time() . '.' . $image->extension();
         $imgSaved = $this->saveSingleImage($image, $imagePath, $imageName);
         if ($imgSaved){
-            $product->image = $imageName;
+            $category->image = $imageName;
         }
 
-        $product->save();
+        $category->save();
 
         return redirect()->route('admin.category.index');
     }
@@ -146,6 +146,21 @@ class CategoryController extends Controller
 
         try{
             $category->fill($request->all());
+
+            if ( $request->hasFile('image')) {
+                $this->deleteImage($category->image);
+
+                $image = $request->file('image');
+
+                // todo - replace this to single method
+                $imagePath = env('BURGER_MENU_1ST_LEVEL_IMAGES_PATH');
+                $imageName = Str::random() . '---' . time() . '.' . $image->extension();
+                $imgSaved = $this->saveSingleImage($image, $imagePath, $imageName);
+                if ($imgSaved){
+                    $category->image = $imageName;
+                }
+            }
+
             $category->save();
         }catch (\Exception $e){
             session()->flash('category_update', ['success' => false, 'message' => 'Ошибка при обвнолении категории!']);
@@ -154,6 +169,21 @@ class CategoryController extends Controller
 
         session()->flash('category_update', ['success' => true, 'message' => 'Категория обновлена']);
         return redirect()->route('admin.category.edit', $category->id);
+    }
+
+    /**
+     * Удаляет картинку
+     * @param $imageName
+     * @return bool
+     */
+    protected function deleteImage($imageName)
+    {
+        $deleteImage = env('BURGER_MENU_1ST_LEVEL_IMAGES_PATH') . $imageName;
+        if (Storage::disk('public')->exists($deleteImage)){
+            Storage::disk('public')->delete($deleteImage);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -175,6 +205,7 @@ class CategoryController extends Controller
         }
 
         try{
+            $this->deleteImage($category->image);
             $category->delete();
         }catch (\Exception $e){
             session()->flash('category_delete', ['success' => false, 'message' => 'Ошибка при удалении категории!']);
@@ -187,5 +218,31 @@ class CategoryController extends Controller
         //dump($category);
         //dump(count($category->children));
         //return $category;
+    }
+
+    /**
+     * Удаляет основную картинку у категории
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroyImage(Category $category)
+    {
+        //dd('ya tut');
+        try{
+            $isDelete = $this->deleteImage($category->image);
+            if (!$isDelete){
+                session()->flash('default_message', ['success' => true, 'message' => 'Ошибка при удалении (картинка не найдена)!']);
+                return back();
+            }
+            $category->image = null;
+            $category->save();
+        }catch (\Exception $e){
+            // log
+            session()->flash('default_message', ['success' => true, 'message' => 'Ошибка при удалении картинки категории!']);
+            return back();
+        }
+
+        session()->flash('default_message', ['success' => true, 'message' => 'Основная картинка категории удалена']);
+        return back();
     }
 }
