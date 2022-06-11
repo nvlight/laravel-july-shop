@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -47,6 +49,25 @@ class CategoryController extends Controller
     }
 
     /**
+     * Сохраняет 1 входящий рисунок в нужную папку с нужным именем
+     * @param $source
+     * @param $imagePath
+     * @param $imageName
+     * @return bool
+     */
+    protected function saveSingleImage($source, $imagePath, $imageName){
+        try {
+            Storage::disk('public')
+                ->putFileAs($imagePath, $source, $imageName);//
+            //  ->put($image_name, $image);
+        }catch (\Exception $e) {
+            // log this
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreCategoryRequest  $request
@@ -54,10 +75,21 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //dump($request->all());
+        //dd($request->all());
 
         $product = new Category();
         $product->fill($request->all());
+        $image = $request->file('image');
+        //$originalName = $image->getClientOriginalName();
+
+        // todo - replace this to single method
+        $imagePath = env('BURGER_MENU_1ST_LEVEL_IMAGES_PATH');
+        $imageName = Str::random() . '---' . time() . '.' . $image->extension();
+        $imgSaved = $this->saveSingleImage($image, $imagePath, $imageName);
+        if ($imgSaved){
+            $product->image = $imageName;
+        }
+
         $product->save();
 
         return redirect()->route('admin.category.index');

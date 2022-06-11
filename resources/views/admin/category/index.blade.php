@@ -21,6 +21,7 @@
                 <th>#</th>
                 <th>parent_id</th>
                 <th>title</th>
+                <th>image</th>
                 <th>actions</th>
             </tr>
             </thead>

@@ -15,12 +15,13 @@
 
     <div class="mb-3">
         @php
-            //dump(session()->all())
+            //dump(session()->all());
+            //dump(request()->all());
         @endphp
     </div>
 
     <div class="card p-3">
-        <form action="{{route('admin.category.store')}}" method="POST">
+        <form action="{{route('admin.category.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -45,6 +46,16 @@
                 <div id="textHelp" class="form-text">* required field</div>
                 @error('parent_id')
                 <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" class="form-control" id="image" name="image" placeholder="type title here"
+                       value="{{old('image')}}">
+                <div id="textHelp" class="form-text">image for category</div>
+                @error('image')
+                    <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
 

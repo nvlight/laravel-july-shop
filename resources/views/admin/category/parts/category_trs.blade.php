@@ -3,6 +3,7 @@
         <td>{{ $category->id }}</td>
         <td>{{ $category->parent_id }}</td>
         <td>{{ $category->title }}</td>
+        <td>{{ $category->image }}</td>
         @include('admin.category.parts.buttons.actions_buttons', ['id' => $category->id])
     </tr>
     @if(count($category->children))

@@ -36,6 +36,10 @@
             <td>title</td>
             <td>{{$category->title}}</td>
         </tr>
+        <tr>
+            <td>image</td>
+            <td><img src="{{asset(env('BURGER_MENU_1ST_LEVEL_IMAGES_SHOW_PATH').$category->image)}}" alt=""></td>
+        </tr>
 
         </thead>
         <tbody>

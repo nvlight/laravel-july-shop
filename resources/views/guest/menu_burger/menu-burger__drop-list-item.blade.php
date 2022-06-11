@@ -21,12 +21,14 @@
             <div class="j-menu-banner">
                 <div class="menu-burger__banner"><a
                         class="menu-burger__banner-link j-banner j-banner-click-stat j-banner-wba"
-                        href="/catalog/elektronika/razvlecheniya-i-gadzhety/igrovye-konsoli?bid=f1e6a0c2-702c-4163-a420-d079b752cbbd"
+                        href="/catalog/---{{$child->id}}"
                         target="_self" title="Игровые консоли" rel="true" data-banner-index="0">
-                        <div class="menu-burger__banner-photo img-plug"><img class="j-menu-image" alt="Игровые консоли"
-                                                                             src="{{asset('storage/category_1st_level_images/'.$category->image)}}"
-                                                                             data-src="{{asset('storage/category_1st_level_images/'.$category->image)}}"{{--
-                                                                             width="352" height="428"></div>
+                        <div class="menu-burger__banner-photo img-plug">
+                            <img class="j-menu-image" alt=""
+                                 src="{{asset(env('BURGER_MENU_1ST_LEVEL_IMAGES_PATH').$category->image)}}"
+                                 data-src="{{asset(env('BURGER_MENU_1ST_LEVEL_IMAGES_PATH').$category->image)}}"
+                                 width="352" height="428"/>
+                        </div>
                         <h3 class="menu-burger__banner-title">Fixed - fav menu url</h3>
                         <p class="menu-burger__banner-text"></p>
                     </a></div>
