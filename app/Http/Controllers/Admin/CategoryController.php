@@ -79,15 +79,37 @@ class CategoryController extends Controller
 
         $category = new Category();
         $category->fill($request->all());
-        $image = $request->file('image');
+
         //$originalName = $image->getClientOriginalName();
 
-        // todo - replace this to single method
-        $imagePath = env('BURGER_MENU_1ST_LEVEL_IMAGES_PATH');
-        $imageName = Str::random() . '---' . time() . '.' . $image->extension();
-        $imgSaved = $this->saveSingleImage($image, $imagePath, $imageName);
-        if ($imgSaved){
-            $category->image = $imageName;
+        if ($request->has('image')){
+            $image = $request->file('image');
+            $imagePath = env('BURGER_MENU_1ST_LEVEL_IMAGES_PATH');
+            $imageName = Str::random() . '---' . time() . '.' . $image->extension();
+            $imgSaved = $this->saveSingleImage($image, $imagePath, $imageName);
+            if ($imgSaved){
+                $category->image = $imageName;
+            }
+        }
+
+        if ($request->has('svg1')) {
+            $svg1 = $request->file('svg1');
+            $imagePath = env('BURGER_MENU_1ST_LEVEL_SVGS_PATH');
+            $imageName = Str::random() . '---' . time() . '.' . $svg1->extension();
+            $imgSaved = $this->saveSingleImage($svg1, $imagePath, $imageName);
+            if ($imgSaved) {
+                $category->svg1 = $imageName;
+            }
+        }
+
+        if ($request->has('svg2')) {
+            $svg2 = $request->file('svg2');
+            $imagePath = env('BURGER_MENU_1ST_LEVEL_SVGS_PATH');
+            $imageName = Str::random() . '---' . time() . '.' . $svg2->extension();
+            $imgSaved = $this->saveSingleImage($svg2, $imagePath, $imageName);
+            if ($imgSaved) {
+                $category->svg2 = $imageName;
+            }
         }
 
         $category->save();

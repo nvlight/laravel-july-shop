@@ -22,6 +22,8 @@
                 <th>parent_id</th>
                 <th>title</th>
                 <th>image</th>
+                <th>svg1</th>
+                <th>svg2</th>
                 <th>actions</th>
             </tr>
             </thead>

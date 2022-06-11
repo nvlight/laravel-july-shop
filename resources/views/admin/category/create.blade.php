@@ -59,6 +59,25 @@
                 @enderror
             </div>
 
+            <div class="mb-3">
+                <label for="svg1" class="form-label">Svg 1</label>
+                <input type="file" class="form-control" id="svg1" name="svg1"
+                       value="{{old('svg1')}}">
+                <div id="textHelp" class="form-text">svg1 for category</div>
+                @error('svg1')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="svg2" class="form-label">Svg 2</label>
+                <input type="file" class="form-control" id="svg2" name="svg2"
+                       value="{{old('svg2')}}">
+                <div id="textHelp" class="form-text">svg2 for category</div>
+                @error('svg2')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
             <button type="submit" class="btn btn-primary">Создать</button>
         </form>
     </div>

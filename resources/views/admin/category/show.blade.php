@@ -40,6 +40,14 @@
             <td>image</td>
             <td><img src="{{asset(env('BURGER_MENU_1ST_LEVEL_IMAGES_SHOW_PATH').$category->image)}}" alt=""></td>
         </tr>
+        <tr>
+            <td>svg1</td>
+            <td><img src="{{asset(env('BURGER_MENU_1ST_LEVEL_SVGS_SHOW_PATH').$category->svg1)}}" alt=""></td>
+        </tr>
+        <tr>
+            <td>svg2</td>
+            <td><img src="{{asset(env('BURGER_MENU_1ST_LEVEL_SVGS_SHOW_PATH').$category->svg2)}}" alt=""></td>
+        </tr>
 
         </thead>
         <tbody>
