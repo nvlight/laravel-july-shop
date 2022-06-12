@@ -94,6 +94,10 @@ function burgerHighLevelMenuMouseOverHandler(e) {
     deleteRedColorForBurgerHighLevelMenu(classForStartRemove);
 
     // 2.1 нужно перекрасить цвет на li родителя добавить menu-burger__main-list-item--active
+    // дополнительное условие, нужно перекрасить, только если ширина >=1024, для иконки
+    if (!window.matchMedia("(min-width: 1024px)").matches) {
+        return;
+    }
     let liParent = e.target.parentElement;
     if ( !liParent.classList.contains(classToAdd)){
         if (liParent.tagName === 'LI'){
