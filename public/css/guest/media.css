@@ -95,6 +95,34 @@
     .hide-mobile {
         display: none !important;
     }
+    .menu-burger {
+        width: 100%;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+    .menu-burger__close {
+        left: 8px;
+        top: 15px;
+    }
+    .menu-burger__close::after, .menu-burger__close::before {
+        background-color: #000;
+    }
+    .menu-burger__close::before {
+        width: 2px;
+        height: 20px;
+    }
+    .menu-burger__close::after {
+        width: 20px;
+        height: 2px;
+    }
+    .menu-burger__main {
+        scrollbar-width: none;
+        width: 100%;
+        height: calc(100% - 64px);
+        padding: 0 0 52px;
+    }
 }
 
 @media (min-width: 1504px){
@@ -149,9 +177,6 @@
     .menu-burger__drop--custom .menu-burger__drop-list {
         overflow: initial;
         padding-right: 0;
-    }
-    .hide-desktop {
-        display: none !important;
     }
     .menu-burger__drop--custom .menu-burger__drop-list-item {
         height: 100%;
