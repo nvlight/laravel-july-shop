@@ -21,6 +21,7 @@
 <div class="wrapper">
     @yield('content')
 </div>
+@yield('nav_mobile')
 
 <script src="{{asset('js/guest/main.js')}}"></script>
 

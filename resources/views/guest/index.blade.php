@@ -14,3 +14,7 @@
         Footer
     </footer>
 @endsection
+
+@section('nav_mobile')
+    @include('guest.parts.nav_mobile')
+@endsection
