@@ -237,6 +237,19 @@ function toggleSecondLevelBurgerMenuByHover() {
     return false;
 }
 
+function footerDropdownMenuHandler() {
+    //
+    let mns = document.querySelectorAll('.footer__header-wrap.j-dropdown-title');
+    if (mns.length){
+        for(let i=0; i<mns.length;i++){
+            mns[i].addEventListener('click', function (e) {
+                mns[i].parentElement.classList.toggle('dropdown-open');
+                console.log('click: '+footerDropdownMenuHandler.name);
+            });
+        }
+    }
+}
+
 ///////////////////////////////////////
 /**
  * Helper Functions
@@ -280,3 +293,4 @@ burgerMenuOpen();
 burgerMenuClose();
 burgerMenuCloseWithAnatherAreaClickHandler();
 burgerHighLevelMenuMouseOver();
+footerDropdownMenuHandler();
