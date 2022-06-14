@@ -1,5 +1,6 @@
 console.log('guest - main.js');
 let burgerMenuLastNormalLi = ""; // на mouseover - чтобы закрасить последний нормальный li нужным цветом!
+let currentWindowPageYOffset = 0;
 
 /**
  * Бургер-меню - открыть
@@ -26,6 +27,7 @@ function burgerMenuOpen(){
         // 3. к div.menu-burger добавляется класс .menu-burger--active
         findAndAddClassesToTarget('div.menu-burger', "menu-burger--active");
 
+        deleteHeaderFixedAnimate()
     });
 }
 /**
@@ -237,6 +239,9 @@ function toggleSecondLevelBurgerMenuByHover() {
     return false;
 }
 
+/**
+ * Просмотр и скрытие элементов выпадающего меню футера по клику
+ */
 function footerDropdownMenuHandler() {
     //
     let mns = document.querySelectorAll('.footer__header-wrap.j-dropdown-title');
@@ -244,10 +249,62 @@ function footerDropdownMenuHandler() {
         for(let i=0; i<mns.length;i++){
             mns[i].addEventListener('click', function (e) {
                 mns[i].parentElement.classList.toggle('dropdown-open');
-                console.log('click: '+footerDropdownMenuHandler.name);
+                //console.log('click: '+footerDropdownMenuHandler.name);
             });
         }
     }
+}
+
+/**
+ * Показ и скрытие мобильное меню при скролле
+ */
+function burgerMenuMobileScrollAnimateHandle() {
+
+    let scrolledBot = function (){
+        let tmp = window.pageYOffset;
+        if (tmp > currentWindowPageYOffset){
+            currentWindowPageYOffset = tmp;
+            return true;
+        }
+        currentWindowPageYOffset = tmp;
+        return false;
+    }
+
+    if (scrolledBot()){
+        //console.log('scrolled bot: '+window.pageYOffset)
+        if (window.pageYOffset > 72){
+            findAndAddClassesToTarget('.header.j-header', 'header--fixed')
+            deleteHeaderFixedAnimate()
+        }
+    }else{
+        //console.log('scrolled top: '+window.pageYOffset)
+        if (window.pageYOffset > 72){
+            addHeaderFixedAnimate()
+        }else{
+            findAndDeleteClassesToTarget('.header.j-header', ['header--fixed', 'header--fixed-animate']);
+        }
+    }
+}
+
+/**
+ * Обработчик события скролла
+ */
+function burgerMenuMobileScrollAnimateHandler() {
+    window.addEventListener('scroll', burgerMenuMobileScrollAnimateHandle);
+}
+
+/**
+ * Добавить к бургеру-меню фиксацию
+ */
+function addHeaderFixedAnimate() {
+    findAndAddClassesToTarget('.header.j-header', 'header--fixed-animate')
+}
+
+/**
+ * Удалить из бургера-меню фиксацию
+ */
+function deleteHeaderFixedAnimate() {
+    findAndDeleteClassesToTarget('.header.j-header', ['header--fixed-animate']);
 }
 
 ///////////////////////////////////////
@@ -268,6 +325,7 @@ function findAndAddClassesToTarget(targetElementSelector, classesToAdd){
 function findAndDeleteClassesToTarget(targetElementSelector, classesToRemove){
     let target = document.querySelector(targetElementSelector);
     if (target){
+        //console.log('im find him!')
         for(let i=0; i<classesToRemove.length; i++){
             if ( target.classList.contains(classesToRemove[i]) ){
                 target.classList.remove(classesToRemove[i]);
@@ -294,3 +352,4 @@ burgerMenuClose();
 burgerMenuCloseWithAnatherAreaClickHandler();
 burgerHighLevelMenuMouseOver();
 footerDropdownMenuHandler();
+burgerMenuMobileScrollAnimateHandler();

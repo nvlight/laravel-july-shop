@@ -1574,3 +1574,21 @@ img {
     background-color: rgba(255,255,255,.2);
     border-radius: 60px;
 }
+.footer__btn-open::before {
+    -webkit-transition: -webkit-transform .3s ease 0s;
+    transition: -webkit-transform .3s ease 0s;
+    transition: transform .3s ease 0s;
+    transition: transform .3s ease 0s,-webkit-transform .3s ease 0s;
+    content: "";
+    display: block;
+    width: 16px;
+    height: 10px;
+    position: absolute;
+    top: 15px;
+    right: 0;
+    background: url(data:image/svg+xml,%3Csvg%20width%3D%2216%22%20height%3D%2210%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20opacity%3D%22.5%22%20d%3D%22M15.342.9a.97.97%200%2000-1.378-.013L8%206.778%202.153.897A1.009%201.009%200%2000.714%202.312L8%209.8l7.342-7.546a.97.97%200%20000-1.353z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E) center no-repeat;
+}
+.dropdown-open .footer__btn-open::before {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}

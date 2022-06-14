@@ -51,6 +51,8 @@
     .header::after {
         height: 16px;
         border-radius: 0;
+        /*посмотрим проканает ли :smirk*/
+        background: transparent;
     }
     .header__top {
         display: none;
@@ -144,6 +146,21 @@
         max-height: 3000px;
         -webkit-transition: max-height .3s cubic-bezier(1,0,1,.5) 0s;
         transition: max-height .3s cubic-bezier(1,0,1,.5) 0s;
+    }
+    .header--fixed {
+        z-index: 100;
+        position: fixed;
+        right: 0;
+        left: 0;
+        padding: 10px 0;
+        -webkit-transition: top .3s ease 0s;
+        transition: top .3s ease 0s;
+    }
+    .header--fixed {
+        top: -72px;
+    }
+    .header--fixed-animate {
+        top: 0;
     }
 }
 
