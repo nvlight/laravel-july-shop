@@ -10,14 +10,20 @@
             <ul class="menu-burger__set">
                 @foreach($category->children as $child)
                     <li class="menu-burger__item">
-                        <a class="menu-burger__link j-menu-drop-link"
-                           href="https://www.ildberries.ru/catalog/---{{$child->id}}">{{$child->title}}</a>
+                        @if(count($child->children) )
+                            <span class="menu-burger__next j-menu-drop-open" data-third-button-open-id="{{$child->id}}">
+                                {{$child->title}}</span>
+                        @else
+                            <a class="menu-burger__link j-menu-drop-link"
+                               href="https://www.ildberries.ru/catalog/---{{$child->id}}">{{$child->title}}</a>
+                        @endif
                     </li>
                 @endforeach
             </ul>
         </div>
         {{-- тут будет либо красивая большая картинка верхнего меню либо список 3-го уровня бургера-меню  --}}
         <div class="menu-burger__second j-menu-inner-column">
+            {{-- hide на этот див, чтобы спрятать его - бугага --}}
             <div class="j-menu-banner">
                 <div class="menu-burger__banner"><a
                         class="menu-burger__banner-link j-banner j-banner-click-stat j-banner-wba"
@@ -33,6 +39,11 @@
                         <p class="menu-burger__banner-text"></p>
                     </a></div>
             </div>
+            @foreach($category->children as $child)
+                @if(count($child->children) )
+                    @include('guest.menu_burger.third-level-menu-items', ['child' => $child, 'childs3rd_level' => $child->children])
+                @endif
+            @endforeach
         </div>
     </div>
 </div>

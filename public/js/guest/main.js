@@ -52,6 +52,8 @@ function burgerMenuClose(){
 
         // 4 закрыть 2-й вложенный уровень бургера-меню
         hideSecondLevelBurgerMenu();
+
+        normalizeThirdLevelMenuBannerAndMenuStartShow();
     });
 }
 
@@ -70,6 +72,7 @@ function burgerMenuCloseWithAnatherAreaClickHandler(){
                 burgerMenuCloseClickHandle();
             }
         }
+
     });
 }
 
@@ -108,8 +111,8 @@ function burgerHighLevelMenuMouseOverHandler(e) {
         }else{
             // если этот чел все таки убежал - делаем вот так!
             burgerMenuLastNormalLi.classList.add(classToAdd);
-
         }
+        normalizeThirdLevelMenuBannerAndMenuStartShow();
         // todo - 1,2.2 пока не сделано, но сделано 2.1
         // 1. нужно добавить открытие второго уровня меню
         // 4 нужно добавить проверку, а есть ли вообще дочерние элементы для этого элемента меню 1-го уровня.
@@ -259,7 +262,7 @@ function footerDropdownMenuHandler() {
  * Показ и скрытие мобильное меню при скролле
  */
 function burgerMenuMobileScrollAnimateHandle() {
-
+    let log = false;
     let scrolledBot = function (){
         let tmp = window.pageYOffset;
         if (tmp > currentWindowPageYOffset){
@@ -271,13 +274,17 @@ function burgerMenuMobileScrollAnimateHandle() {
     }
 
     if (scrolledBot()){
-        //console.log('scrolled bot: '+window.pageYOffset)
+        if (log){
+            console.log('scrolled bot: '+window.pageYOffset)
+        }
         if (window.pageYOffset > 72){
             findAndAddClassesToTarget('.header.j-header', 'header--fixed')
             deleteHeaderFixedAnimate()
         }
     }else{
-        //console.log('scrolled top: '+window.pageYOffset)
+        if (log){
+            console.log('scrolled top: '+window.pageYOffset)
+        }
         if (window.pageYOffset > 72){
             addHeaderFixedAnimate()
         }else{
@@ -305,6 +312,81 @@ function addHeaderFixedAnimate() {
  */
 function deleteHeaderFixedAnimate() {
     findAndDeleteClassesToTarget('.header.j-header', ['header--fixed-animate']);
+}
+
+/**
+ * Обработка щелчка по элемету бургера-меню 2-го уровня сложности, если у него есть элементы-потомки, то блок-баннер
+ * пропадает и появляются его элеметы-меню потомки
+ */
+function secondLevelBurgerMenuItemClickHandler() {
+    /**
+     * <li class="menu-burger__item">
+     *   <span class="menu-burger__next j-menu-drop-open">Белье</span>
+     * </li>
+     */
+    const sel = document.querySelectorAll("li[class='menu-burger__item']>span[class~='j-menu-drop-open']");
+    if (sel.length){
+        for(let i=0; i<sel.length; i++){
+            sel[i].addEventListener('click', function (e) {
+                console.log('click: '+secondLevelBurgerMenuItemClickHandler.name);
+                const targetId = sel[i].dataset.thirdButtonOpenId; // data-third-button-open-id="189"
+                //console.log(targetId);
+                const targetClass = ".third_level_menu---"+targetId;
+                const listForShow = document.querySelector(targetClass);
+                if (listForShow){
+                    const bannerForHide = listForShow.parentElement.querySelector('.j-menu-banner');
+                    if (bannerForHide){
+
+                        // сначала нужно спрятать все остальные меню 3-го уровня
+                        hideAll3rdLevelSubmenu(listForShow.parentElement);
+
+                        // потом нужо спрятать баннер блок и показать меню 3 уровня для нажатого 2-го уровня !
+                        const hideClass='hide';
+                        bannerForHide.classList.add(hideClass);
+                        listForShow.classList.remove(hideClass);
+                    }
+                }
+            });
+        }
+    }
+}
+
+/**
+ * Прячет все меню 3-го уровня для меню 2-го уровня, добавляя класс hide
+ */
+function hideAll3rdLevelSubmenu(parentClass) {
+    let liSel = parentClass.querySelectorAll("div[class*='third_level_menu---']"); // nodeList
+    //console.log(liSel.length)
+    const hideClass = 'hide';
+    for(let i=0; i<liSel.length; i++){
+        if (!liSel[i].classList.contains(hideClass)){
+            liSel[i].classList.add(hideClass);
+        }
+    }
+}
+
+/**
+ * Привести в нормальным вид 3-й уровень меню, т.е. изначально она должна быть спрячена и виден баннер
+ * при закрытии меню или при ховере на 1-й уровень меню нужно прийти в нормальный вид
+ */
+function normalizeThirdLevelMenuBannerAndMenuStartShow() {
+    // сначал найду все .menu-burger__second > div и добавлю им hide
+    // потом .menu-burger__second > .j-menu-banner и уберу у него hide
+    const vv = document.querySelectorAll('.menu-burger__second > div');
+    const rr = document.querySelectorAll('.menu-burger__second > .j-menu-banner');
+    if (vv.length && rr.length){
+        const hideClass = 'hide';
+        for(let i=0; i<vv.length; i++){
+            if ( !vv[i].classList.contains(hideClass)){
+                vv[i].classList.add(hideClass);
+            }
+        }
+        for(let i=0; i<rr.length; i++){
+            if ( rr[i].classList.contains(hideClass)){
+                rr[i].classList.remove(hideClass);
+            }
+        }
+    }
 }
 
 ///////////////////////////////////////
@@ -353,3 +435,4 @@ burgerMenuCloseWithAnatherAreaClickHandler();
 burgerHighLevelMenuMouseOver();
 footerDropdownMenuHandler();
 burgerMenuMobileScrollAnimateHandler();
+secondLevelBurgerMenuItemClickHandler();

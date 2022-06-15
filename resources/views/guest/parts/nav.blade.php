@@ -46,8 +46,11 @@
         {{-- по ховеру на меню верхнего уровня, должен открыть соответствующий ему меню нижнего уровня --}}
         {{-- также должны добавиться классы с menu-burger__drop--active j-menu-active menu-burger__drop--custom --}}
         {{-- menu-burger__drop--active j-menu-active menu-burger__drop--custom --}}
+        {{-- Это 2-й уровень меню, появляется по клику на элемет первого меню --}}
         <div class="menu-burger__drop j-menu-burger-drop" data-link="">
             <div class="menu-burger__drop-list j-menu-drop-list">
+
+                {{--  --}}
                 <div class="menu-burger__drop-list-item j-menu-drop-item j-menu-drop-item-306" data-menu-id="306">
                     <div class="menu-burger__wrap">
                         <div class="menu-burger__first j-menu-inner-column">
@@ -170,8 +173,11 @@
                             </ul>
 
                         </div>
+                        {{-- Это блок с баннером и по совместительству 3-й уровень меню, который появляется по клику на элементе меню, --}}
+                        {{-- у которого есть выпадающий список, т.е. если у него есть элементы-потомки --}}
                         <div class="menu-burger__second j-menu-inner-column">
-                            <div class="j-menu-banner">
+                            {{-- .hide добавляется просто по клику и все --}}
+                            <div class="j-menu-banner hide">
                                 <div class="menu-burger__banner"><a
                                         class="menu-burger__banner-link j-banner j-banner-click-stat j-banner-wba"
                                         href="/catalog/zhenshchinam/odezhda/platya?bid=cbea89d8-1047-4b5a-8f23-688ec301e40c"
@@ -185,6 +191,49 @@
                                         <h3 class="menu-burger__banner-title">Платья</h3>
                                         <p class="menu-burger__banner-text"></p>
                                     </a></div>
+                            </div>
+
+                            <div class="">
+                                <div class="menu-burger__title">
+                                    <a class="menu-burger__title-link j-menu-drop-link"
+                                       href="https://www.wildberries.ru/catalog/elektronika/noutbuki-periferiya">Ноутбуки
+                                        и компьютеры</a>
+                                </div>
+                                <ul class="menu-burger__set" data-jsv-df="">
+                                    <li data-jsv="#26679_#26680_" class="menu-burger__item">
+                                        <a class="menu-burger__link j-menu-drop-link"
+                                           href="https://www.wildberries.ru/catalog/elektronika/noutbuki-pereferiya/noutbuki-ultrabuki">Ноутбуки</a>
+                                    </li>
+                                    <li data-jsv="/26680_#26682_" class="menu-burger__item">
+                                        <a class="menu-burger__link j-menu-drop-link"
+                                           href="https://www.wildberries.ru/catalog/elektronika/noutbuki-periferiya/kompyutery">Компьютеры
+                                            и моноблоки</a>
+                                    </li>
+                                    <li data-jsv="/26682_#26684_" class="menu-burger__item">
+                                        <a class="menu-burger__link j-menu-drop-link"
+                                           href="https://www.wildberries.ru/catalog/elektronika/noutbuki-i-kompyutery/vneshnie-nakopiteli-informatsii">Внешние
+                                            накопители информации</a>
+                                    </li>
+                                    <li data-jsv="/26684_#26686_" class="menu-burger__item">
+                                        <a class="menu-burger__link j-menu-drop-link"
+                                           href="https://www.wildberries.ru/catalog/elektronika/noutbuki-periferiya/monitory">Мониторы</a>
+                                    </li>
+                                    <li data-jsv="/26686_#26688_" class="menu-burger__item">
+                                        <a class="menu-burger__link j-menu-drop-link"
+                                           href="https://www.wildberries.ru/catalog/elektronika/noutbuki-i-kompyutery/komplektuyushchie-dlya-pk">Комплектующие
+                                            для ПК</a>
+                                    </li>
+                                    <li data-jsv="/26688_#26690_" class="menu-burger__item">
+                                        <a class="menu-burger__link j-menu-drop-link"
+                                           href="https://www.wildberries.ru/catalog/elektronika/noutbuki-pereferiya/notebook-accessories">Аксессуары
+                                            для ноутбуков</a>
+                                    </li>
+                                    <li data-jsv="/26690_#26692_" class="menu-burger__item">
+                                        <a class="menu-burger__link j-menu-drop-link"
+                                           href="https://www.wildberries.ru/catalog/elektronika/noutbuki-pereferiya/peripheral-accessories">Периферийные
+                                            аксессуары</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
