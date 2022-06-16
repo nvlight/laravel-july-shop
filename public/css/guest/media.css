@@ -162,7 +162,41 @@
     .header--fixed-animate {
         top: 0;
     }
+    .menu-burger__main-list-item--subcategory .menu-burger__main-list-link::after {
+        width: 10px;
+        height: 16px;
+        background-image: url(data:image/svg+xml,%3Csvg%20width%3D%2210%22%20height%3D%2216%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20opacity%3D%22.5%22%20d%3D%22M.9.7A1%201%200%2000.9%202l5.9%206-5.9%205.8a1%201%200%20001.4%201.5L9.8%208%202.3.7A1%201%200%2000.9.7z%22%20fill%3D%22%23A7A7A7%22%2F%3E%3C%2Fsvg%3E);
+        content: '';
+        display: block;
+        position: absolute;
+        top: calc(50% - 8px);
+        right: 24px;
+    }
+    .menu-burger__drop {
+        width: 100%;
+        padding: 0 0 52px;
+        border: none;
+        position: fixed;
+        z-index: 1;
+        top: 64px;
+        height: calc(100% - 64px);
+    }
+    .menu-burger__first, .menu-burger__second {
+        scrollbar-width: none;
+    }
+    .menu-burger__next {
+        color: #000;
+        border-color: initial;
+        padding: 17px 16px;
+    }
+    .menu-burger__link {
+        color: #000;
+        border-color: initial;
+        padding: 17px 16px;
+    }
 }
+/*@media (max-width: 1023.98px)*/
+
 @media (min-width: 1504px){
     .simple-menu__link--address {
         max-width: 430px;

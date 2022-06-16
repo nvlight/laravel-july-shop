@@ -31,3 +31,20 @@ ds.hasOwnProperty('menuId')
 3.2 классы дива, что нужно отобразить пока фиксированные, нужно это исправить
 для этого нужно добавить класс .menu-burger__drop-list-item--active в элемент с классом .j-menu-drop-item-4830,
 предварительно нужно убрать все остальные классы с других элементов меню
+
+
+// началась работа с кликами бургера меню в разрешении меьше 1200 пикселей
+т.е. щелчки по меню должны показывать дочерние меню и так 2 раза, т.е. дойти до 3-о уровня вложенности, ага!
+после щелчка на 1-й уровеь меню найти menu-burger__drop j-menu-burger-drop и добавить к нему
+menu-burger__drop--active j-menu-active menu-burger__drop--custom, так же нужно перехватить переход по тегу а,
+сделаем это прямо сейчас!
+но для начала нужно найти эти самые теги а, у них класс начинается с menu-burger__main-list-link menu-burger__main-list-link--
+sel = 'menu-burger__main-list-link--';
+a = document.querySelectorAll("li[class*='menu-burger__main-list-item'][class*='j-menu-main-item']:not([class*='menu-burger__main-list-item--subcategory'])");
+
+sel = 'menu-burger__main-list-item--subcategory';
+a = document.querySelectorAll(`li[class*='menu-burger__main-list-item'][class*='j-menu-main-item']:not([class*=${sel}])`);
+
+вот, остаовим переход по ссылкам через это
+sel = 'menu-burger__main-list-item--subcategory';
+a = document.querySelectorAll(`li[class*=${sel}]`);
