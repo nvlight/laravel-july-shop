@@ -390,6 +390,21 @@ function normalizeThirdLevelMenuBannerAndMenuStartShow() {
 }
 
 /**
+ * Удаляет классы, чтобы в меню-бергере 2-го уровня показывались менюшки только текущего нажатого элемента
+ */
+function deleteClassForMobileBurgerMenuSecondLevel() {
+    const tgClass = "menu-burger__drop-list-item--active";
+    const findDoubles = document.querySelectorAll('.'+'menu-burger__drop-list-item--active');
+    if (findDoubles.length){
+        for(let i=0; i<findDoubles.length; i++){
+            if (findDoubles[i].classList.contains(tgClass)){
+                findDoubles[i].classList.remove(tgClass);
+            }
+        }
+    }
+}
+
+/**
  * Мобильное разрешение, оставить переход по ссылке при щелчке на 1-й уровень меню и показать 2-й уровень меню
  */
 function stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu() {
@@ -401,6 +416,10 @@ function stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu() {
         //console.log('im here '+i)
         res[i].addEventListener('click', function (e) {
             e.preventDefault();
+
+            // возникли две проблемы и 1 задача
+            // 1 нужно с каждым разом подчищать за собой все классы menu-burger__drop-list-item--active, которые я добавил
+            deleteClassForMobileBurgerMenuSecondLevel();
 
             const classes = res[i].classList;
             let find = null;
@@ -422,10 +441,8 @@ function stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu() {
                 // menu-burger__drop-list-item--active
                 findAndAddClassesToTarget('.j-menu-drop-item-'+findId, 'menu-burger__drop-list-item--active');
 
-                // возникли две проблемы и 1 задача
-                // нужно с каждым разом подчищать за собой все классы menu-burger__drop-list-item--active, которые я добавил
-                // также при показе нужны скрыть баннер - :smirk
-                // ну и показать стрелку тоже нужно
+                // 2 также при показе нужны скрыть баннер - :smirk
+                // 3 ну и показать стрелку тоже нужно
             }
         });
     }
