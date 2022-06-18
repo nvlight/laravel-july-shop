@@ -48,3 +48,6 @@ a = document.querySelectorAll(`li[class*='menu-burger__main-list-item'][class*='
 вот, остаовим переход по ссылкам через это
 sel = 'menu-burger__main-list-item--subcategory';
 a = document.querySelectorAll(`li[class*=${sel}]`);
+
+hideSecondLevelBurgerMenu();
+deleteClassForMobileBurgerMenuSecondLevel();

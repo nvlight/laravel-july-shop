@@ -38,7 +38,7 @@
             <div class="menu-burger__geo">
                 <div class="menu-burger__geo-item menu-burger__geo-item--country">
                     <span class="menu-burger__geo-flag flag-ru"></span>Россия
-                    <span class="hide" data-link="text{: '/ ' + ~langName}class{merge: !~globalSettings.switches.enableLocalization toggle='hide'}">/ русский</span>
+                    <span class="hide" data-link="">/ русский</span>
                 </div>
                 <div class="menu-burger__geo-item menu-burger__geo-item--city j-geocity-link">Москва</div>
             </div>

@@ -194,6 +194,20 @@
         border-color: initial;
         padding: 17px 16px;
     }
+    .menu-burger__back {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        margin: 0;
+        position: absolute;
+        left: 5px;
+        top: 3px;
+        width: 40px;
+        height: 40px;
+    }
+    .menu-burger__title-name {
+        padding: 12px 0;
+    }
 }
 /*@media (max-width: 1023.98px)*/
 
@@ -460,6 +474,9 @@
         font-size: 18px;
         height: auto;
         background: 0 0;
+    }
+    .menu-burger__back{
+        display: none;
     }
 }
 /** min-width: 1024px */

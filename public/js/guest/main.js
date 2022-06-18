@@ -448,6 +448,20 @@ function stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu() {
     }
 }
 
+/**
+ * Закрывает 2-й уровень мобильного бургера-меню по щелчку на кнопку назад
+ */
+function hideMobileSecondLevelBurgerMenuByBackClick() {
+    const bSel = document.querySelectorAll('.menu-burger__back');
+    if (bSel.length){
+        for(let i=0; i<bSel.length; i++){
+            bSel[i].addEventListener('click', function (e){
+                hideSecondLevelBurgerMenu();
+            })
+        }
+    }
+}
+
 ///////////////////////////////////////
 /**
  * Helper Functions
@@ -496,3 +510,4 @@ footerDropdownMenuHandler();
 burgerMenuMobileScrollAnimateHandler();
 secondLevelBurgerMenuItemClickHandler();
 stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu()
+hideMobileSecondLevelBurgerMenuByBackClick();

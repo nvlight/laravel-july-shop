@@ -2,8 +2,12 @@
      data-menu-id="{{$category->id}}">
     <div class="menu-burger__wrap">
         <div class="menu-burger__first j-menu-inner-column">
+            {{-- По клику должен исчезать 2-й уровень мобильного меню --}}
+            <button class="menu-burger__back j-menu-burger-mobile-back" type="button" aria-label="back-category">
+                <span class="menu-burger__back-arrow"></span>
+            </button>
             <div class="menu-burger__title">
-                <a class="menu-burger__title-link j-menu-drop-link"
+                <a class="menu-burger__title-link j-menu-drop-link menu-burger__title-name"
                    href="https://www.ildberries.ru/catalog/---{{$category->id}}">{{$category->title}}</a>
             </div>
             {{-- тут идет список с линками или с выпадашками --}}
