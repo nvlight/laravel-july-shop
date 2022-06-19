@@ -181,7 +181,7 @@
         top: 64px;
         height: calc(100% - 64px);
     }
-    .menu-burger__first, .menu-burger__second {
+    .menu-burger__first, .menu-burger__second, .menu-burger__third {
         scrollbar-width: none;
     }
     .menu-burger__next {
@@ -207,6 +207,10 @@
     }
     .menu-burger__title-name {
         padding: 12px 0;
+    }
+    .menu-burger__second{
+        width: auto;
+        display: none;
     }
 }
 /*@media (max-width: 1023.98px)*/

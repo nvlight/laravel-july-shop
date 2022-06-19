@@ -344,6 +344,10 @@ function secondLevelBurgerMenuItemClickHandler() {
                         const hideClass='hide';
                         bannerForHide.classList.add(hideClass);
                         listForShow.classList.remove(hideClass);
+
+                        // сам меню 2-го уровня тоже нужно скрыть!
+                        // dd = document.querySelectorAll('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column')
+                        findAndAddClassesToTarget('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column', 'hide');
                     }
                 }
             });

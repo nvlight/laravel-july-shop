@@ -43,6 +43,9 @@
                         <p class="menu-burger__banner-text"></p>
                     </a></div>
             </div>
+        </div>
+
+        <div class="menu-burger__third j-menu-inner-column hide">
             @foreach($category->children as $child)
                 @if(count($child->children) )
                     @include('guest.menu_burger.third-level-menu-items', ['child' => $child, 'childs3rd_level' => $child->children])
