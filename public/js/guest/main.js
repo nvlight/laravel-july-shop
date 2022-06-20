@@ -28,6 +28,8 @@ function burgerMenuOpen(){
         findAndAddClassesToTarget('div.menu-burger', "menu-burger--active");
 
         deleteHeaderFixedAnimate()
+
+        showSearchIconRedWhenBurgerMenuIsOpen()
     });
 }
 /**
@@ -54,6 +56,8 @@ function burgerMenuClose(){
         hideSecondLevelBurgerMenu();
 
         normalizeThirdLevelMenuBannerAndMenuStartShow();
+
+        hideSearchIconRedWhenBurgerMenuIsOpen()
     });
 }
 
@@ -348,6 +352,9 @@ function secondLevelBurgerMenuItemClickHandler() {
                         // сам меню 2-го уровня тоже нужно скрыть!
                         // dd = document.querySelectorAll('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column')
                         findAndAddClassesToTarget('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column', 'hide');
+
+                        // 1 при обычном разрешении в 1024 пикселя нужно отобразить вместо баннера 3-й уровень меню
+                        // 2 при мобильном разрешении нужно 3-й уровень отобразить поверх 2-ого уровня
                     }
                 }
             });
@@ -464,6 +471,24 @@ function hideMobileSecondLevelBurgerMenuByBackClick() {
             })
         }
     }
+}
+
+/**
+ * Показать иконку поиска (закрепленный снизу при мобильном виде )красивым красным цветом, когда открыт бурер-меню
+ */
+function showSearchIconRedWhenBurgerMenuIsOpen() {
+    const sel = ".navbar-mobile__icon.navbar-mobile__icon--catalog";
+    const cl  = "navbar-mobile__icon--active"
+    findAndAddClassesToTarget(sel, cl)
+}
+
+/**
+ * Спрятать иконку поиска (закрепленный снизу при мобильном виде ) когда закрыли бурер-меню
+ */
+function hideSearchIconRedWhenBurgerMenuIsOpen() {
+    const sel = ".navbar-mobile__icon.navbar-mobile__icon--catalog.navbar-mobile__icon--active";
+    const cl  = ["navbar-mobile__icon--active"];
+    findAndDeleteClassesToTarget(sel, cl)
 }
 
 ///////////////////////////////////////

@@ -1,4 +1,40 @@
 /* media queries */
+
+@media (min-width: 375px) {
+    .navbar-mobile {
+        padding: 0 16px;
+    }
+    .navbar-mobile__link {
+        padding: 12px 0;
+    }
+    .navbar-mobile__icon {
+        height: 28px;
+    }
+    .navbar-mobile__icon--home {
+        width: 24px;
+        background-size: 58px;
+    }
+    .navbar-mobile__icon--catalog {
+        width: 27px;
+        background-size: 64px;
+    }
+    .navbar-mobile__icon--catalog.navbar-mobile__icon--active {
+        background-position: -38px center;
+    }
+    .navbar-mobile__icon--basket {
+        width: 28px;
+        background-size: 67px;
+    }
+    .navbar-mobile__icon--favorites {
+        width: 23px;
+        background-size: 55px;
+    }
+    .navbar-mobile__icon--profile {
+        width: 25px;
+        background-size: 60px;
+    }
+}
+
 @media (max-width: 1503.98px){
     .btn-chat {
         padding: 0;
@@ -496,40 +532,5 @@
     }
     .menu-burger__drop--custom {
         width: calc(900px - 285px);
-    }
-}
-
-@media (min-width: 375px) {
-    .navbar-mobile {
-        padding: 0 16px;
-    }
-    .navbar-mobile__link {
-        padding: 12px 0;
-    }
-    .navbar-mobile__icon {
-        height: 28px;
-    }
-    .navbar-mobile__icon--home {
-        width: 24px;
-        background-size: 58px;
-    }
-    .navbar-mobile__icon--catalog {
-        width: 27px;
-        background-size: 64px;
-    }
-    .navbar-mobile__icon--catalog.navbar-mobile__icon--active {
-        background-position: -38px center;
-    }
-    .navbar-mobile__icon--basket {
-        width: 28px;
-        background-size: 67px;
-    }
-    .navbar-mobile__icon--favorites {
-        width: 23px;
-        background-size: 55px;
-    }
-    .navbar-mobile__icon--profile {
-        width: 25px;
-        background-size: 60px;
     }
 }

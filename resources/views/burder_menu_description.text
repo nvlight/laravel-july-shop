@@ -51,3 +51,8 @@ a = document.querySelectorAll(`li[class*=${sel}]`);
 
 hideSecondLevelBurgerMenu();
 deleteClassForMobileBurgerMenuSecondLevel();
+
+// добавить класс к значку поиска, показываю тем самым что поиск идет (мобильное меню)
+navbar-mobile__icon navbar-mobile__icon--catalog
+
+navbar-mobile__icon navbar-mobile__icon--catalog navbar-mobile__icon--active
