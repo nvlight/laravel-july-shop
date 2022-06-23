@@ -55,9 +55,9 @@ function burgerMenuClose(){
         // 4 закрыть 2-й вложенный уровень бургера-меню
         hideSecondLevelBurgerMenu();
 
-        normalizeThirdLevelMenuBannerAndMenuStartShow();
+        hideSearchIconRedWhenBurgerMenuIsOpen();
 
-        hideSearchIconRedWhenBurgerMenuIsOpen()
+        hideThirdLevelMenuOnHoverToMain();
     });
 }
 
@@ -102,6 +102,8 @@ function burgerHighLevelMenuMouseOverHandler(e) {
     let classForStartRemove = classToAdd;
     deleteRedColorForBurgerHighLevelMenu(classForStartRemove);
 
+    hideThirdLevelMenuOnHoverToMain();
+
     // 2.1 нужно перекрасить цвет на li родителя добавить menu-burger__main-list-item--active
     // дополнительное условие, нужно перекрасить, только если ширина >=1024, для иконки
     if (!window.matchMedia("(min-width: 1024px)").matches) {
@@ -116,7 +118,7 @@ function burgerHighLevelMenuMouseOverHandler(e) {
             // если этот чел все таки убежал - делаем вот так!
             burgerMenuLastNormalLi.classList.add(classToAdd);
         }
-        normalizeThirdLevelMenuBannerAndMenuStartShow();
+
         // todo - 1,2.2 пока не сделано, но сделано 2.1
         // 1. нужно добавить открытие второго уровня меню
         // 4 нужно добавить проверку, а есть ли вообще дочерние элементы для этого элемента меню 1-го уровня.
@@ -332,31 +334,35 @@ function secondLevelBurgerMenuItemClickHandler() {
     if (sel.length){
         for(let i=0; i<sel.length; i++){
             sel[i].addEventListener('click', function (e) {
-                console.log('click: '+secondLevelBurgerMenuItemClickHandler.name);
                 const targetId = sel[i].dataset.thirdButtonOpenId; // data-third-button-open-id="189"
-                //console.log(targetId);
+                console.log('click: '+secondLevelBurgerMenuItemClickHandler.name + ' ' + targetId); //console.log(targetId);
+
                 const targetClass = ".third_level_menu---"+targetId;
                 const listForShow = document.querySelector(targetClass);
-                if (listForShow){
-                    const bannerForHide = listForShow.parentElement.querySelector('.j-menu-banner');
-                    if (bannerForHide){
+                const bannerForHide = document.querySelector('.menu-burger__drop-list-item--active .menu-burger__second');
+                const menuBurgerThird = document.querySelector('.menu-burger__drop-list-item--active .menu-burger__third'); // menu-burger__third
 
-                        // сначала нужно спрятать все остальные меню 3-го уровня
-                        hideAll3rdLevelSubmenu(listForShow.parentElement);
-
-                        // потом нужо спрятать баннер блок и показать меню 3 уровня для нажатого 2-го уровня !
-                        const hideClass='hide';
-                        bannerForHide.classList.add(hideClass);
-                        listForShow.classList.remove(hideClass);
-
-                        // сам меню 2-го уровня тоже нужно скрыть!
-                        // dd = document.querySelectorAll('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column')
-                        findAndAddClassesToTarget('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column', 'hide');
-
-                        // 1 при обычном разрешении в 1024 пикселя нужно отобразить вместо баннера 3-й уровень меню
-                        // 2 при мобильном разрешении нужно 3-й уровень отобразить поверх 2-ого уровня
-                    }
+                if ( !(listForShow && bannerForHide && menuBurgerThird)) {
+                    return;
                 }
+
+                // #1 при обычном разрешении >= 1024 пикселя нужно отобразить вместо баннера 3-й уровень меню
+                // спрятать все меню 3-го уровня, чтобы не показывались лишние
+                hideAll3rdLevelSubmenu();
+                // спрятать баннер блок-баннер
+                const hideClass='hide';
+                if (!bannerForHide.classList.contains(hideClass)){
+                    bannerForHide.classList.add(hideClass);
+                }
+                menuBurgerThird.classList.remove(hideClass); // показать враппер для менюшки
+                listForShow.classList.remove(hideClass);     // показать нажатую менюшку
+
+                // сам меню 2-го уровня тоже нужно скрыть!
+                // dd = document.querySelectorAll('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column')
+                //findAndAddClassesToTarget('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column', 'hide');
+
+                // #2 при мобильном разрешении нужно 3-й уровень отобразить поверх 2-ого уровня
+
             });
         }
     }
@@ -365,37 +371,13 @@ function secondLevelBurgerMenuItemClickHandler() {
 /**
  * Прячет все меню 3-го уровня для меню 2-го уровня, добавляя класс hide
  */
-function hideAll3rdLevelSubmenu(parentClass) {
-    let liSel = parentClass.querySelectorAll("div[class*='third_level_menu---']"); // nodeList
+function hideAll3rdLevelSubmenu() {
+    let liSel = document.querySelectorAll(".menu-burger__third div[class*='third_level_menu---']"); // nodeList
     //console.log(liSel.length)
     const hideClass = 'hide';
     for(let i=0; i<liSel.length; i++){
         if (!liSel[i].classList.contains(hideClass)){
             liSel[i].classList.add(hideClass);
-        }
-    }
-}
-
-/**
- * Привести в нормальным вид 3-й уровень меню, т.е. изначально она должна быть спрячена и виден баннер
- * при закрытии меню или при ховере на 1-й уровень меню нужно прийти в нормальный вид
- */
-function normalizeThirdLevelMenuBannerAndMenuStartShow() {
-    // сначал найду все .menu-burger__second > div и добавлю им hide
-    // потом .menu-burger__second > .j-menu-banner и уберу у него hide
-    const vv = document.querySelectorAll('.menu-burger__second > div');
-    const rr = document.querySelectorAll('.menu-burger__second > .j-menu-banner');
-    if (vv.length && rr.length){
-        const hideClass = 'hide';
-        for(let i=0; i<vv.length; i++){
-            if ( !vv[i].classList.contains(hideClass)){
-                vv[i].classList.add(hideClass);
-            }
-        }
-        for(let i=0; i<rr.length; i++){
-            if ( rr[i].classList.contains(hideClass)){
-                rr[i].classList.remove(hideClass);
-            }
         }
     }
 }
@@ -491,40 +473,29 @@ function hideSearchIconRedWhenBurgerMenuIsOpen() {
     findAndDeleteClassesToTarget(sel, cl)
 }
 
-///////////////////////////////////////
 /**
- * Helper Functions
+ * Показывает баннер и скрывает 3-й уровень бургера меню, нужно для ховера на 1-й уровень меню
+ * для разрешения > 1024 px
  */
-function findAndAddClassesToTarget(targetElementSelector, classesToAdd){
-    let target = document.querySelector(targetElementSelector);
-    let normalizedClasses = normalizeClassListRowString(classesToAdd).split(' ');
-    if (target){
-        for(let i=0; i<normalizedClasses.length; i++){
-            if ( !target.classList.contains(normalizedClasses[i]) ){
-                target.classList.add(normalizedClasses[i]);
-            }
+function hideThirdLevelMenuOnHoverToMain() {
+    const hideClass = 'hide';
+    const bannerForHide = document.querySelectorAll('.menu-burger__second');
+    const menuBurgerThird = document.querySelectorAll('.menu-burger__third'); // menu-burger__third
+
+    hideAll3rdLevelSubmenu();
+
+    if (menuBurgerThird.length){
+        for(let i=0;i<menuBurgerThird.length;i++){
+            if ( !menuBurgerThird[i].classList.contains(hideClass))
+                menuBurgerThird[i].classList.add(hideClass);
         }
     }
-}
-function findAndDeleteClassesToTarget(targetElementSelector, classesToRemove){
-    let target = document.querySelector(targetElementSelector);
-    if (target){
-        //console.log('im find him!')
-        for(let i=0; i<classesToRemove.length; i++){
-            if ( target.classList.contains(classesToRemove[i]) ){
-                target.classList.remove(classesToRemove[i]);
-            }
+
+    if (bannerForHide.length){
+        for(let i=0;i<bannerForHide.length;i++){
+            bannerForHide[i].classList.remove(hideClass);
         }
     }
-}
-function findAndDelete(targetElementSelector) {
-    let target = document.querySelector(targetElementSelector);
-    if (target){
-        target.remove();
-    }
-}
-function normalizeClassListRowString(str) {
-    return str.replace(/ {1,}/g," ").trim(); // .split(' ') .join('')
 }
 
 ///////////////////////////////////////
