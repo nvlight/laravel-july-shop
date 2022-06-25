@@ -14,9 +14,6 @@
 </head>
 
 <body class="">
-{{--<body class="body--overflow">--}}
-
-{{--<div class="overlay overlay--menu-burger j-overlay"></div>--}}
 
 <div class="wrapper">
     @yield('content')

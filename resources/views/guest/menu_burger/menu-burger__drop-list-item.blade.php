@@ -3,7 +3,7 @@
     <div class="menu-burger__wrap">
         <div class="menu-burger__first j-menu-inner-column">
             {{-- По клику должен исчезать 2-й уровень мобильного меню --}}
-            <button class="menu-burger__back j-menu-burger-mobile-back" type="button" aria-label="back-category">
+            <button class="menu-burger__back j-menu-burger-mobile-back menu-burger__back__hide2rd" type="button" aria-label="back-category">
                 <span class="menu-burger__back-arrow"></span>
             </button>
             <div class="menu-burger__title">

@@ -58,6 +58,8 @@ function burgerMenuClose(){
         hideSearchIconRedWhenBurgerMenuIsOpen();
 
         hideThirdLevelMenuOnHoverToMain();
+
+        show2levelMenu(); // восстанавливает внешний вид 2-ого уровня меню, который был измененен нажатием
     });
 }
 
@@ -175,6 +177,8 @@ function showSecondLevelBurgerMenu() {
         console.log('event: '+showSecondLevelBurgerMenu.name)
         findAndAddClassesToTarget(targetElement, classesToAdd);
     }
+
+    show2levelMenu();
 }
 
 /**
@@ -337,6 +341,7 @@ function secondLevelBurgerMenuItemClickHandler() {
                 const targetId = sel[i].dataset.thirdButtonOpenId; // data-third-button-open-id="189"
                 console.log('click: '+secondLevelBurgerMenuItemClickHandler.name + ' ' + targetId); //console.log(targetId);
 
+                const hideClass='hide';
                 const targetClass = ".third_level_menu---"+targetId;
                 const listForShow = document.querySelector(targetClass);
                 const bannerForHide = document.querySelector('.menu-burger__drop-list-item--active .menu-burger__second');
@@ -347,21 +352,30 @@ function secondLevelBurgerMenuItemClickHandler() {
                 }
 
                 // #1 при обычном разрешении >= 1024 пикселя нужно отобразить вместо баннера 3-й уровень меню
-                // спрятать все меню 3-го уровня, чтобы не показывались лишние
-                hideAll3rdLevelSubmenu();
-                // спрятать баннер блок-баннер
-                const hideClass='hide';
-                if (!bannerForHide.classList.contains(hideClass)){
-                    bannerForHide.classList.add(hideClass);
+                if (window.matchMedia("(min-width: 1024px)").matches) {
+                    // спрятать все меню 3-го уровня, чтобы не показывались лишние
+                    hideAll3rdLevelSubmenu();
+                    // спрятать баннер блок-баннер
+                    if (!bannerForHide.classList.contains(hideClass)){
+                        bannerForHide.classList.add(hideClass);
+                    }
+                    menuBurgerThird.classList.remove(hideClass); // показать враппер для менюшки
+                    listForShow.classList.remove(hideClass);     // показать нажатую менюшку
+                    return;
                 }
-                menuBurgerThird.classList.remove(hideClass); // показать враппер для менюшки
-                listForShow.classList.remove(hideClass);     // показать нажатую менюшку
 
                 // сам меню 2-го уровня тоже нужно скрыть!
                 // dd = document.querySelectorAll('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column')
                 //findAndAddClassesToTarget('.menu-burger__drop-list-item--active .menu-burger__first.j-menu-inner-column', 'hide');
 
                 // #2 при мобильном разрешении нужно 3-й уровень отобразить поверх 2-ого уровня
+                if (window.matchMedia("(max-width: 1023px)").matches) {
+                    //console.log('max-width: 1023px')
+                    menuBurgerThird.classList.remove(hideClass);
+                    listForShow.classList.remove(hideClass);
+
+                    hide2levelActiveMenu();
+                }
 
             });
         }
@@ -445,7 +459,7 @@ function stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu() {
  * Закрывает 2-й уровень мобильного бургера-меню по щелчку на кнопку назад
  */
 function hideMobileSecondLevelBurgerMenuByBackClick() {
-    const bSel = document.querySelectorAll('.menu-burger__back');
+    const bSel = document.querySelectorAll('.menu-burger__back.menu-burger__back__hide2rd');
     if (bSel.length){
         for(let i=0; i<bSel.length; i++){
             bSel[i].addEventListener('click', function (e){
@@ -498,6 +512,42 @@ function hideThirdLevelMenuOnHoverToMain() {
     }
 }
 
+/**
+ * Скрыть 2-й уровень меню, например это актуально при разрешении
+ */
+function hide2levelActiveMenu() {
+    findAndAddClassesToTarget('.menu-burger__drop-list-item--active .menu-burger__first','hide')
+}
+
+/**
+ * Показывает 2-й уровень меню, который был уже скрыт при мобильном разрешении
+ */
+function show2levelMenu() {
+    const q = document.querySelectorAll(".menu-burger__first.hide")
+    const hideClass ='hide';
+    if (q.length){
+        for(let i=0;i<q.length; i++){
+            q[i].classList.remove(hideClass)
+        }
+    }
+}
+
+/**
+ * Закрывает 2-й уровень мобильного бургера-меню по щелчку на кнопку назад
+ */
+function hideMobile3rdLevelBurgerMenuAndShow2rdByBackClick() {
+    const bSel = document.querySelectorAll('.menu-burger__back.menu-burger__back__hide3rd_back_to2rd');
+    if (bSel.length){
+        for(let i=0; i<bSel.length; i++){
+            bSel[i].addEventListener('click', function (e){
+                hideAll3rdLevelSubmenu();
+                show2levelMenu();
+                findAndAddClassesToTarget('.menu-burger__drop-list-item--active .menu-burger__third', 'hide');
+            })
+        }
+    }
+}
+
 ///////////////////////////////////////
 /**
  * Вызов всех обработчиков действий
@@ -509,5 +559,6 @@ burgerHighLevelMenuMouseOver();
 footerDropdownMenuHandler();
 burgerMenuMobileScrollAnimateHandler();
 secondLevelBurgerMenuItemClickHandler();
-stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu()
+stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu();
 hideMobileSecondLevelBurgerMenuByBackClick();
+hideMobile3rdLevelBurgerMenuAndShow2rdByBackClick();
