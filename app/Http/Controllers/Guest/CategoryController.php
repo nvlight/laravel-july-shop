@@ -47,6 +47,19 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $childCategories = ($category->children);
+        $result_message = count($childCategories) ? 1 : 0;
+
+        $categories = Category::where('parent_id', 0)->get();
+
+        if ($result_message){
+            return view('guest.index_with_children_categories', [
+                'categories' => $categories,
+                'parentCategory' => $category,
+                'childCategories' => $childCategories,
+            ]);
+        }
+
         return $category;
     }
 
