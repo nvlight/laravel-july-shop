@@ -7,7 +7,7 @@
     @endphp
 @endif
 <li class="menu-burger__main-list-item j-menu-main-item {{$additClass}}" data-menu-id="{{$category->id}}">
-    <a href="https://www.ildberries.ru/catalog/---{{$category->id}}"
+    <a href="{{route('guest.category.show', $category->id)}}"
        class="menu-burger__main-list-link menu-burger__main-list-link--{{$category->id}}">{{$category->title}}</a>
 </li>
 @if($category->svg1)

@@ -8,7 +8,7 @@
             </button>
             <div class="menu-burger__title">
                 <a class="menu-burger__title-link j-menu-drop-link menu-burger__title-name"
-                   href="https://www.ildberries.ru/catalog/---{{$category->id}}">{{$category->title}}</a>
+                   href="{{route('guest.category.show', $category->id)}}">{{$category->title}}</a>
             </div>
             {{-- тут идет список с линками или с выпадашками --}}
             <ul class="menu-burger__set">
@@ -19,7 +19,7 @@
                                 {{$child->title}}</span>
                         @else
                             <a class="menu-burger__link j-menu-drop-link"
-                               href="https://www.ildberries.ru/catalog/---{{$child->id}}">{{$child->title}}</a>
+                               href="{{route('guest.category.show', $child->id)}}">{{$child->title}}</a>
                         @endif
                     </li>
                 @endforeach
@@ -31,7 +31,7 @@
             <div class="j-menu-banner">
                 <div class="menu-burger__banner"><a
                         class="menu-burger__banner-link j-banner j-banner-click-stat j-banner-wba"
-                        href="/catalog/---{{$child->id}}"
+                        href="/catalog/{{$child->id}}"
                         target="_self" title="Игровые консоли" rel="true" data-banner-index="0">
                         <div class="menu-burger__banner-photo img-plug">
                             <img class="j-menu-image" alt=""

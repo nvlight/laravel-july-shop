@@ -5,13 +5,13 @@
             <span class="menu-burger__back-arrow"></span>
         </button>
         <a class="menu-burger__title-link j-menu-drop-link menu-burger__title-name"
-           href="https://www.wildberries.ru/catalog/{{$child->id}}">{{$child->title}}</a>
+           href="{{route('guest.category.show', $child->id)}}">{{$child->title}}</a>
     </div>
     <ul class="menu-burger__set">
         @foreach($childs3rd_level as $children)
             <li class="menu-burger__item">
                 <a class="menu-burger__link j-menu-drop-link"
-                   href="https://www.wildberries.ru/catalog/{{$children->id}}">{{$children->title}}
+                   href="{{route('guest.category.show', $children->id)}}">{{$children->title}}
                 </a>
             </li>
         @endforeach

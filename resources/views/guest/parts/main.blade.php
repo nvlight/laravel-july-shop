@@ -27,12 +27,42 @@
                                 </ul>
                             </div>
                         </div>
+{{--                        <div class="breadcrumbs">--}}
+{{--                            <div class="breadcrumbs__container">--}}
+{{--                                <ul class="breadcrumbs__list" itemscope="" itemtype="https://schema.org/BreadcrumbList"--}}
+{{--                                    data-jsv-df="">--}}
+{{--                                    <li class="breadcrumbs__item" itemprop="itemListElement" itemscope=""--}}
+{{--                                        itemtype="https://schema.org/ListItem"><a class="breadcrumbs__link" href="/"--}}
+{{--                                                                                  itemprop="item"> <span--}}
+{{--                                                itemprop="name">Главная</span> </a>--}}
+{{--                                        <meta itemprop="position" content="1">--}}
+{{--                                    </li>--}}
+{{--                                    <li data-jsv="#5872^#14039_#14040_#14041_" class="breadcrumbs__item"--}}
+{{--                                        itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">--}}
+{{--                                        <script type="jsv#14042_"></script>--}}
+{{--                                        <a class="breadcrumbs__link" href="/catalog/elektronika" itemscope=""--}}
+{{--                                           itemtype="https://schema.org/WebPage" itemprop="item"--}}
+{{--                                           itemid="/catalog/elektronika"> <span itemprop="name">Электроника</span> </a>--}}
+{{--                                        <script type="jsv/14042_"></script>--}}
+{{--                                        <meta itemprop="position" content="2">--}}
+{{--                                    </li>--}}
+{{--                                    <li data-jsv="/14041_/14040_#14043_#14044_" class="breadcrumbs__item"--}}
+{{--                                        itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">--}}
+{{--                                        <script type="jsv#14045_"></script>--}}
+{{--                                        <span itemprop="name">Ноутбуки и компьютеры</span>--}}
+{{--                                        <script type="jsv/14045_"></script>--}}
+{{--                                        <meta itemprop="position" content="3">--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
                 <div class="catalog-title-wrap"><h1 class="catalog-title">
                         Электроника</h1></div>
                 <p class="j-open-tecdoc-mobile selection-btn hide-desktop hide">Подбор запчастей</p>
                 <div class="catalog-start-content">
+
                     <div class="catalog-start-content__side">
                         <div>
                             <div class="menu-catalog">
@@ -195,7 +225,9 @@
                         </div>
                     </div>
 
-{{--                    @include('guest.parts.main.parts.catalog-start-content__main')--}}
+                    <div class="catalog-start-content__main">
+{{--                        @include('guest.parts.main_parts.catalog-start-content__main')--}}
+                    </div>
 
                 </div>
             </div>

@@ -412,7 +412,8 @@ function deleteClassForMobileBurgerMenuSecondLevel() {
 }
 
 /**
- * Мобильное разрешение, оставить переход по ссылке при щелчке на 1-й уровень меню и показать 2-й уровень меню
+ * Остановить переход по ссылке при щелчке на 1-й уровень меню и показать 2-й уровень меню (Мобильное разрешение)
+ *
  */
 function stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu() {
     const sel = 'menu-burger__main-list-item--subcategory';
@@ -422,37 +423,52 @@ function stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu() {
     for(let i=0; i<res.length; i++){
         //console.log('im here '+i)
         res[i].addEventListener('click', function (e) {
+
+            if (window.matchMedia("(min-width: 1024px)").matches) {
+               return;
+            }
+
             e.preventDefault();
-
-            // возникли две проблемы и 1 задача
-            // 1 нужно с каждым разом подчищать за собой все классы menu-burger__drop-list-item--active, которые я добавил
-            deleteClassForMobileBurgerMenuSecondLevel();
-
-            const classes = res[i].classList;
-            let find = null;
-            let regExp = new RegExp('menu-burger__main-list-link--'+"(\\d+)");
-            for(let i=0; i<classes.length; i++){
-                let rs = classes[i].match(regExp);
-                if (rs !== null){
-                    find = rs;
-                    break;
-                }
-            }
-            if (find){
-                //console.log('we find: '+find[1]);
-                const findId = find[1];
-
-                showSecondLevelBurgerMenu();
-
-                // теперь нужно найти класс с j-menu-drop-item-{нужный мне ид в findId} и добавить ему класс
-                // menu-burger__drop-list-item--active
-                findAndAddClassesToTarget('.j-menu-drop-item-'+findId, 'menu-burger__drop-list-item--active');
-
-                // 2 также при показе нужны скрыть баннер - :smirk
-                // 3 ну и показать стрелку тоже нужно
-            }
+            Show2LevelMenuDesktop(res[i])
         });
     }
+}
+
+/**
+ * По щелчку показать 2-й уровень меню (Десктоп разрешение)
+ * @param tagAasArray
+ * @constructor
+ */
+function Show2LevelMenuDesktop(tagAasArray) {
+    // возникли две проблемы и 1 задача
+    // 1 нужно с каждым разом подчищать за собой все классы menu-burger__drop-list-item--active, которые я добавил
+    deleteClassForMobileBurgerMenuSecondLevel();
+
+    const classes = tagAasArray.classList;
+    let find = null;
+    let regExp = new RegExp('menu-burger__main-list-link--'+"(\\d+)");
+    for(let i=0; i<classes.length; i++){
+        let rs = classes[i].match(regExp);
+        if (rs !== null){
+            find = rs;
+            break;
+        }
+    }
+    if (!find) {
+        return
+    }
+
+    //console.log('we find: '+find[1]);
+    const findId = find[1];
+
+    showSecondLevelBurgerMenu();
+
+    // теперь нужно найти класс с j-menu-drop-item-{нужный мне ид в findId} и добавить ему класс
+    // menu-burger__drop-list-item--active
+    findAndAddClassesToTarget('.j-menu-drop-item-'+findId, 'menu-burger__drop-list-item--active');
+
+    // 2 также при показе нужны скрыть баннер - :smirk
+    // 3 ну и показать стрелку тоже нужно
 }
 
 /**
