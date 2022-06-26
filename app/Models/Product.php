@@ -21,4 +21,8 @@ class Product extends Model
         'brand_id',
         'country_id',
     ];
+
+    public function images(){
+        return $this->hasMany(Gallery::class, 'parent_id');
+    }
 }

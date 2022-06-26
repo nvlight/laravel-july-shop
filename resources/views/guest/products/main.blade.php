@@ -1,6 +1,6 @@
 <main class="main left-bg" role="main" id="body-layout">
 
-{{--    @include('guest.parts.main.parts.lk-menu')--}}
+    {{--    @include('guest.parts.main.parts.lk-menu')--}}
 
     <div id="mainContainer" class="main__container">
         <div id="app">
@@ -34,8 +34,7 @@
                     </div>
 
                     <div class="catalog-start-content__main">
-{{--                        @include('guest.parts.main_parts.catalog-start-content__main')--}}
-                        @include('guest.parts.main_parts.tmp_main')
+                        @include('guest.products.list')
                     </div>
 
                 </div>

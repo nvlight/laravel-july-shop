@@ -15,6 +15,10 @@ class Category extends Model
     ];
 
     public function children(){
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->hasMany(Category::class, 'parent_id','id'); // id можно опустить
+    }
+
+    public function parent(){
+        return $this->hasOne(Category::class, 'id','parent_id');
     }
 }

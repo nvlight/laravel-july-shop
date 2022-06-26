@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Category;
 
@@ -40,6 +41,22 @@ class CategoryController extends Controller
     }
 
     /**
+     * Получить массив хлебных крошек!
+     * @param $current
+     * @return array
+     */
+    protected function getBreadcrumbs($current)
+    {
+        $breadCrumbs = [];
+
+        while($current){
+            $breadCrumbs[] = $current;
+            $current = $current->parent;
+        }
+        return array_reverse($breadCrumbs);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -47,20 +64,38 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $parentCategory = $category->parent;
         $childCategories = ($category->children);
-        $result_message = count($childCategories) ? 1 : 0;
+        $isChildCategories = count($childCategories) ? 1 : 0;
+
+        $breadCrumbs = $this->getBreadcrumbs($category);
+        //dd($breadCrumbs);
 
         $categories = Category::where('parent_id', 0)->get();
 
-        if ($result_message){
+        if ($isChildCategories){
             return view('guest.index_with_children_categories', [
                 'categories' => $categories,
-                'parentCategory' => $category,
+                'parentCategory' => $parentCategory,
+                'currentCategory' => $category,
                 'childCategories' => $childCategories,
+                'breadCrumbs' => $breadCrumbs,
             ]);
         }
 
-        return $category;
+        $products = Product::where('category_id', $category->id)
+            //->leftJoin('galleries', 'galleries.parent_id','=','products.id')
+            //->select('products.*', 'galleries.image', 'galleries.is_main')
+            ->get();
+
+        return view('guest.products.index', [
+            'categories' => $categories,
+            'parentCategory' => $parentCategory,
+            'currentCategory' => $category,
+            'childCategories' => $childCategories,
+            'breadCrumbs' => $breadCrumbs,
+            'products' => $products,
+        ]);
     }
 
     /**

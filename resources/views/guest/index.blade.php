@@ -5,7 +5,6 @@
 @section('content')
     @include('guest.parts.header')
     @include('guest.parts.nav')
-{{--    @include('guest.parts.main')--}}
     @include('guest.parts.main_parts.main_index')
     @include('guest.parts.footer')
 @endsection
