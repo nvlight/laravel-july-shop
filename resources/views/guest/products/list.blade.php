@@ -2186,7 +2186,7 @@
         </button>
     </div>
     {{-- если нажата кнопка - показать большие картинки, то сюда добавляется класс catalog-big-card   --}}
-    <div class="catalog-page__main new-size catalog-big-card">
+    <div class="catalog-page__main new-size">
         <div class="">
             <div class="inner-sorter">
                 <div id="catalog_sorter" class="sort">
