@@ -4,7 +4,7 @@
 
     <div id="mainContainer" class="main__container">
         <div id="app">
-            @include('guest.products.static_list')
+            @include('guest.products.list')
         </div>
         <button class="btn-quick-nav j-quicknav" type="button">К началу страницы</button>
     </div>

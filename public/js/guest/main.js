@@ -622,6 +622,9 @@ function resizeWindowHandler() {
     window.addEventListener('resize', showHideSlidemenuOverflowHandler);
 }
 
+/**
+ * Скрывает или показывает выпадающее меню для фильтра товаров
+ */
 function selectFilterMobileToggle(){
     const sel = '.select-filter';
     const f = document.querySelector(sel);
@@ -631,6 +634,28 @@ function selectFilterMobileToggle(){
     const tgClass = 'open'
     f.addEventListener('click', function (e) {
         f.classList.toggle(tgClass);
+    });
+}
+
+/**
+ * Сделать карточки товаров большими
+ * Мобильное разрешение
+ */
+function catalogBigCardByClick() {
+    const sel = ".sorter-mobile__card-refresh";
+    const f = document.querySelector(sel);
+    if (!f){
+        return;
+    }
+    f.addEventListener('click', function (e) {
+        const tgCardsSel = document.querySelector('.catalog-page__main')
+        if (!tgCardsSel){
+            return;
+        }
+        const addClass = 'catalog-big-card';
+        tgCardsSel.classList.toggle(addClass);
+        const tgClass = 'big';
+        e.target.classList.toggle(tgClass);
     });
 }
 
@@ -651,3 +676,4 @@ hideMobile3rdLevelBurgerMenuAndShow2rdByBackClick();
 resizeWindowHandler();
 showHideSlidemenuOverflowHandler();
 selectFilterMobileToggle();
+catalogBigCardByClick();
