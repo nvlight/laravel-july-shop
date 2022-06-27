@@ -2222,36 +2222,28 @@
                      data-jsv="#17905^/17905^">Фильтр
                 </div>
                 <div class="sorter-mobile__select">
-                    <div class="select-filter"
-                         data-link="class{merge: model.mobileSorterShown toggle='open'}">
+                    <div class="select-filter open">
                         <div class="select-filter__value"
-                             data-link="{on model.showMobileSorter}text{:model.sorterModel.textValue}"
-                             data-jsv="#17908^/17908^">По популярности
+                             data-link="{on model.showMobileSorter}text{:model.sorterModel.textValue}">По популярности
                         </div>
                         <div class="select-filter__list j-mobile-sorter-list">
                             <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['popular']}"
-                                 data-jsv="#17910^/17910^">По популярности
+                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['popular']}">По популярности
                             </div>
                             <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['rate']}"
-                                 data-jsv="#17911^/17911^">По рейтингу
+                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['rate']}">По рейтингу
                             </div>
                             <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['pricedown']}"
-                                 data-jsv="#17912^/17912^">По цене max
+                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['pricedown']}">По цене max
                             </div>
                             <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['priceup']}"
-                                 data-jsv="#17913^/17913^">По цене min
+                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['priceup']}">По цене min
                             </div>
                             <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['sale']}"
-                                 data-jsv="#17914^/17914^">По скидке
+                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['sale']}">По скидке
                             </div>
                             <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['newly']}"
-                                 data-jsv="#17915^/17915^">По обновлению
+                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['newly']}">По обновлению
                             </div>
                         </div>
                     </div>

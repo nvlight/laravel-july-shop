@@ -622,6 +622,18 @@ function resizeWindowHandler() {
     window.addEventListener('resize', showHideSlidemenuOverflowHandler);
 }
 
+function selectFilterMobileToggle(){
+    const sel = '.select-filter';
+    const f = document.querySelector(sel);
+    if (!f){
+        return;
+    }
+    const tgClass = 'open'
+    f.addEventListener('click', function (e) {
+        f.classList.toggle(tgClass);
+    });
+}
+
 ///////////////////////////////////////
 /**
  * Вызов всех обработчиков действий
@@ -638,3 +650,4 @@ hideMobileSecondLevelBurgerMenuByBackClick();
 hideMobile3rdLevelBurgerMenuAndShow2rdByBackClick();
 resizeWindowHandler();
 showHideSlidemenuOverflowHandler();
+selectFilterMobileToggle();
