@@ -90,7 +90,7 @@
     .header::after {
         height: 16px;
         border-radius: 0;
-        /*посмотрим проканает ли :smirk*/
+        /* todo посмотрим проканает ли :smirk канает так типа, но при прокрутке вверху что-то идет не так - пофиксить*/
         background: transparent;
     }
     .header__top {

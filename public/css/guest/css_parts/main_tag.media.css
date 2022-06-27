@@ -138,8 +138,28 @@
     .catalog-page .product-card .product-card__order .btn-main-sm {
         padding: 5px 20px 7px;
     }
+
 }
 /* min-width: 1024px */
+
+@media (max-width: 1023.98px){
+    .catalog-page .inner-sorter {
+        display: none;
+    }
+    .catalog-page .sorter-mobile {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+    .catalog-page .catalog-page__side {
+        width: 100%;
+        margin-right: 0;
+    }
+    .catalog-page .catalog-page__filters {
+        display: none;
+    }
+}
+
 @media (min-width: 1244px){
     .catalog-page .product-card-list {
         -webkit-box-pack: justify;

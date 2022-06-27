@@ -564,6 +564,64 @@ function hideMobile3rdLevelBurgerMenuAndShow2rdByBackClick() {
     }
 }
 
+/**
+ * Add hide class for .sidemenu-overflow > div
+ */
+function hideSlidemenuOverflow() {
+    const s = document.querySelector('.sidemenu-overflow > div');
+    if (!s){
+        return;
+    }
+    const tgClass = 'hide'
+    if ( !s.classList.contains(tgClass)){
+        s.classList.add(tgClass)
+    }
+}
+
+/**
+ * Remove hide class for .sidemenu-overflow > div
+ */
+function showSlidemenuOverflow() {
+    const s = document.querySelector('.sidemenu-overflow > div');
+    if (!s){
+        return;
+    }
+    const tgClass = 'hide'
+    if ( s.classList.contains(tgClass)){
+        s.classList.remove(tgClass)
+    }
+}
+
+/**
+ * В зависимости от ширины окна, спрятать или показать lidemenuOverflow
+ */
+function showHideSlidemenuOverflowHandler() {
+    const width = document.documentElement.clientWidth;
+    if (width >= 1024){
+        showSlidemenuOverflow();
+    }else{
+        hideSlidemenuOverflow()
+    }
+}
+
+/**
+ * Перехватить изменение размера окна и выполнить нужные действия
+ */
+function resizeWindowHandler() {
+
+    function displayWindowSize(){
+        const w = document.documentElement.clientWidth;
+        const h = document.documentElement.clientHeight;
+
+        // Display result inside a div element
+        console.log("Width: " + w + ", " + "Height: " + h);
+    }
+
+    // Attaching the event listener function to window's resize event
+    window.addEventListener("resize", displayWindowSize);
+    window.addEventListener('resize', showHideSlidemenuOverflowHandler);
+}
+
 ///////////////////////////////////////
 /**
  * Вызов всех обработчиков действий
@@ -578,3 +636,4 @@ secondLevelBurgerMenuItemClickHandler();
 stopTagAPropogationForMenuBurgerMobile1stLevelAndShow2LevelMenu();
 hideMobileSecondLevelBurgerMenuByBackClick();
 hideMobile3rdLevelBurgerMenuAndShow2rdByBackClick();
+resizeWindowHandler();

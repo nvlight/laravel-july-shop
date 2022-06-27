@@ -599,3 +599,181 @@
 .catalog-page .product-card.hover {
     z-index: 3;
 }
+
+
+.catalog-page .inner-sorter {
+    padding: 8px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.catalog-page .sort {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 0;
+}
+.catalog-page .card-sizes {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.catalog-page .sort-item {
+    font-size: 14px;
+    line-height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 1px dashed #8b8b8b;
+    text-transform: capitalize;
+    color: #242424;
+    margin-right: 20px;
+}
+.catalog-page .sort-item.sort_select {
+    color: #cb11ab;
+    border-color: #cb11ab;
+}
+.catalog-page .sort > span {
+    font-size: 14px;
+    line-height: 20px;
+    margin-right: 20px;
+    color: #a7a7a7;
+}
+.catalog-page .card-sizes-link--c246x328, .catalog-page .card-sizes-link--c324x432, .catalog-page .card-sizes-link--c516x688 {
+    background-image: url(data:image/svg+xml,%3Csvg%20width%3D%2241%22%20height%3D%2218%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20x%3D%2222%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2228.6%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2235.203%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2235.203%22%20y%3D%226.6%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2228.6%22%20y%3D%226.6%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%226.6%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2222%22%20y%3D%2213.199%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2228.6%22%20y%3D%2213.199%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2235.203%22%20y%3D%2213.199%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20x%3D%226.6%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20x%3D%2213.203%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20x%3D%2213.203%22%20y%3D%226.6%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20x%3D%226.6%22%20y%3D%226.6%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20y%3D%226.6%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20y%3D%2213.199%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20x%3D%226.6%22%20y%3D%2213.199%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20x%3D%2213.203%22%20y%3D%2213.199%22%20width%3D%224.8%22%20height%3D%224.8%22%20rx%3D%222.4%22%20fill%3D%22%23E8E8E8%22%2F%3E%3C%2Fsvg%3E);
+    background-position: 0 0;
+}
+.catalog-page .card-sizes-link--big, .catalog-page .card-sizes-link--large {
+    background-image: url(data:image/svg+xml,%3Csvg%20width%3D%2245%22%20height%3D%2218%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20x%3D%2210.203%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20x%3D%2210.203%22%20y%3D%2210.199%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20y%3D%2210.199%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23E8E8E8%22%2F%3E%3Crect%20x%3D%2226%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2236.203%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2236.203%22%20y%3D%2210.199%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2226%22%20y%3D%2210.199%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23CB11AB%22%2F%3E%3C%2Fsvg%3E);
+    background-position: 0 0;
+}
+.catalog-page .card-sizes-link--c246x328.active, .catalog-page .card-sizes-link--c324x432.active, .catalog-page .card-sizes-link--c516x688.active {
+    background-position-x: 19px;
+}
+.catalog-page .card-sizes-link ~ .card-sizes-link {
+    margin-left: 12px;
+}
+.catalog-page .card-sizes-link {
+    display: inline-block;
+    vertical-align: top;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+.catalog-page .sorter-mobile {
+    display: none;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.catalog-page .show-numb {
+    position: relative;
+}
+.catalog-page .sorter-mobile .sorter-mobile__filter {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    font-size: 0;
+    background: url(data:image/svg+xml,%3Csvg%20width%3D%2222%22%20height%3D%2218%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M10.436%2014.093H2.07c-.284%200-.556-.115-.757-.32a1.102%201.102%200%20010-1.543c.2-.205.473-.32.757-.32h8.365a4.005%204.005%200%20011.41-2.098%203.882%203.882%200%20012.368-.808c.855%200%201.686.284%202.368.808a4.005%204.005%200%20011.41%202.099h1.937c.284%200%20.556.114.757.32a1.102%201.102%200%20010%201.543c-.2.204-.473.32-.757.32h-1.936a4.005%204.005%200%2001-1.411%202.098%203.882%203.882%200%2001-2.368.808%203.882%203.882%200%2001-2.367-.808%204.005%204.005%200%2001-1.411-2.099zM16%2013.002c0-.36-.105-.712-.301-1.01a1.794%201.794%200%2000-.801-.67%201.756%201.756%200%2000-1.946.394%201.85%201.85%200%2000-.387%201.982c.135.332.364.617.657.816a1.762%201.762%200%20002.255-.226c.335-.34.523-.804.523-1.286zM4.007%206.09H2.071c-.284%200-.556-.115-.757-.32a1.102%201.102%200%20010-1.544c.2-.204.473-.32.757-.32h1.936a4.004%204.004%200%20011.411-2.098A3.882%203.882%200%20017.786%201c.854%200%201.685.284%202.367.808a4.005%204.005%200%20011.411%202.099h8.365c.284%200%20.556.115.757.32a1.102%201.102%200%20010%201.543c-.2.205-.473.32-.757.32h-8.365a4.005%204.005%200%2001-1.41%202.098%203.882%203.882%200%2001-2.368.808%203.882%203.882%200%2001-2.368-.808%204.004%204.004%200%2001-1.41-2.098zm5.564-1.092c0-.36-.104-.711-.3-1.01a1.793%201.793%200%2000-.802-.67%201.755%201.755%200%2000-1.946.394%201.85%201.85%200%2000-.387%201.982c.135.333.364.617.658.817a1.762%201.762%200%20002.254-.227c.335-.34.523-.803.523-1.286z%22%20fill%3D%22%23CB11AB%22%20stroke%3D%22%23fff%22%20stroke-width%3D%22.2%22%2F%3E%3C%2Fsvg%3E) center no-repeat;
+    background-size: 20px 16px;
+    margin-right: -5px;
+    -webkit-box-ordinal-group: 4;
+    -ms-flex-order: 3;
+    order: 3;
+}
+.catalog-page .sorter-mobile .sorter-mobile__select {
+    margin: 0 auto;
+    -webkit-box-ordinal-group: 3;
+    -ms-flex-order: 2;
+    order: 2;
+}
+.catalog-page .sorter-mobile .sorter-mobile__card-refresh {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    font-size: 0;
+    background: url(data:image/svg+xml,%3Csvg%20width%3D%2218%22%20height%3D%2218%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2210.2%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20x%3D%2210.2%22%20y%3D%2210.2%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23CB11AB%22%2F%3E%3Crect%20y%3D%2210.2%22%20width%3D%227.8%22%20height%3D%227.8%22%20rx%3D%223.9%22%20fill%3D%22%23CB11AB%22%2F%3E%3C%2Fsvg%3E) center no-repeat;
+    background-size: 18px 18px;
+    margin-left: -7px;
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+}
+.catalog-page .select-filter {
+    position: relative;
+    z-index: 4;
+}
+.catalog-page .select-filter .select-filter__list {
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-box-shadow: 0 0 20px rgba(0,0,0,.1);
+    box-shadow: 0 0 20px rgba(0,0,0,.1);
+    border-radius: 8px;
+    background-color: #fff;
+    z-index: 1;
+    padding: 4px 0;
+    pointer-events: none;
+    -webkit-transition: opacity .3s ease 0s;
+    transition: opacity .3s ease 0s;
+}
+.catalog-page .select-filter .select-filter__value {
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 6px 0;
+}
+.catalog-page .select-filter .select-filter__value::after {
+    content: '';
+    display: inline-block;
+    border: 4px solid transparent;
+    border-top: 0 solid transparent;
+    border-bottom: 5px solid #242424;
+    margin-left: 5px;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -webkit-transition: -webkit-transform .3s ease-in;
+    transition: -webkit-transform .3s ease-in;
+    transition: transform .3s ease-in;
+    transition: transform .3s ease-in,-webkit-transform .3s ease-in;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+}
+.catalog-page .select-filter.open .select-filter__value::after {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+}
+.catalog-page .select-filter.open .select-filter__list {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 3;
+}
