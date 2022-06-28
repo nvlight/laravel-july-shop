@@ -1,0 +1,124 @@
+.catalog-page .catalog-page__filters {
+    font-size: 12px;
+    margin: 24px 0 0;
+}
+.catalog-page .filter {
+    position: relative;
+    margin-bottom: 24px;
+    display: none;
+}
+.catalog-page .filter.show {
+    display: block;
+}
+.catalog-page .filter .filter__title {
+    word-break: break-word;
+    position: relative;
+    padding-right: 15px;
+    cursor: pointer;
+    font-size: 0;
+}
+.catalog-page .filter .filter__name {
+    font-size: 16px;
+    line-height: 22px;
+    color: #242424;
+    font-weight: 700;
+    margin-right: 12px;
+    vertical-align: middle;
+}
+.catalog-page .filter .filter__btn-reset {
+    font-size: 14px;
+    line-height: 20px;
+    border-bottom: 1px dashed #8b8b8b;
+    color: #8b8b8b;
+    position: relative;
+    vertical-align: middle;
+    display: none;
+}
+.catalog-page .filter .filter__title::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: -1px;
+    top: 8px;
+    border-left: 2px solid #d5d5d5;
+    border-top: 2px solid #d5d5d5;
+    width: 8px;
+    height: 8px;
+
+    /* todo - размер этих стрелочек все еще не удалось победить, потом найти причину и показать стрелкам их место! */
+    width: 6px;
+    height: 6px;
+
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+    -webkit-transition: all .5s ease 0s;
+    transition: all .5s ease 0s;
+}
+.catalog-page .filter.filter-active .filter__title::after {
+    /* -webkit-transform: rotate(45deg); */
+    transform: rotate(45deg);
+    top: 11px;
+}
+.catalog-page .filter .filter__fieldset {
+    overflow-y: scroll;
+    scrollbar-color: #d5d5d5 transparent;
+    scrollbar-width: thin;
+    margin-top: 12px;
+    width: 100%;
+    position: relative;
+}
+.catalog-page .filter .filter__fieldset--limited {
+    max-height: 226px;
+}
+.catalog-page .filter .filter__item {
+    color: #242424;
+}
+.catalog-page .filter .filter__item--checkbox, .catalog-page .filter .filter__item--radio {
+    font-size: 16px;
+    line-height: 22px;
+    display: block;
+    word-break: break-word;
+    position: relative;
+    padding-left: 34px;
+    cursor: pointer;
+}
+.catalog-page .filter .filter__item--radio::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid #d5d5d5;
+}
+.catalog-page .filter .filter__item + .filter__item:not(.filter__item--color), .catalog-page .filter .filter__item ~ .filter__item:not(.filter__item--color) {
+    margin-top: 12px;
+}
+abbr, fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+.catalog-page .filter .filter__btn-reset.show {
+    display: inline-block;
+}
+.catalog-page .filter .filter__item--radio.selected::before {
+    border: 2px solid #cb11ab;
+}
+.catalog-page .filter .filter__item--radio.selected::after {
+    content: '';
+    display: block;
+}
+.catalog-page .filter .filter__item--radio::after {
+    background: #cb11ab;
+    border-radius: 50%;
+    height: 10px;
+    left: 6px;
+    position: absolute;
+    top: 6px;
+    width: 10px;
+}

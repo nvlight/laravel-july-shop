@@ -22,6 +22,7 @@
 
 <script src="{{asset('js/guest/helpers.js')}}"></script>
 <script src="{{asset('js/guest/main.js')}}"></script>
+<script src="{{asset('js/guest/product_filter.js')}}"></script>
 
 </body>
 </html>
