@@ -80,6 +80,10 @@
     .menu-burger__close {
         left: calc(285px + 9px);
     }
+
+    .simple-menu__item {
+        margin-right: 28px;
+    }
 }
 @media (max-width: 1023.98px) {
     .header {

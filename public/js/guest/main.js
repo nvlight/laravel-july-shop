@@ -136,6 +136,7 @@ function burgerHighLevelMenuMouseOverHandler(e) {
 
     // todo - 2.2 :before-картинку категории. Похоже лишне, можно просто добавить на ховер картинку через css
 }
+
 /**
  * После наведения на элемент основного бергера-меню, сначала удаляет все цвета, потом добавляет цвет
  * по mouseover элемента (работает примерно как ховер ul>li>a )
@@ -731,6 +732,13 @@ function hideCatalogWithBigImageInMobile() {
 }
 
 /**
+ * Является ли показ карточки товаров большими для десктопного разрешения
+ */
+function isShowBigCardEnabledInDesktop() {
+    return bigCardIconStatus;
+}
+
+/**
  * Делает показ иконки карточек товара большими
  * Десктопное разрешение
  */
@@ -758,13 +766,6 @@ function setBigCardIconDisabledForDesktop() {
     findAndAddClassesToTarget(smallIconSel, addClass);
 
     bigCardIconStatus = false;
-}
-
-/**
- * Является ли показ карточки товаров большими для десктопного разрешения
- */
-function isShowBigCardEnabledInDesktop() {
-    return bigCardIconStatus;
 }
 
 /**
@@ -807,11 +808,12 @@ function showCatalogWithBigImageInDesktop() {
     findAndDeleteClassesToTarget(smallIconSel, [addClass])
     findAndAddClassesToTarget(bigIconSel, addClass);
 }
+
 /**
  * Выполняет скрытие больших карточек товаров
  * десктопное разрешение
  */
-function hidewCatalogWithBigImageInDesktop() {
+function hideCatalogWithBigImageInDesktop() {
     const addClass = 'active';
     const smallIconSel = '.card-sizes-link.card-sizes-link--c516x688'; // .active
     const bigIconSel   = '.card-sizes-link.card-sizes-link--big';
@@ -829,7 +831,7 @@ function setRightBigCardIconStatus() {
         showCatalogWithBigImageInDesktop();
     }else{
         hideCatalogWithBigImageInMobile();
-        hidewCatalogWithBigImageInDesktop();
+        hideCatalogWithBigImageInDesktop();
     }
 }
 
@@ -865,7 +867,93 @@ function clickDoSmallCardInDesktop() {
     });
 }
 
-///////////////////////////////////////
+/**
+ * При наведении на карточку товара добавляет класс hover - обработчик-исполнитель
+ */
+function productCardMouseOverHandle(e) {
+    //console.log('hovered');
+    //console.log('e: '+e);
+    const classToAdd = 'hover';
+
+    if (!window.matchMedia("(min-width: 1024px)").matches) {
+        return;
+    }
+
+    // first, we need to clear all active classes
+    removeProductCardsHoverClass();
+
+    // second, need to add active class to closest .product-card
+    const tg = e.target;
+    //console.log('e.target: '+e.target);
+    //console.log(e.target);
+
+    const sel = '.product-card';
+    const card = tg.closest(sel);
+    if (!card){
+        return;
+    }
+    if ( !card.classList.contains(classToAdd)){
+        card.classList.add(classToAdd);
+    }
+}
+
+/**
+ * При наведении на карточку товара добавляет класс hover - обработчик
+ */
+function productCardMouseOverHandler() {
+    let sel = document.querySelectorAll(".product-card");
+    if (!sel.length){
+        return;
+    }
+    for(let i=0; i<sel.length; i++){
+        sel[i].addEventListener('mouseover', productCardMouseOverHandle);
+    }
+}
+
+/**
+ * Очистить все за ховеренные продукты
+ */
+function removeProductCardsHoverClass() {
+    const tgClass = 'hover';
+    const sel = document.querySelectorAll(".product-card.hover");
+    if (!sel.length){
+        return;
+    }
+    for(let i=0; i<sel.length; i++){
+        if (sel[i].classList.contains(tgClass)){
+            sel[i].classList.remove(tgClass);
+        }
+    }
+}
+
+/**
+ * Если под мышкой не находится карточка товара и ширина >1024 очищается все заховеренные продукты - обработчик-исполнитель
+ * @param e
+ */
+function removeProductCardsHoveredOnMouseHoverAnatherPlaceHandle(e){
+
+    if (!window.matchMedia("(min-width: 1024px)").matches) {
+        return;
+    }
+
+    const tg = e.target;
+    const sel = '.product-card';
+    const card = tg.closest(sel);
+    if (!card){
+        removeProductCardsHoverClass();
+    }
+}
+
+/**
+ * Если под мышкой не находится карточка товара и ширина >1024 очищается все заховеренные продукты - обработчик
+ */
+function removeProductCardsHoveredOnMouseHoverAnatherPlaceHandler() {
+    document.addEventListener('mouseover', removeProductCardsHoveredOnMouseHoverAnatherPlaceHandle);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 /**
  * Вызов всех обработчиков действий
  */
@@ -885,3 +973,5 @@ selectFilterMobileToggle();
 catalogBigCardEnabledClickHandler();
 clickDoBigCardInDesktop();
 clickDoSmallCardInDesktop();
+productCardMouseOverHandler();
+removeProductCardsHoveredOnMouseHoverAnatherPlaceHandler();
