@@ -1,6 +1,7 @@
 console.log('guest - main.js');
 let burgerMenuLastNormalLi = ""; // на mouseover - чтобы закрасить последний нормальный li нужным цветом!
 let currentWindowPageYOffset = 0;
+let bigCardIconStatus = false;
 
 /**
  * Бургер-меню - открыть
@@ -32,6 +33,7 @@ function burgerMenuOpen(){
         showSearchIconRedWhenBurgerMenuIsOpen()
     });
 }
+
 /**
  * Бургер-меню - закрыть
  */
@@ -620,6 +622,7 @@ function resizeWindowHandler() {
     // Attaching the event listener function to window's resize event
     window.addEventListener("resize", displayWindowSize);
     window.addEventListener('resize', showHideSlidemenuOverflowHandler);
+    window.addEventListener('resize', setRightBigCardIconStatus);
 }
 
 /**
@@ -638,10 +641,18 @@ function selectFilterMobileToggle(){
 }
 
 /**
- * Сделать карточки товаров большими
- * Мобильное разрешение
+ * Обработчик нажатия на кнопку показа карточек товаров (сделать большими или маленькими)
+ * мобильное разрешение
  */
-function catalogBigCardByClick() {
+function catalogBigCardEnabledClickHandler() {
+    catalogBigCardEnabledClickHandle();
+}
+
+/**
+ * Обработчик (исполнитель) нажатия на кнопку показа карточек товаров (сделать большими или маленькими)
+ * мобильное разрешение
+ */
+function catalogBigCardEnabledClickHandle(){
     const sel = ".sorter-mobile__card-refresh";
     const f = document.querySelector(sel);
     if (!f){
@@ -656,6 +667,201 @@ function catalogBigCardByClick() {
         tgCardsSel.classList.toggle(addClass);
         const tgClass = 'big';
         e.target.classList.toggle(tgClass);
+
+        if (bigCardIconStatus){
+            bigCardIconStatus = false;
+        }else{
+            bigCardIconStatus = true;
+        }
+        setRightBigCardIconStatus();
+    });
+}
+
+/**
+ * Является ли показ карточки товаров большими для мобильного разрешения
+ */
+function isShowBigCardEnabledInMobile() {
+    return bigCardIconStatus;
+}
+
+/**
+ * Выполняет показ больших карточек товаров, из состояния показа маленьких
+ * мобильное разрешение
+ */
+function showCatalogWithBigImageInMobile() {
+    const sel = ".sorter-mobile__card-refresh";
+    const addClass = 'catalog-big-card';
+    const tgCardsSel = document.querySelector('.catalog-page__main')
+    const f = document.querySelector(sel);
+    const tgClass = 'big';
+
+    if (!f || !tgCardsSel){
+        return;
+    }
+
+    if (!tgCardsSel.classList.contains(addClass)){
+        tgCardsSel.classList.add(addClass);
+    }
+    if (!f.classList.contains(tgClass)){
+        f.classList.add(tgClass);
+    }
+}
+
+/**
+ * Скрывает показ больших карточек товаров, возвращая его в показ маленьких
+ * мобильное разрешение
+ */
+function hideCatalogWithBigImageInMobile() {
+    const sel = ".sorter-mobile__card-refresh";
+    const addClass = 'catalog-big-card';
+    const tgCardsSel = document.querySelector('.catalog-page__main')
+    const f = document.querySelector(sel);
+    const tgClass = 'big';
+
+    if (!f || !tgCardsSel){
+        return;
+    }
+
+    if (tgCardsSel.classList.contains(addClass)){
+        tgCardsSel.classList.remove(addClass);
+    }
+    if (f.classList.contains(tgClass)){
+        f.classList.remove(tgClass);
+    }
+}
+
+/**
+ * Делает показ иконки карточек товара большими
+ * Десктопное разрешение
+ */
+function setBigCardIconEnabledForDesktop() {
+    const smallIconSel = '.card-sizes-link.card-sizes-link--c516x688'; // .active
+    const bigIconSel   = '.card-sizes-link.card-sizes-link--big';
+    const addClass = 'active';
+
+    findAndDeleteClassesToTarget(smallIconSel, [addClass])
+    findAndAddClassesToTarget(bigIconSel, addClass);
+
+    bigCardIconStatus = true;
+}
+
+/**
+ * Делает показ иконки карточек товара маленькими
+ * Десктопное разрешение
+ */
+function setBigCardIconDisabledForDesktop() {
+    const addClass = 'active';
+    const smallIconSel = '.card-sizes-link.card-sizes-link--c516x688'; // .active
+    const bigIconSel   = '.card-sizes-link.card-sizes-link--big';
+
+    findAndDeleteClassesToTarget(bigIconSel, [addClass])
+    findAndAddClassesToTarget(smallIconSel, addClass);
+
+    bigCardIconStatus = false;
+}
+
+/**
+ * Является ли показ карточки товаров большими для десктопного разрешения
+ */
+function isShowBigCardEnabledInDesktop() {
+    return bigCardIconStatus;
+}
+
+/**
+ * Устанавливает активную иконку показа карточки товара исходя из состояния на мобильном разрешении
+ * для десктопного разрешения
+ */
+function setRightBigCardIconStatusForDesktop() {
+    const addClass = 'active';
+    const smallIconSel = '.card-sizes-link.card-sizes-link--c516x688'; // .active
+    const bigIconSel   = '.card-sizes-link.card-sizes-link--big';
+    if (isShowBigCardEnabledInMobile()){
+        findAndDeleteClassesToTarget(smallIconSel, [addClass])
+        findAndAddClassesToTarget(bigIconSel, addClass);
+    }else{
+        findAndDeleteClassesToTarget(bigIconSel, [addClass])
+        findAndAddClassesToTarget(smallIconSel, addClass);
+    }
+}
+
+/**
+ * Устанавливает активную иконку показа карточки товара исходя из состояния на десктопном разрешении
+ * для мобильного разрешения
+ */
+function setRightBigCardIconStatusForMobile() {
+    if (isShowBigCardEnabledInDesktop()){
+        showCatalogWithBigImageInMobile();
+    }else{
+        hideCatalogWithBigImageInMobile();
+    }
+}
+
+/**
+ * Выполняет показ больших карточек товаров, из состояния показа маленьких
+ * десктопное разрешение
+ */
+function showCatalogWithBigImageInDesktop() {
+    const addClass = 'active';
+    const smallIconSel = '.card-sizes-link.card-sizes-link--c516x688'; // .active
+    const bigIconSel   = '.card-sizes-link.card-sizes-link--big';
+    findAndDeleteClassesToTarget(smallIconSel, [addClass])
+    findAndAddClassesToTarget(bigIconSel, addClass);
+}
+/**
+ * Выполняет скрытие больших карточек товаров
+ * десктопное разрешение
+ */
+function hidewCatalogWithBigImageInDesktop() {
+    const addClass = 'active';
+    const smallIconSel = '.card-sizes-link.card-sizes-link--c516x688'; // .active
+    const bigIconSel   = '.card-sizes-link.card-sizes-link--big';
+    findAndDeleteClassesToTarget(bigIconSel, [addClass])
+    findAndAddClassesToTarget(smallIconSel, addClass);
+}
+
+/**
+ * Устанавливает активную иконку показа карточки товара исходя из состояния на мобильном разрешении
+ * для десктопного и мобильного разрешения
+ */
+function setRightBigCardIconStatus() {
+    if (bigCardIconStatus){
+        showCatalogWithBigImageInMobile();
+        showCatalogWithBigImageInDesktop();
+    }else{
+        hideCatalogWithBigImageInMobile();
+        hidewCatalogWithBigImageInDesktop();
+    }
+}
+
+/**
+ * Обработчик нажатия на кнопку - сделать карточки товаров большими
+ */
+function clickDoBigCardInDesktop() {
+    const sel = '.card-sizes-link.card-sizes-link--big'
+    let find = document.querySelector(sel);
+    if (!find){
+        return;
+    }
+    find.addEventListener('click', function (e) {
+        e.preventDefault();
+        bigCardIconStatus = true;
+        setRightBigCardIconStatus();
+    });
+}
+
+/**
+ * Обработчик нажатия на кнопку - сделать карточки товаров маленькими
+ */
+function clickDoSmallCardInDesktop() {
+    const sel = '.card-sizes-link.card-sizes-link--c516x688';
+    let find = document.querySelector(sel);
+    if (!find){
+        return;
+    }
+    find.addEventListener('click', function (e) {
+        e.preventDefault();
+        bigCardIconStatus = false;
+        setRightBigCardIconStatus();
     });
 }
 
@@ -676,4 +882,6 @@ hideMobile3rdLevelBurgerMenuAndShow2rdByBackClick();
 resizeWindowHandler();
 showHideSlidemenuOverflowHandler();
 selectFilterMobileToggle();
-catalogBigCardByClick();
+catalogBigCardEnabledClickHandler();
+clickDoBigCardInDesktop();
+clickDoSmallCardInDesktop();
