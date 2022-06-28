@@ -1,22 +1,27 @@
-let filterShowHideList = ['.filter__title', ];
+let filterShowHideList = ['.render_type_7', '.render_type_1', '.render_type_5', '.render_type_6'];
 
 /**
  * Для всех фильтров-выпадашек сделать скрытие/показ
  */
 function filtersShowHide() {
-    for(let i=0; i<filterShowHideList.length; i++){
-        let filter = document.querySelectorAll(filterShowHideList[i]);
+    const sel = filterShowHideList; // selector for all
+    let filter = document.querySelectorAll(sel);
+    if (!filter.length){
+        return;
+    }
 
+    for(let i=0; i<filter.length; i++){
         filter[i].addEventListener('click', function (e) {
             //console.log(e.target);
             const filterClassName = 'filter__btn-reset';
-            if (e.target.tagName === 'BUTTON' && e.target.classList.contains(filterClassName)) {
+            const target = e.target.parentElement;
+            if (target.tagName === 'BUTTON' && target.classList.contains(filterClassName)) {
                 console.log('filter__btn-reset clicked!');
                 return;
             }
 
             // j-filter-container filter filterblock render_type_7 fdlvr show filter-active
-            const filterContainer = e.target.closest('.j-filter-container');
+            const filterContainer = target.closest('.j-filter-container');
             if (!filterContainer){
                 return;
             }
