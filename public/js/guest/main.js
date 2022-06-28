@@ -739,65 +739,6 @@ function isShowBigCardEnabledInDesktop() {
 }
 
 /**
- * Делает показ иконки карточек товара большими
- * Десктопное разрешение
- */
-function setBigCardIconEnabledForDesktop() {
-    const smallIconSel = '.card-sizes-link.card-sizes-link--c516x688'; // .active
-    const bigIconSel   = '.card-sizes-link.card-sizes-link--big';
-    const addClass = 'active';
-
-    findAndDeleteClassesToTarget(smallIconSel, [addClass])
-    findAndAddClassesToTarget(bigIconSel, addClass);
-
-    bigCardIconStatus = true;
-}
-
-/**
- * Делает показ иконки карточек товара маленькими
- * Десктопное разрешение
- */
-function setBigCardIconDisabledForDesktop() {
-    const addClass = 'active';
-    const smallIconSel = '.card-sizes-link.card-sizes-link--c516x688'; // .active
-    const bigIconSel   = '.card-sizes-link.card-sizes-link--big';
-
-    findAndDeleteClassesToTarget(bigIconSel, [addClass])
-    findAndAddClassesToTarget(smallIconSel, addClass);
-
-    bigCardIconStatus = false;
-}
-
-/**
- * Устанавливает активную иконку показа карточки товара исходя из состояния на мобильном разрешении
- * для десктопного разрешения
- */
-function setRightBigCardIconStatusForDesktop() {
-    const addClass = 'active';
-    const smallIconSel = '.card-sizes-link.card-sizes-link--c516x688'; // .active
-    const bigIconSel   = '.card-sizes-link.card-sizes-link--big';
-    if (isShowBigCardEnabledInMobile()){
-        findAndDeleteClassesToTarget(smallIconSel, [addClass])
-        findAndAddClassesToTarget(bigIconSel, addClass);
-    }else{
-        findAndDeleteClassesToTarget(bigIconSel, [addClass])
-        findAndAddClassesToTarget(smallIconSel, addClass);
-    }
-}
-
-/**
- * Устанавливает активную иконку показа карточки товара исходя из состояния на десктопном разрешении
- * для мобильного разрешения
- */
-function setRightBigCardIconStatusForMobile() {
-    if (isShowBigCardEnabledInDesktop()){
-        showCatalogWithBigImageInMobile();
-    }else{
-        hideCatalogWithBigImageInMobile();
-    }
-}
-
-/**
  * Выполняет показ больших карточек товаров, из состояния показа маленьких
  * десктопное разрешение
  */
