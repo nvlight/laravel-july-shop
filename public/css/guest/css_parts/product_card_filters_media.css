@@ -1,0 +1,5 @@
+@media (max-width: 1023.98px){
+    .catalogFilterShow > :not(.filters-mobile) {
+        display: none !important;
+    }
+}

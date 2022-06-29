@@ -13,7 +13,11 @@
 
 </head>
 
-<body class="">
+{{-- .body--overflow.catalogFilterShow - эти 2 класса нужно добавить в боди, когда открыт мобильный фильтр продуктов --}}
+<body class="body--overflow catalogFilterShow">
+
+{{-- для мобильного фильтра --}}
+@include('guest.products.filters_mobile')
 
 <div class="wrapper">
     @yield('content')
