@@ -1,11 +1,12 @@
-let filterShowHideList = ['.render_type_7', '.render_type_1', '.render_type_5', '.render_type_6'];
+let filterShowHideList  = ['.render_type_7', '.render_type_1', '.render_type_5', '.render_type_6'];
 let filterCheckboxClass = filterShowHideList[0];
-let labelClass = '.filter__item';
+let filterSelectClass   = [filterShowHideList[1], filterShowHideList[3]];
 
 /**
  * Для всех фильтров-выпадашек сделать скрытие/показ
+ * бонусом тут также вызывается функция, сбрасывающая чекбоксы/селекты
  */
-function filtersShowHide() {
+function showHideFilters() {
     const sel = filterShowHideList; // selector for all
     // + .j-filter-title
     let selTitle = [];
@@ -29,8 +30,8 @@ function filtersShowHide() {
             if (e.target.tagName === 'BUTTON' && e.target.classList.contains(filterClassName)) {
                 // console.log('filter__btn-reset clicked!');
                 // delete all selected for closest j-filter-container .selected
-                removeSelectedForClosestCheckBox(e.target);
-                hideFilterBtnResetForCheckBox(e.target);
+                removeSelectedForClosestCheckBoxAndSelects(e.target);
+                hideFilterBtnResetForCheckBoxAndSelect(e.target);
                 return;
             }
 
@@ -64,7 +65,8 @@ function filtersShowHide() {
 /**
  * Обработчик нажатия на все фильтры-чекбоксы.
  */
-function filterCheckbox() {
+function clickFilterCheckbox() {
+    let labelClass = '.filter__item';
     let concatClasses = filterCheckboxClass + ' ' + labelClass;
     //console.log(concatClasses);
 
@@ -99,26 +101,18 @@ function filterCheckbox() {
             if ( !parLabel.classList.contains(selClass)){
                 parLabel.classList.add(selClass);
             }
-            // show btn_reset for current checkbox container!
-            const btn_sel = 'filter__btn-reset'
-            const btn_reset = closestCont.querySelector('.'+btn_sel);
-            if (!btn_reset){
-                return
-            }
-            const showClass = 'show';
-            if ( !btn_reset.classList.contains(showClass)){
-                btn_reset.classList.add(showClass);
-            }
 
+            // show btn_reset for current checkbox container!
+            showFilterBtnResetForClosetContainer(closestCont);
         })
     }
 }
 
 /**
- * Если нажали на сброс фильтра с чекбоксами, найти сам чекбокс и удалить все активный чекбокс с селектом.
+ * Если нажали на сброс фильтра с чекбоксами/селектам, найти и удалить все активные - класс selected.
  * @param target
  */
-function removeSelectedForClosestCheckBox(target) {
+function removeSelectedForClosestCheckBoxAndSelects(target) {
     const tg = target.closest('.j-filter-container')
     if (!tg){
         return;
@@ -137,9 +131,9 @@ function removeSelectedForClosestCheckBox(target) {
 }
 
 /**
- * Как только был произведен сброс элементов чекбокса - спрятать эту кнопку
+ * При клике на сброс чекбокса/селекта - спрятать эту кнопку!
  */
-function hideFilterBtnResetForCheckBox(target) {
+function hideFilterBtnResetForCheckBoxAndSelect(target) {
     //console.log(target)
     const showClass = 'show';
     if (target.classList.contains(showClass)){
@@ -147,6 +141,62 @@ function hideFilterBtnResetForCheckBox(target) {
     }
 }
 
+/**
+ * Обработчик нажатия на все фильтры-чекбоксы.
+ */
+function clickFilterSelect() {
+    const checkBoxItemClass = '.filter__item--checkbox';
+    let newSelClassArr = [];
+    for(let i=0; i<filterSelectClass.length; i++){
+        newSelClassArr.push(filterSelectClass[i] + ' ' + checkBoxItemClass);
+    }
+    let concatClasses = newSelClassArr.join(', ');
+    //console.log(concatClasses);
+
+    const vv = document.querySelectorAll(concatClasses);
+    if (!vv.length){
+        return;
+    }
+    //console.log(vv);
+
+    for (let i=0; i<vv.length; i++) {
+        vv[i].addEventListener('click', function(e){
+            //console.log('label clicked!');
+
+            const selClass = 'selected'
+
+            // find closest
+            let closestCont = e.target.closest('.j-filter-container');
+            if (!closestCont){
+                return;
+            }
+
+            // toggle selected
+            e.target.classList.toggle(selClass);
+
+            // show btn_reset for current checkbox container!
+            showFilterBtnResetForClosetContainer(closestCont);
+        })
+    }
+}
+
+/**
+ * Показать ближайшую кнопку для сброса элементво текущего контейнера
+ * @param container
+ */
+function showFilterBtnResetForClosetContainer(container){
+    const btn_sel = 'filter__btn-reset';
+    const btn_reset = container.querySelector('.'+btn_sel);
+    if (!btn_reset){
+        return;
+    }
+    const showClass = 'show';
+    if ( !btn_reset.classList.contains(showClass)){
+        btn_reset.classList.add(showClass);
+    }
+}
+
 ////////////////////////////
-filtersShowHide();
-filterCheckbox();
+showHideFilters();
+clickFilterCheckbox();
+clickFilterSelect();

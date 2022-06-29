@@ -168,3 +168,68 @@ abbr, fieldset {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
 }
+.catalog-page .filter .filter__search input {
+    width: 100%;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+    height: auto;
+    font-size: 16px;
+    line-height: 22px;
+    line-height: 1;
+    color: #242424;
+    padding: 10px 14px 11px;
+    height: 44px;
+    padding: 6px 12px;
+    height: 36px;
+    margin-top: 12px;
+}
+.catalog-page .filter .filter__item--checkbox::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 1px solid #d5d5d5;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #fff;
+}
+.catalog-page .filter .filter__search input:focus {
+    border-color: #cb11ab;
+    -webkit-box-shadow: inset 1px 0 0 #cb11ab,inset 0 1px 0 #cb11ab,inset -1px 0 0 #cb11ab,inset 0 -1px 0 #cb11ab;
+    box-shadow: inset 1px 0 0 #cb11ab,inset 0 1px 0 #cb11ab,inset -1px 0 0 #cb11ab,inset 0 -1px 0 #cb11ab;
+}
+.catalog-page .filter .selectorsblock .range-text .end-n input:focus, .catalog-page .filter .selectorsblock .range-text .start-n input:focus {
+    border-color: #cb11ab;
+    -webkit-box-shadow: inset 1px 0 0 #cb11ab,inset 0 1px 0 #cb11ab,inset -1px 0 0 #cb11ab,inset 0 -1px 0 #cb11ab;
+    box-shadow: inset 1px 0 0 #cb11ab,inset 0 1px 0 #cb11ab,inset -1px 0 0 #cb11ab,inset 0 -1px 0 #cb11ab;
+}
+.catalog-page .filter .selectorsblock .range-text .start-n input:focus {
+    -webkit-box-shadow: inset 1px 0 0 #cb11ab,inset 0 1px 0 #cb11ab,inset -2px 0 0 #cb11ab,inset 0 -1px 0 #cb11ab;
+    box-shadow: inset 1px 0 0 #cb11ab,inset 0 1px 0 #cb11ab,inset -2px 0 0 #cb11ab,inset 0 -1px 0 #cb11ab;
+}
+.catalog-page .filter .filter__item--checkbox.selected::before {
+    background: #cb11ab;
+    border-color: #cb11ab;
+    border: 0;
+}
+.catalog-page .filter .filter__item--checkbox::after {
+    content: '';
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    position: absolute;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display: none;
+    width: 4px;
+    height: 10px;
+    top: 3px;
+    left: 8px;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.catalog-page .filter .filter__item--checkbox.selected::after {
+    display: block;
+}
