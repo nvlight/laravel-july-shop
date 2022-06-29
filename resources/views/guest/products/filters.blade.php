@@ -1,7 +1,7 @@
 <div id="filters" class="catalog-page__filters">
     <div class="j-filter-container filter filterblock render_type_7 fdlvr show filter-active">
         <div class="filter__title j-b-city-dropdown j-filter-title"><span class="filter__name">Срок доставки</span>
-            <button class="j-filter-reset filter__btn-reset show">Сбросить</button>
+            <button class="j-filter-reset filter__btn-reset">Сбросить</button>
         </div>
         <div class="j-filter-content filter__content ">
             <fieldset
