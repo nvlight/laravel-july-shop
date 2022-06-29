@@ -168,7 +168,7 @@ abbr, fieldset {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
 }
-<<<<<<< HEAD
+
 .catalog-page .filter .filter__search input {
     width: 100%;
     border: 1px solid #d5d5d5;
@@ -234,5 +234,3 @@ abbr, fieldset {
 .catalog-page .filter .filter__item--checkbox.selected::after {
     display: block;
 }
-=======
->>>>>>> 0d4f3aff2a9809fbe17209e0030f2bdf999d4223
