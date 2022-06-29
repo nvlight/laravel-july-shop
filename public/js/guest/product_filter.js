@@ -7,10 +7,19 @@ let labelClass = '.filter__item';
  */
 function filtersShowHide() {
     const sel = filterShowHideList; // selector for all
-    let filter = document.querySelectorAll(sel);
+    // + .j-filter-title
+    let selTitle = [];
+    for(let i=0; i<filterShowHideList.length; i++){
+        let ssel = '.j-filter-container' + filterShowHideList[i] + ' .j-filter-title';
+        selTitle.push(ssel);
+    }
+    //console.log(selTitle.join(', '));
+
+    let filter = document.querySelectorAll(selTitle.join(', '));
     if (!filter.length){
         return;
     }
+    //console.log(filter);
 
     for(let i=0; i<filter.length; i++){
         filter[i].addEventListener('click', function (e) {
@@ -25,12 +34,19 @@ function filtersShowHide() {
                 return;
             }
 
+
             const target = e.target.parentElement;
             // j-filter-container filter filterblock render_type_7 fdlvr show filter-active
             const filterContainer = target.closest('.j-filter-container');
             if (!filterContainer){
                 return;
             }
+
+            // оказалось, что для некоторых фильтров при щелчке внутри срабатывает hide, надо поправить
+            if ( !filterContainer.contains(e.target)){
+                return;
+            }
+
             const filterContent = filterContainer.querySelector('.filter__content')
             if (!filterContent){
                 return;
@@ -38,6 +54,8 @@ function filtersShowHide() {
             filterContainer.classList.toggle('filter-active');
             filterContent.classList.toggle('hide');
 
+            //console.log('e.target: ');
+            //console.log(e.target);
             //console.log('filter-toggle clicked!');
         });
     }
