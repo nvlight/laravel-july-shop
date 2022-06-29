@@ -21,6 +21,7 @@ function filtersShowHide() {
                 // console.log('filter__btn-reset clicked!');
                 // delete all selected for closest j-filter-container .selected
                 removeSelectedForClosestCheckBox(e.target);
+                hideFilterBtnResetForCheckBox(e.target);
                 return;
             }
 
@@ -80,6 +81,16 @@ function filterCheckbox() {
             if ( !parLabel.classList.contains(selClass)){
                 parLabel.classList.add(selClass);
             }
+            // show btn_reset for current checkbox container!
+            const btn_sel = 'filter__btn-reset'
+            const btn_reset = closestCont.querySelector('.'+btn_sel);
+            if (!btn_reset){
+                return
+            }
+            const showClass = 'show';
+            if ( !btn_reset.classList.contains(showClass)){
+                btn_reset.classList.add(showClass);
+            }
 
         })
     }
@@ -96,7 +107,7 @@ function removeSelectedForClosestCheckBox(target) {
     }
     const tgClass = 'selected';
     const sels = tg.querySelectorAll('.'+tgClass);
-    console.log(sels)
+    //console.log(sels)
     if (!sels.length){
         return;
     }
@@ -104,6 +115,17 @@ function removeSelectedForClosestCheckBox(target) {
         if ( sels[i].classList.contains(tgClass)){
             sels[i].classList.remove(tgClass);
         }
+    }
+}
+
+/**
+ * Как только был произведен сброс элементов чекбокса - спрятать эту кнопку
+ */
+function hideFilterBtnResetForCheckBox(target) {
+    //console.log(target)
+    const showClass = 'show';
+    if (target.classList.contains(showClass)){
+        target.classList.remove(showClass);
     }
 }
 
