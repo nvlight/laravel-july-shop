@@ -562,10 +562,7 @@ abbr, fieldset {
     height: 100%;
     max-height: 100%;
 }
-.filters-mobile .filter-mobile .filter-mobile__main ~ .filter-mobile__main .filter-mobile__content {
-    height: 100%;
-    max-height: 100%;
-}
+
 .filters-mobile .filter-mobile .filter-mobile__content .filter, .filters-mobile .filter-mobile .filter-mobile__content .filter__content {
     height: 100%;
     max-height: 100%;
@@ -645,4 +642,19 @@ abbr, fieldset {
 }
 .filters-mobile .filter-mobile .filter-mobile__content .filter__item::after {
     top: 18px;
+}
+.filters-mobile .filter-mobile .filter-mobile__footer-btn.show {
+    display: block;
+}
+.btn-main:hover {
+    background-color: #e313bf;
+    border-color: #e313bf;
+}
+.btn-main:active {
+    color: #fff;
+    background-color: #b30f97;
+    border-color: #b30f97;
+}
+.h100p{
+    height: 100%;
 }

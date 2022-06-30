@@ -196,7 +196,283 @@ function showFilterBtnResetForClosetContainer(container){
     }
 }
 
+/**
+ * Обработчик нажатия на радио-бутоны и селекты в мобильном фильтре
+ */
+function clickMobileFilterSelectsAndCheckboxes() {
+    const sel = '.filter-mobile__content .filterblock .j-list-item.filter__item';
+    const selRs = document.querySelectorAll(sel);
+    if ( !selRs.length){
+        return;
+    }
+
+    const addSelectedClass = 'selected';
+    // для каждого клика, нужно найти сначала родителя, чтобы понять с каким типом рендера имеем дело!
+    for(let i=0; i<selRs.length; i++){
+
+        selRs[i].addEventListener('click', function (e){
+            let renderTypeContainer = selRs[i].closest('.filterblock');
+            if ( !renderTypeContainer){
+                return;
+            }
+            // узнаем тип
+            let renderType = +getRenderTypeByContainer(renderTypeContainer);
+            //console.log('renderType: '+renderType);
+
+            // можно было и по другому узнать что за тип перед нами,
+            // filter__item--checkbox - это чекбокс,  filter__item--radio - это селект . Классы у label
+
+            // типы 7,6,1 = это норм, 7 - чекбокс, 1,6 - это селекты
+            switch (renderType) {
+                case 7:
+                    // remove all selected classes for anather checkboxes
+                    removeAllSelectedForContainer(renderTypeContainer);
+
+                    // add selected class
+                    let par = e.target;
+                    if (e.target.tagName === 'SPAN'){
+                        const lbl = e.target.closest('label');
+                        if (!lbl){
+                            return;
+                        }
+                        par = lbl;
+                    }
+                    if ( !par.classList.contains(addSelectedClass)){
+                        par.classList.add(addSelectedClass)
+                    }
+
+                    // show apply filter button !
+                    showApplyBtnForContainer(e.target);
+
+                    break;
+                case 1:
+                case 6:
+                    break;
+                default:
+            }
+
+        });
+    }
+}
+
+/**
+ * Узнать тип рендера контейнера!
+ */
+function getRenderTypeByContainer(cont) {
+    //console.log(cont);
+    let classes = cont.classList;
+    //console.log(classes);
+
+    let find = null;
+    const selPattern = "render_type_";
+    let regExp = new RegExp("^"+selPattern+"(\\d+)");
+    for(let i=0; i<classes.length; i++){
+        let res = classes[i].match(regExp);
+        if (res !== null){
+            find = res;
+            break;
+        }
+    }
+    if (find === null){
+        return;
+    }
+
+    return find[1];
+}
+
+/**
+ * Удалить все
+ * @param renderTypeContainer
+ */
+function removeAllSelectedForContainer(renderTypeContainer) {
+    const sel = 'selected';
+    const rs  = renderTypeContainer.querySelectorAll('.j-list-item'+'.'+sel);
+    if (!rs.length){
+        return;
+    }
+    for(let i=0; i<rs.length; i++){
+        rs[i].classList.remove(sel);
+    }
+}
+
+/**
+ * Показать кнопку - примернить фильтр для текущего контайнера
+ * @param target
+ */
+function showApplyBtnForContainer(target){
+    //conlog(target)
+    const applyBtnCont = target.closest('.filter-mobile__content'); //'+' .j-apply-btn');
+    //conlog(applyBtn);
+    if (!applyBtnCont){
+        return
+    }
+    const applyBtn = applyBtnCont.querySelector('.j-apply-btn')
+    if (!applyBtn){
+        return;
+    }
+
+    const addCl = 'show';
+    if (!applyBtn.classList.contains(addCl)){
+        applyBtn.classList.add(addCl)
+    }
+}
+
+/**
+ * Спрятать кнопку - примернить фильтр для текущего контайнера
+ * @param target
+ */
+function hideApplyBtnForContainer(target){
+    const addCl = 'show';
+    if (target.classList.contains(addCl)){
+        target.classList.remove(addCl)
+    }
+}
+
+/**
+ * Обработчик щелчка на элемент группы фильтров
+ */
+function filtersGroupItemClick() {
+    const sel = '.j-mobile-filters-list > .filter-mobile__category';
+    const rs  = document.querySelectorAll(sel);
+    if (!rs.length){
+        return;
+    }
+    for(let i=0; i<rs.length; i++){
+        rs[i].addEventListener('click', function (e) {
+            //conlog('filter group item clicked!');
+
+            const filterBId = getFilterBlockId(rs[i]);
+            //conlog(filterBId);
+            if (!filterBId){
+                return;
+            }
+            addHideClassForAllFilterBlocks();
+            showMobileWrapperMoved(filterBId);
+        });
+    }
+}
+
+/**
+ * Показать блок-фильтра по ИД
+ */
+function showMobileWrapperMoved(filterBId) {
+    const selq = ".filter-mobile.j-wrapper";
+    const selAdd = "moved";
+    const selqRs = document.querySelector(selq);
+    //conlog(showMobileWrapperMoved.name)
+    if (!selqRs){
+        return;
+    }
+    if (!selqRs.classList.contains(selAdd)){
+         selqRs.classList.add(selAdd);
+    }
+    // show filter block by id
+    //<div class="filter-mobile__main" id="selectedCategoryContainer">
+    //  <div class="hide h100p" data-filter-show-id="500">
+    const fBlockSel = `#selectedCategoryContainer >div[data-filter-show-id='${filterBId}']`;
+    //conlog(fBlockSel);
+    const fBlockRs = document.querySelector(fBlockSel);
+    if (!fBlockRs){
+        return;
+    }
+
+    const hideCl = 'hide';
+    if (fBlockRs.classList.contains(hideCl)){
+        fBlockRs.classList.remove(hideCl);
+    }
+}
+
+/**
+ * Спрятать блок-фильтра, т.е. кнопка назад
+ */
+function hideMobileWrapperMoved(target) {
+    const selq = ".filter-mobile.j-wrapper.moved"
+    const selAdd = "moved";
+    const selqRs = document.querySelector(selq);
+    if (!selqRs){
+        return;
+    }
+    if (selqRs.classList.contains(selAdd)){
+        selqRs.classList.remove(selAdd);
+    }
+    // todo: спрятать по ид именно текущий фильтр-блок
+    //const fBlockSel = `#selectedCategoryContainer >div[data-filter-show-id='${filterBId}']`;
+    findAndAddClassesToTargetArray('#selectedCategoryContainer>div', ['hide'])
+
+    // спрятать у текущего блока кнопку "применить"
+    hideApplyBtnForContainer(target);
+}
+
+/**
+ * Обработчик нажатия на стрелку назад в блоке-фильтре
+ */
+function mobileWrapperBackArrowClick() {
+    const sel = '.filter-mobile__back';
+    const rs  = document.querySelectorAll(sel);
+    if (!rs.length){
+        return;
+    }
+    for(let i=0; i<rs.length; i++){
+        rs[i].addEventListener('click', function (e) {
+
+            // найти блок, где содержится кнопка применить
+            const applyBtnBlock = findBlockWithApplyButton(rs[i]);
+            if (!applyBtnBlock){
+                return;
+            }
+
+            hideMobileWrapperMoved(applyBtnBlock);
+        });
+    }
+}
+
+/**
+ * Получить ид блока фильтра, который нужно развернуть
+ */
+function getFilterBlockId(target) {
+    const filterBlockIdSel = ".j-filter-category"
+    const filterBlockIdRs  = target.querySelector(filterBlockIdSel);
+    if (!filterBlockIdRs){
+        return;
+    }
+    const filterBlockIdRsData = filterBlockIdRs.dataset.filterBlockId;
+    //console.log(filterBlockIdRsData)
+    return filterBlockIdRsData;
+}
+
+/**
+ * До открытия нужного блока, сначала нужно скрыть все предыдущие, добавив нужный класс
+ */
+function addHideClassForAllFilterBlocks() {
+    findAndAddClassesToTargetArray('#selectedCategoryContainer>.hide', ['hide'])
+}
+
+/**
+ * Найти элемент, в котором есть кнопка применить и вернуть его
+ * @param target
+ */
+function findBlockWithApplyButton(target) {
+    let result = false;
+
+    const h100pSel = ".h100p";
+    const h100pRs  = target.closest(h100pSel)
+    if (!h100pRs){
+        return;
+    }
+    const jApplyBtnSel = ".j-apply-btn";
+    const jApplyBtnRs  = document.querySelector(jApplyBtnSel);
+    if (!jApplyBtnRs){
+        return;
+    }
+    result = jApplyBtnRs
+
+    return result;
+}
+
 ////////////////////////////
 showHideFilters();
 clickFilterCheckbox();
 clickFilterSelect();
+clickMobileFilterSelectsAndCheckboxes();
+filtersGroupItemClick();
+mobileWrapperBackArrowClick();
