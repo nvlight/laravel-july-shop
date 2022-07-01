@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Guest\GuestController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use \App\Http\Controllers\Guest\CategoryController as GuestCategoryController;
+use \App\Http\Controllers\Guest\ProductController  as GuestProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +44,13 @@ Route::group([
         'as' => 'category.'
     ], function (){
         Route::get('/{category}', [GuestCategoryController::class,'show'])->name('show');
+    });
+
+    Route::group([
+        //'middleware' => 'auth',
+        'prefix' => 'product',
+        'as' => 'product.'
+    ], function (){
+        Route::get('/{product}', [GuestProductController::class,'show'])->name('show');
     });
 });

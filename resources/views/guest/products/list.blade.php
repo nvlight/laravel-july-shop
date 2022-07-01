@@ -165,8 +165,10 @@
                 <div class="product-card-overflow">
                     <div class="product-card-list">
 
-                        @include('guest.products.card.items')
-{{--                        @include('guest.products.card.static_items')--}}
+                        @foreach($products as $product)
+                            @include('guest.products.card.product', ['product' => $product])
+                        @endforeach
+                        {{-- @include('guest.products.card.static_items')--}}
 
                     </div>
                 </div>
