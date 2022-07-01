@@ -553,6 +553,9 @@ function hideMobileWrapperMovedStandalone() {
     hideApplyBtnForAllContainers();
 }
 
+// button.collapsible__toggle closest .details__content
+// a tam u nego .collapsable__content.j-description => i tam style - max-height: 80px; затоглить с none на 80px
+
 ////////////////////////////
 showHideFilters();
 clickFilterCheckbox();
