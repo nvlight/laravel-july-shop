@@ -469,6 +469,86 @@ function findBlockWithApplyButton(target) {
     return result;
 }
 
+/**
+ * Закрыть блок мобильного фильтра, если нажата одна из кнопок, его закрывающих
+ */
+function closeMobileFiltersBlockHandler() {
+    const sel   = ".filter-mobile__close.j-close";
+    const selRs = document.querySelectorAll(sel);
+    //conlog(selRs);
+    if (!selRs.length){
+        return;
+    }
+    for (let i=0; i<selRs.length; i++){
+        selRs[i].addEventListener('click', function (e){
+            //conlog('im here '+i)
+            const classesForRemove = ['body--overflow','catalogFilterShow'];
+            findAndDeleteClassesToTarget('body', classesForRemove);
+            findAndDeleteClassesToTarget('body >.filters-mobile.shown', ['shown']);
+            findAndAddClassesToTarget('body >.filters-mobile', 'hide');
+        });
+    }
+
+}
+
+/**
+ * Показать блок мобильного фильтра
+ */
+function showMobileFiltersBlockHandler() {
+    const sel = '.sorter-mobile__filter.show-numb';
+    const rs  = document.querySelector(sel);
+    if (!rs){
+        return;
+    }
+
+    rs.addEventListener('click', function (e) {
+        const classesForAdd = ['body--overflow','catalogFilterShow'];
+        findAndAddClassesToTargetArray('body', classesForAdd);
+        findAndAddClassesToTargetArray('body >.filters-mobile', ['shown']);
+        findAndDeleteClassesToTargetArray('body >.filters-mobile', ['hide']);
+
+        hideMobileWrapperMovedStandalone();
+    });
+}
+
+/**
+ * Спрятать кнопку - примернить фильтр для всех контайнеров
+ */
+function hideApplyBtnForAllContainers(){
+    const sel = ".filter-mobile__content > .j-apply-btn";
+    const rs  = document.querySelectorAll(sel);
+    if (!rs.length){
+        return;
+    }
+
+    const remCl = 'show';
+    for (let i=0; i<rs.length; i++){
+        if (rs[i].classList.contains(remCl)){
+            rs[i].classList.remove(remCl)
+        }
+    }
+}
+
+/**
+ * Спрятать блок-фильтра и привезти все в состояние по умолчанию
+ */
+function hideMobileWrapperMovedStandalone() {
+    const selq = ".filter-mobile.j-wrapper.moved"
+    const selAdd = "moved";
+    const selqRs = document.querySelector(selq);
+    if (!selqRs){
+        return;
+    }
+    if (selqRs.classList.contains(selAdd)){
+        selqRs.classList.remove(selAdd);
+    }
+    // todo: спрятать по ид именно текущий фильтр-блок, пока прячем у всех - ага!
+    //const fBlockSel = `#selectedCategoryContainer >div[data-filter-show-id='${filterBId}']`;
+    findAndAddClassesToTargetArray('#selectedCategoryContainer>div', ['hide'])
+
+    hideApplyBtnForAllContainers();
+}
+
 ////////////////////////////
 showHideFilters();
 clickFilterCheckbox();
@@ -476,3 +556,5 @@ clickFilterSelect();
 clickMobileFilterSelectsAndCheckboxes();
 filtersGroupItemClick();
 mobileWrapperBackArrowClick();
+closeMobileFiltersBlockHandler();
+showMobileFiltersBlockHandler();

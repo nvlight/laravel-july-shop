@@ -1,4 +1,4 @@
-<div class="filters-mobile shown scaled" style="z-index: 301; opacity: 1; display: block;">
+<div class="filters-mobile hide scaled" style="z-index: 301; opacity: 1; display: block;">
     <a href="#" class="j-close popup__close close"></a>
     <div class="content">
         {{-- moved добавляется, когда разворачивается фильтр --}}
