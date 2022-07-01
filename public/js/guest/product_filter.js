@@ -247,6 +247,10 @@ function clickMobileFilterSelectsAndCheckboxes() {
                     break;
                 case 1:
                 case 6:
+                    let per = e.target;
+                    per.classList.toggle(addSelectedClass);
+                    showApplyBtnForContainer(e.target);
+
                     break;
                 default:
             }

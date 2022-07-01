@@ -39,87 +39,8 @@
                             </div>
                         </div>
                         <div class="filter-mobile__category render_type_7">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="discount" data-filter-block-id="501"> Скидка
+                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="discount" data-filter-block-id="501">Издательство
                                 <button class="j-filter-reset filter__btn-reset" data-filter-name="discount">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="fpublisher">
-                                Издательство
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="fpublisher">
-                                    Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_6">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f1180"> Автор
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f1180">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f62431">
-                                Жанры/тематика
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f62431">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f1185"> Обложка
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f1185">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f19717">
-                                Возрастные ограничения
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f19717">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f1183"> Серия
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f1183">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f25001">
-                                Иллюстратор
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f25001">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f18269"> Вид
-                                бумаги
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f18269">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f5300"> Языки
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f5300">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f1181"> Переводчик
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f1181">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f189099"> Год
-                                выпуска
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f189099">Сбросить
-                                </button>
-                            </div>
-                        </div>
-                        <div class="filter-mobile__category render_type_1">
-                            <div class="filter-mobile__param-btn j-filter-category" data-filter-name="f240823"> Редакция
-                                <button class="j-filter-reset filter__btn-reset" data-filter-name="f240823">Сбросить
                                 </button>
                             </div>
                         </div>
