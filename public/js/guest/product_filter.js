@@ -555,6 +555,47 @@ function hideMobileWrapperMovedStandalone() {
 
 // button.collapsible__toggle closest .details__content
 // a tam u nego .collapsable__content.j-description => i tam style - max-height: 80px; затоглить с none на 80px
+function collaplseContentClickHandler() {
+    const btnSel = 'button.collapsible__toggle '; // closest
+    const btnRs  = document.querySelectorAll(btnSel);
+    if (!btnRs.length){
+        return;
+    }
+    const detContSel = '.details__content';
+    const collapseContentDescriptionSel = '.collapsable__content.j-description';
+    const collapseContentAddInfoSectionSel = '.collapsable__content.j-add-info-section';
+    for(let i=0; i<btnRs.length; i++){
+        btnRs[i].addEventListener('click', function (e) {
+            let parentCont = e.target.closest(detContSel);
+            //conlog(parentCont);
+            if (!parentCont){
+                return;
+            }
+
+            let collapseContentDescriptionRs = parentCont.querySelector(collapseContentDescriptionSel);
+            if (collapseContentDescriptionRs){
+                //conlog(collapseContentDescriptionRs);
+                collapseContentDescriptionRs.classList.toggle('mah80');
+                return;
+            }
+
+            let collapseContentAddInfoSectionRs = parentCont.querySelector(collapseContentAddInfoSectionSel);
+            if (collapseContentAddInfoSectionRs){
+                //conlog(collapseContentAddInfoSectionRs);
+                const collapsibleGradientSel = '.collapsible__gradient';
+                const collapsibleGradientRs  = parentCont.querySelector(collapsibleGradientSel);
+                //conlog(collapsibleGradientRs);
+                if (!collapsibleGradientRs){
+                    return;
+                }
+                collapsibleGradientRs.classList.toggle('hide');
+                collapseContentAddInfoSectionRs.classList.toggle('mah224')
+
+                return;
+            }
+        });
+    }
+}
 
 ////////////////////////////
 showHideFilters();
@@ -565,3 +606,4 @@ filtersGroupItemClick();
 mobileWrapperBackArrowClick();
 closeMobileFiltersBlockHandler();
 showMobileFiltersBlockHandler();
+collaplseContentClickHandler();

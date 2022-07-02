@@ -517,3 +517,9 @@ html{
     line-height: 16px;
     color: #8b8b8b;
 }
+.mah80{
+    max-height: 80px;
+}
+.mah224{
+    max-height: 224px;
+}
