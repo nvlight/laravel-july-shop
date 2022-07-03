@@ -11,6 +11,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/guest/index.css')}}">
 
+{{--    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">--}}
 </head>
 
 {{-- .body--overflow.catalogFilterShow - эти 2 класса нужно добавить в боди, когда открыт мобильный фильтр продуктов --}}

@@ -5,6 +5,11 @@
     .product-page .product-page__slider-wrap {
         margin: -16px 0 12px;
     }
+    .sw-slider-kt-mix .slide {
+        width: 72%;
+        max-width: 450px;
+        border-radius: 12px;
+    }
 }
 /* min-width: 576px */
 
@@ -289,6 +294,61 @@
     .product-page .product-page__details-section .product-params__table td {
         width: 39%;
     }
+    .product-page .product-page__sticky-wrap {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+    }
+    .product-page .product-page__sticky-wrap {
+        position: sticky;
+        top: 20px;
+    }
+    .product-page .product-page__slider {
+        width: 72px;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+    }
+    .sw-slider-kt-mix .swiper-container {
+        height: 512px;
+    }
+    .sw-slider-kt-mix .swiper-container-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic, .sw-slider-kt-mix .swiper-pagination {
+        max-width: calc(100% - 400px);
+        margin: 22px auto 0;
+    }
+    .sw-slider-kt-mix .swiper-pagination {
+        display: none;
+    }
+    .sw-slider-kt-mix .slide {
+        width: 100%;
+        height: 96px;
+        max-height: 96px;
+        border-radius: 4px;
+    }
+    .sw-slider-kt-mix .slide__content {
+        height: 100%;
+        text-align: center;
+        padding: 0;
+        border: 2px solid transparent;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .sw-slider-kt-mix .slide__content::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(41,43,83,.03);
+        z-index: 1;
+    }
+    .sw-slider-kt-mix .slide.active .slide__content {
+        border-color: #cb11ab;
+    }
 }
 /* min-width: 1024px */
 
@@ -441,6 +501,15 @@
     }
     .product-page .details-section__details--about {
         width: 616px;
+    }
+    .product-page .product-page__mix-block {
+        margin-left: 20px;
+    }
+    .sw-slider-kt-mix .swiper-button-prev {
+        margin-bottom: 20px;
+    }
+    .sw-slider-kt-mix .swiper-container {
+        height: 568px;
     }
 }
 /* min-width: 1600px */
