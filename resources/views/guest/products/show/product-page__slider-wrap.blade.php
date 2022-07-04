@@ -14,8 +14,7 @@
                 </button>
                 <div class="sw-slider-kt-mix__wrap">
                     <div class="swiper-container j-sw-images-carousel swiper-container-initialized swiper-container-vertical">
-                        <ul class="swiper-wrapper" data-jsv-df=""
-                            style="transform: translate3d(0px, 0px, 0px);">
+                        <ul class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
                             <li data-jsv="#5421^#17624_#17625_#17626_"
                                 {{-- it was here - swiper-slide-active --}}
                                 class="swiper-slide slide active"
