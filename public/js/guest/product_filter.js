@@ -2,6 +2,10 @@ let filterShowHideList  = ['.render_type_7', '.render_type_1', '.render_type_5',
 let filterCheckboxClass = filterShowHideList[0];
 let filterSelectClass   = [filterShowHideList[1], filterShowHideList[3]];
 
+let zoomImgsArr = [];
+let zoomImgsArrCount = 0;
+let zoomImgsArrId = 0;
+
 /**
  * Для всех фильтров-выпадашек сделать скрытие/показ
  * бонусом тут также вызывается функция, сбрасывающая чекбоксы/селекты
@@ -597,6 +601,73 @@ function collaplseContentClickHandler() {
     }
 }
 
+/**
+ * Нарисовали для Большой картинки слайдера через канвас картиночку.
+ */
+function drawZoomImage(inputImgId) {
+    let imgsArr = zoomImgsArr;
+
+    let currentImgId = inputImgId;
+    let currentImgName = imgsArr.find(item => item.id == currentImgId).name;
+    //conlog(currentImgName);
+    let img = new Image();
+    img.src = currentImgName;
+
+    img.addEventListener("load", function () {
+        //conlog('img loaded!');
+        let ctx = document.querySelector(".photo-zoom__preview.j-image-canvas")
+        if (!ctx) return;
+        ctx = ctx.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+    });
+}
+
+/**
+ * Большой рисунок слайдера - нажали не стрелку вперед
+ */
+function mixBlockSliderBtnNextHandler() {
+    const sel = '.mix-block__slider-btn--next';
+    const rs  = document.querySelector(sel);
+    if (!rs){
+        return;
+    }
+    rs.addEventListener('click', function (e) {
+        conlog(mixBlockSliderBtnNextHandler.name + ' clicked!');
+
+    });
+}
+
+/**
+ * Большой рисунок слайдера - нажали не стрелку назад
+ */
+function mixBlockSliderBtnPrevHandler() {
+    const sel = '.mix-block__slider-btn--prev';
+    const rs  = document.querySelector(sel);
+    if (!rs){
+        return;
+    }
+
+    rs.addEventListener('click', function (e) {
+        conlog(mixBlockSliderBtnPrevHandler.name + ' clicked!');
+
+    });
+}
+
+/**
+ * Инициализировать массив картинок Зум-слайдера
+ */
+function imgsinitSliderZoomImgsArray() {
+    let n = 11;
+    for (let i=1; i<=n; i++){
+        let imgId = i;
+        let imgName = `//images.wbstatic.net/big/new/9410000/9414496-${imgId}.jpg`;
+        zoomImgsArr.push( {id:imgId, name:imgName})
+    }
+    zoomImgsArrCount = n;
+    zoomImgsArrId = 1;
+    return zoomImgsArr;
+}
+
 ////////////////////////////
 showHideFilters();
 clickFilterCheckbox();
@@ -607,3 +678,7 @@ mobileWrapperBackArrowClick();
 closeMobileFiltersBlockHandler();
 showMobileFiltersBlockHandler();
 collaplseContentClickHandler();
+imgsinitSliderZoomImgsArray();
+drawZoomImage(1);
+mixBlockSliderBtnNextHandler();
+mixBlockSliderBtnPrevHandler();
