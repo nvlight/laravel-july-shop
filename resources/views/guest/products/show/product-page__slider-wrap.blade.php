@@ -17,7 +17,8 @@
                         <ul class="swiper-wrapper" data-jsv-df=""
                             style="transform: translate3d(0px, 0px, 0px);">
                             <li data-jsv="#5421^#17624_#17625_#17626_"
-                                class="swiper-slide slide swiper-slide-active active"
+                                {{-- it was here - swiper-slide-active --}}
+                                class="swiper-slide slide active"
                                 data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
                                 data-image-index="0" style="height: 96px; margin-bottom: 8px;">
                                 <div class="slide__content img-plug j-wba-card-item"
@@ -29,33 +30,17 @@
                                          alt=" Вид 1.">
                                     <script type="jsv/17627_"></script>
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
-                            <li data-jsv="/17626_#17628_" class="swiper-slide slide swiper-slide-next"
-                                data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
-                                data-image-index="1" style="height: 96px; margin-bottom: 8px;">
-                                <div class="slide__content img-plug j-wba-card-item"
-                                     data-name-for-wba="Item_Photo"
-                                     data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
-                                     data-jsv="#5430^/5430^">
-                                    <script type="jsv#17629_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-2.jpg"
-                                         alt=" Вид 2.">
-                                    <script type="jsv/17629_"></script>
+                            </li>
+                            <li class="swiper-slide slide" data-image-index="1" style="height: 96px; margin-bottom: 8px;">
+                                <div class="slide__content img-plug j-wba-card-item">
+                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-2.jpg" alt=" Вид 2.">
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
-                            <li data-jsv="/17628_#17630_" class="swiper-slide slide"
-                                data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
-                                data-image-index="2" style="height: 96px; margin-bottom: 8px;">
-                                <div class="slide__content img-plug j-wba-card-item"
-                                     data-name-for-wba="Item_Photo"
-                                     data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
-                                     data-jsv="#5432^/5432^">
-                                    <script type="jsv#17631_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-3.jpg"
-                                         alt=" Вид 3.">
-                                    <script type="jsv/17631_"></script>
+                            </li>
+                            <li class="swiper-slide slide" data-image-index="2" style="height: 96px; margin-bottom: 8px;">
+                                <div class="slide__content img-plug j-wba-card-item">
+                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-3.jpg" alt=" Вид 3.">
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
+                            </li>
                             <li data-jsv="/17630_#17632_" class="swiper-slide slide"
                                 data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
                                 data-image-index="3" style="height: 96px; margin-bottom: 8px;">

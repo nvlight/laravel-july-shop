@@ -642,6 +642,7 @@ function mixBlockSliderBtnNextHandler() {
             zoomImgsArrId += 1;
         }
         drawZoomImage(zoomImgsArrId);
+        setActiveItemOnImageSlider(zoomImgsArrId);
     });
 }
 
@@ -664,6 +665,7 @@ function mixBlockSliderBtnPrevHandler() {
             zoomImgsArrId -= 1;
         }
         drawZoomImage(zoomImgsArrId);
+        setActiveItemOnImageSlider(zoomImgsArrId);
     });
 }
 
@@ -683,7 +685,7 @@ function imgsinitSliderZoomImgsArray() {
 }
 
 /**
- *
+ * Наведение мышки на картинки слайдера продукта
  */
 function slideContentImgMouseOverHandler() {
     // .slide__content.img-plug.j-wba-card-item
@@ -692,9 +694,44 @@ function slideContentImgMouseOverHandler() {
     if (!rs) return;
     for(let i=0; i<rs.length; i++){
         rs[i].addEventListener('mouseover', function (e) {
+            //console.log(e.target);
             const tg = e.target;
-            console.log(e.target);
+            const actLiRs = tg.closest('li.swiper-slide');
+            //conlog(actLiRs)
+            if (!actLiRs) return;
+
+            // получили индекс, по индексу изменим главное большое фото!
+            let imageIndex = +(actLiRs.dataset.imageIndex)+1;
+            //conlog('imageIndex: '+imageIndex);
+
+            zoomImgsArrId = imageIndex;
+            drawZoomImage(zoomImgsArrId);
+
+            // reset all active slide images
+            const activeCl = 'active';
+            findAndDeleteClassesToTargetArray('li.slide.active', [activeCl])
+
+            // set new active mini_slide_image !
+            if (!actLiRs.classList.contains(activeCl)){
+                 actLiRs.classList.add(activeCl);
+            }
+
         });
+    }
+}
+
+/**
+ * Установить активную картинку для Слайдера
+ */
+function setActiveItemOnImageSlider(zoomId) {
+    const activeCl = 'active';
+    findAndDeleteClassesToTargetArray('li.slide.active', [activeCl]);
+
+    const rs = document.querySelector(`li[class~='slide'][data-image-index='${zoomId - 1}']`);
+    if (!rs) return;
+
+    if (!rs.classList.contains(activeCl)){
+        rs.classList.add(activeCl);
     }
 }
 
