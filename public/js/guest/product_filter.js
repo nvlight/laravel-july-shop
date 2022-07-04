@@ -9,7 +9,6 @@ let zoomImgsArrId = 0;
 let sliderContentUlCurrentHeight = 0;
 const fixedNumForslideContentImgHeightOffset = 104;
 let sliderContentUlHeight = 0;
-const sliderRigthImageJumpOffset = 104;
 
 /**
  * Для всех фильтров-выпадашек сделать скрытие/показ
@@ -652,8 +651,9 @@ function mixBlockSliderBtnNextHandler() {
         if ( (zoomImgsArrId == 1)){
             // переместиться наверх!
             sliderTransformTranslate(0);
+            sliderContentUlCurrentHeight = 0;
         }else{
-            sliderScrollBottom(sliderRigthImageJumpOffset);
+            sliderScrollBottom(fixedNumForslideContentImgHeightOffset);
         }
     });
 }
@@ -682,8 +682,9 @@ function mixBlockSliderBtnPrevHandler() {
         if ( zoomImgsArrId == zoomImgsArrCount){
             // переместиться вниз!
             sliderTransformTranslate(sliderContentUlHeight);
+            sliderContentUlCurrentHeight = sliderContentUlHeight;
         }else{
-            sliderScrollTop(sliderRigthImageJumpOffset);
+            sliderScrollTop(fixedNumForslideContentImgHeightOffset);
         }
     });
 }
@@ -778,8 +779,10 @@ function slideContentImgBottomArrow() {
     });
 }
 
-
-
+/**
+ * Устанавливает нужный translate для элемента UL-слайдера
+ * @param needHeight
+ */
 function sliderTransformTranslate(needHeight) {
     const swSlider = document.querySelector('ul.swiper-wrapper');
     if (!swSlider) return;
@@ -787,6 +790,10 @@ function sliderTransformTranslate(needHeight) {
     swSlider.style.transform = `translate3d(0px, -${needHeight}px, 0px)`;
 }
 
+/**
+ * Прокручивает слайдер вверх через транслейт
+ * @param jumpOffset
+ */
 function sliderScrollTop(jumpOffset=fixedNumForslideContentImgHeightOffset) {
     const swSlider = document.querySelector('ul.swiper-wrapper');
     if (!swSlider) return;
@@ -799,11 +806,13 @@ function sliderScrollTop(jumpOffset=fixedNumForslideContentImgHeightOffset) {
         sliderContentUlCurrentHeight = 0;
     }
 
-    // transform: translate3d(0px, 0px, 0px);
-    swSlider.style.transform = `translate3d(0px, -${sliderContentUlCurrentHeight}px, 0px)`;
-    //conlog(sliderContentUlCurrentHeight);
+    sliderTransformTranslate(sliderContentUlCurrentHeight);
 }
 
+/**
+ * Прокручивает слайдер вниз транслейт
+ * @param jumpOffset
+ */
 function sliderScrollBottom(jumpOffset=fixedNumForslideContentImgHeightOffset) {
     const swSlider = document.querySelector('ul.swiper-wrapper');
     if (!swSlider) return;
@@ -816,9 +825,16 @@ function sliderScrollBottom(jumpOffset=fixedNumForslideContentImgHeightOffset) {
         sliderContentUlCurrentHeight = sliderContentUlHeight;
     }
 
-    // transform: translate3d(0px, 0px, 0px);
-    swSlider.style.transform = `translate3d(0px, -${sliderContentUlCurrentHeight}px, 0px)`;
-    //conlog(sliderContentUlCurrentHeight);
+    sliderTransformTranslate(sliderContentUlCurrentHeight);
+}
+
+/**
+ * Установить значение высоты слайдера в глобальную переменную.
+ */
+function initSliderContentUlHeight() {
+    const swSlider = document.querySelector('ul.swiper-wrapper');
+    if (!swSlider) return;
+    sliderContentUlHeight = swSlider.offsetHeight;
 }
 
 ////////////////////////////
@@ -833,6 +849,7 @@ showMobileFiltersBlockHandler();
 collaplseContentClickHandler();
 imgsinitSliderZoomImgsArray();
 drawZoomImage(1);
+initSliderContentUlHeight();
 mixBlockSliderBtnNextHandler();
 mixBlockSliderBtnPrevHandler();
 slideContentImgMouseOverHandler();
