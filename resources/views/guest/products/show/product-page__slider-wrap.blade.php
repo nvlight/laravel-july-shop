@@ -25,19 +25,21 @@
                                      data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
                                      data-jsv="#5428^/5428^">
                                     <script type="jsv#17627_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-1.jpg"
+                                    <img
+                                        {{-- src="//images.wbstatic.net/big/new/9410000/9414496-1.jpg" --}}
+                                         src="//images.wbstatic.net/big/new/9410000/9414496-1.jpg"
                                          alt=" Вид 1.">
                                     <script type="jsv/17627_"></script>
                                 </div>
                             </li>
                             <li class="swiper-slide slide" data-image-index="1" style="height: 96px; margin-bottom: 8px;">
                                 <div class="slide__content img-plug j-wba-card-item">
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-2.jpg" alt=" Вид 2.">
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-2.jpg" alt=" Вид 2.">
                                 </div>
                             </li>
                             <li class="swiper-slide slide" data-image-index="2" style="height: 96px; margin-bottom: 8px;">
                                 <div class="slide__content img-plug j-wba-card-item">
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-3.jpg" alt=" Вид 3.">
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-3.jpg" alt=" Вид 3.">
                                 </div>
                             </li>
                             <li data-jsv="/17630_#17632_" class="swiper-slide slide"
@@ -48,7 +50,7 @@
                                      data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
                                      data-jsv="#5434^/5434^">
                                     <script type="jsv#17633_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-4.jpg"
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-4.jpg"
                                          alt=" Вид 4.">
                                     <script type="jsv/17633_"></script>
                                 </div>
@@ -61,7 +63,7 @@
                                      data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
                                      data-jsv="#5436^/5436^">
                                     <script type="jsv#17635_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-5.jpg"
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-5.jpg"
                                          alt=" Вид 5.">
                                     <script type="jsv/17635_"></script>
                                 </div>
@@ -74,7 +76,7 @@
                                      data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
                                      data-jsv="#5438^/5438^">
                                     <script type="jsv#17637_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-6.jpg"
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-6.jpg"
                                          alt=" Вид 6.">
                                     <script type="jsv/17637_"></script>
                                 </div>
@@ -87,7 +89,7 @@
                                      data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
                                      data-jsv="#5440^/5440^">
                                     <script type="jsv#17639_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-7.jpg"
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-7.jpg"
                                          alt=" Вид 7.">
                                     <script type="jsv/17639_"></script>
                                 </div>
@@ -100,7 +102,7 @@
                                      data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
                                      data-jsv="#5442^/5442^">
                                     <script type="jsv#17641_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-8.jpg"
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-8.jpg"
                                          alt=" Вид 8.">
                                     <script type="jsv/17641_"></script>
                                 </div>
@@ -113,7 +115,7 @@
                                      data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
                                      data-jsv="#5444^/5444^">
                                     <script type="jsv#17643_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-9.jpg"
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-9.jpg"
                                          alt=" Вид 9.">
                                     <script type="jsv/17643_"></script>
                                 </div>
@@ -126,7 +128,7 @@
                                      data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
                                      data-jsv="#5446^/5446^">
                                     <script type="jsv#17645_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-10.jpg"
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-10.jpg"
                                          alt=" Вид 10.">
                                     <script type="jsv/17645_"></script>
                                 </div>
@@ -139,7 +141,7 @@
                                      data-link="{on 'mouseover' ~updateCurrentSlide (#getIndex() + ~delta)}"
                                      data-jsv="#5448^/5448^">
                                     <script type="jsv#17647_"></script>
-                                    <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-11.jpg"
+                                    <img src="//images.wbstatic.net/big/new/9410000/9414496-11.jpg"
                                          alt=" Вид 11.">
                                     <script type="jsv/17647_"></script>
                                 </div>
@@ -159,7 +161,7 @@
                 </button>
                 <p class="swiper-pagination j-pagination swiper-pagination-fraction"><span
                         class="swiper-pagination-current">1</span>/<span
-                        class="swiper-pagination-total">7</span></p></div>
+                        class="swiper-pagination-total">11</span></p></div>
         </div>
 
         <div class="product-page__mix-block hide-mobile">

@@ -788,6 +788,7 @@ function sliderTransformTranslate(needHeight) {
     if (!swSlider) return;
 
     swSlider.style.transform = `translate3d(0px, -${needHeight}px, 0px)`;
+    swSlider.style.transitionDuration  = `300ms`;
 }
 
 /**
@@ -837,6 +838,11 @@ function initSliderContentUlHeight() {
     sliderContentUlHeight = swSlider.offsetHeight;
 }
 
+// ####################
+// теперь идут функции для ширины меньше 1024px
+
+
+
 ////////////////////////////
 showHideFilters();
 clickFilterCheckbox();
@@ -855,3 +861,5 @@ mixBlockSliderBtnPrevHandler();
 slideContentImgMouseOverHandler();
 slideContentImgTopArrow();
 slideContentImgBottomArrow();
+changeSwiperContainerHorizontalVerticalClassOnScreenWidth();
+changeSwiperSLiderLiStyleOnScreenWidth();

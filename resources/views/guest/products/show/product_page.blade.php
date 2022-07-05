@@ -1,55 +1,3 @@
-<!-- Demo styles -->
-<style>
-    .swiper {
-        width: 100%;
-        height: 100%;
-    }
-
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-
-        /* Center slide text vertically */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-    }
-
-    .swiper-slide img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .swiper-pagination-bullet {
-        width: 20px;
-        height: 20px;
-        text-align: center;
-        line-height: 20px;
-        font-size: 12px;
-        color: #000;
-        opacity: 1;
-        background: rgba(0, 0, 0, 0.2);
-    }
-
-    .swiper-pagination-bullet-active {
-        color: #fff;
-        background: #007aff;
-    }
-</style>
-
-
 <div class="product-page"
      data-link="{on 'click mouseenter mousedown' '.j-wba-card-item' cardCommonActionEventsWba}     {on 'mouseenter elementInViewportEvent' '.j-wba-card-item-show' cardCommonShowEventsWba}     class{merge: product^adult &amp;&amp;  !$adult^isConfirmed toggle='for-adults'}id{:id}"
      id="1aab5db7-e68b-6313-2da9-7ba2ce30b8ba">
@@ -308,7 +256,7 @@
                             <script type="jsv/5746^"></script>
                             <script type="jsv#5747^"></script>
                             <script type="jsv#17728_"></script>
-                            <div class="collapsible__toggle-wrap">
+                            <div class="collapsible__toggle-wrap description">
                                 <button
                                     class="collapsible__toggle j-wba-card-item j-wba-card-item-show j-description-btn"
                                     data-name-for-wba="Item_Description_More"

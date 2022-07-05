@@ -608,6 +608,34 @@ function showHideSlidemenuOverflowHandler() {
 }
 
 /**
+ * Изменяет инлайн-стили для li свипера.
+ */
+function changeSwiperSLiderLiStyleOnScreenWidth() {
+    const sel = 'li.swiper-slide';
+    const rs  = document.querySelectorAll(sel);
+    if (!rs.length) return;
+
+    if ( !window.matchMedia("(max-width: 1023px)").matches) {
+        for(let i=0; i<rs.length; i++) {
+            // height: 96px;
+            // margin-bottom: 8px;
+            rs[i].style.marginRight = "";
+            rs[i].style.height = `96px`;
+            rs[i].style.marginBottom = ` 8px`;
+        }
+
+        return;
+    }
+
+    for(let i=0; i<rs.length; i++) {
+        // 	margin-right: 24px;
+        rs[i].style.marginRight = `24px`;
+        rs[i].style.height = "";
+        rs[i].style.marginBottom = "";
+    }
+}
+
+/**
  * Перехватить изменение размера окна и выполнить нужные действия
  */
 function resizeWindowHandler() {
@@ -624,6 +652,8 @@ function resizeWindowHandler() {
     window.addEventListener("resize", displayWindowSize);
     window.addEventListener('resize', showHideSlidemenuOverflowHandler);
     window.addEventListener('resize', setRightBigCardIconStatus);
+    window.addEventListener('resize', changeSwiperContainerHorizontalVerticalClassOnScreenWidth);
+    window.addEventListener('resize', changeSwiperSLiderLiStyleOnScreenWidth);
 }
 
 /**
@@ -890,6 +920,31 @@ function removeProductCardsHoveredOnMouseHoverAnatherPlaceHandle(e){
  */
 function removeProductCardsHoveredOnMouseHoverAnatherPlaceHandler() {
     document.addEventListener('mouseover', removeProductCardsHoveredOnMouseHoverAnatherPlaceHandle);
+}
+
+/**
+ * .swiper-container >
+ * If screen.width >= 1024 add class .swiper-container-vertical
+ * else add class .swiper-container-horizontal
+ */
+function changeSwiperContainerHorizontalVerticalClassOnScreenWidth() {
+    const rs =  document.querySelector('.swiper-container');
+    //conlog(rs);
+    const addHorizontalClass = 'swiper-container-horizontal';
+    const addVerticalClass = 'swiper-container-vertical';
+    if (!rs) return;
+    if (window.matchMedia("(max-width: 1023px)").matches) {
+        rs.classList.remove(addVerticalClass);
+        if (!rs.classList.contains(addHorizontalClass)){
+            rs.classList.add(addHorizontalClass);
+        }
+        return;
+    }
+
+    rs.classList.remove(addHorizontalClass);
+    if (!rs.classList.contains(addVerticalClass)){
+        rs.classList.add(addVerticalClass);
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////
