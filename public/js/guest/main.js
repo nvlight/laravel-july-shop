@@ -636,6 +636,28 @@ function changeSwiperSLiderLiStyleOnScreenWidth() {
 }
 
 /**
+ * Установление высоты по умолчанию для Дополнительной информации продукта.
+ */
+function setDefaultHeightForAddInfoSection() {
+    const sel = ".j-add-info-section + .collapsible__bottom button.collapsible__toggle";
+    const rs  = document.querySelector(sel);
+    if (!rs) return;
+
+    const detailsContent = rs.closest('.details__content');
+    if (!detailsContent) return;
+    const jDescription = detailsContent.querySelector('.j-add-info-section');
+    if (!jDescription) return;
+
+    if ( !window.matchMedia("(max-width: 1023px)").matches) {
+        jDescription.style.maxHeight = "224px";
+        // тут еще можно проверить, если оно развернуто, то нужно сбросить...
+    }else{
+        jDescription.style.maxHeight = "76px";
+        // тут еще можно проверить, если оно развернуто, то нужно сбросить...
+    }
+}
+
+/**
  * Перехватить изменение размера окна и выполнить нужные действия
  */
 function resizeWindowHandler() {
@@ -654,6 +676,7 @@ function resizeWindowHandler() {
     window.addEventListener('resize', setRightBigCardIconStatus);
     window.addEventListener('resize', changeSwiperContainerHorizontalVerticalClassOnScreenWidth);
     window.addEventListener('resize', changeSwiperSLiderLiStyleOnScreenWidth);
+    window.addEventListener('resize', setDefaultHeightForAddInfoSection);
 }
 
 /**

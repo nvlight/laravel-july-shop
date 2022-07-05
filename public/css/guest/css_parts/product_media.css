@@ -133,6 +133,11 @@
     .collapsible__toggle-wrap.description{
         display: none;
     }
+    .product-page .product-page__details-section {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid #e8e8e8;
+    }
 }
 /* max-width: 1023.98px */
 

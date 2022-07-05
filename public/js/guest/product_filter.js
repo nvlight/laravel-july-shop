@@ -574,35 +574,123 @@ function collaplseContentClickHandler() {
     const collapseContentAddInfoSectionSel = '.collapsable__content.j-add-info-section';
     for(let i=0; i<btnRs.length; i++){
         btnRs[i].addEventListener('click', function (e) {
-            let parentCont = e.target.closest(detContSel);
-            //conlog(parentCont);
-            if (!parentCont){
-                return;
-            }
 
-            let collapseContentDescriptionRs = parentCont.querySelector(collapseContentDescriptionSel);
-            if (collapseContentDescriptionRs){
-                //conlog(collapseContentDescriptionRs);
-                collapseContentDescriptionRs.classList.toggle('mah80');
-                return;
-            }
-
-            let collapseContentAddInfoSectionRs = parentCont.querySelector(collapseContentAddInfoSectionSel);
-            if (collapseContentAddInfoSectionRs){
-                //conlog(collapseContentAddInfoSectionRs);
-                const collapsibleGradientSel = '.collapsible__gradient';
-                const collapsibleGradientRs  = parentCont.querySelector(collapsibleGradientSel);
-                //conlog(collapsibleGradientRs);
-                if (!collapsibleGradientRs){
+            if ( !window.matchMedia("(max-width: 1023px)").matches) {
+                let parentCont = e.target.closest(detContSel);
+                //conlog(parentCont);
+                if (!parentCont){
                     return;
                 }
-                collapsibleGradientRs.classList.toggle('hide');
-                collapseContentAddInfoSectionRs.classList.toggle('mah224')
 
-                return;
+                let collapseContentDescriptionRs = parentCont.querySelector(collapseContentDescriptionSel);
+                if (collapseContentDescriptionRs){
+                    //conlog(collapseContentDescriptionRs);
+                    collapseContentDescriptionRs.classList.toggle('mah80');
+                    return;
+                }
+
+                let collapseContentAddInfoSectionRs = parentCont.querySelector(collapseContentAddInfoSectionSel);
+                if (collapseContentAddInfoSectionRs){
+                    //conlog(collapseContentAddInfoSectionRs);
+                    const collapsibleGradientSel = '.collapsible__gradient';
+                    const collapsibleGradientRs  = parentCont.querySelector(collapsibleGradientSel);
+                    //conlog(collapsibleGradientRs);
+                    if (!collapsibleGradientRs){
+                        return;
+                    }
+                    collapsibleGradientRs.classList.toggle('hide');
+                    collapseContentAddInfoSectionRs.classList.toggle('mah224')
+
+                    return;
+                }
+            }else{
+                // тут будет пусто, т.к. я уже разобрался с текстом
             }
+
         });
     }
+}
+
+/**
+ * Нажматие на кнопку свернуть/развернуть описание
+ */
+function toggleProductDescription() {
+    const sel = ".j-description + .collapsible__bottom button.collapsible__toggle";
+    const rs  = document.querySelector(sel);
+    if (!rs) return;
+
+    rs.addEventListener('click', function (e) {
+        if ( !window.matchMedia("(max-width: 1023px)").matches) {
+            const detailsContent = rs.closest('.details__content');
+            if (!detailsContent) return;
+            const jDescription = detailsContent.querySelector('.j-description');
+            if (!jDescription) return;
+            //conlog(jDescription.style.maxHeight)
+            if (jDescription.style.maxHeight == '80px'){
+                jDescription.style.maxHeight = "none";
+            }else{
+                jDescription.style.maxHeight = "80px";
+            }
+
+            const text1 = "Развернуть описание";
+            const text2 = "Свернуть описание";
+            if ( rs.innerHTML.trim() == text1 ){
+                rs.innerHTML = text2;
+            }else{
+                rs.innerHTML = text1;
+            }
+        }else{
+            // тут будет пусто, т.к. я уже разобрался с текстом
+        }
+    });
+}
+
+/**
+ * Нажматие на кнопку свернуть/развернуть Дополнительную информацию
+ */
+function toggleAddInfoSection() {
+    const sel = ".j-add-info-section + .collapsible__bottom button.collapsible__toggle";
+    const rs  = document.querySelector(sel);
+    if (!rs) return;
+
+    rs.addEventListener('click', function (e) {
+
+        const detailsContent = rs.closest('.details__content');
+        if (!detailsContent) return;
+        const jDescription = detailsContent.querySelector('.j-add-info-section');
+        if (!jDescription) return;
+        //conlog(jDescription.style.maxHeight)
+
+        if ( !window.matchMedia("(max-width: 1023px)").matches) {
+            if (jDescription.style.maxHeight == '224px'){
+                jDescription.style.maxHeight = "none";
+            }else{
+                jDescription.style.maxHeight = "224px";
+            }
+        }else{
+            if (jDescription.style.maxHeight == '76px'){
+                jDescription.style.maxHeight = "none";
+            }else{
+                jDescription.style.maxHeight = "76px";
+            }
+        }
+
+        const text1 = "Развернуть характеристики";
+        const text2 = "Свернуть характеристики";
+        if ( rs.innerHTML.trim() == text1 ){
+            rs.innerHTML = text2;
+        }else{
+            rs.innerHTML = text1;
+        }
+
+        // collapsible__gradient
+        const selGrad   = ".j-add-info-section + .collapsible__bottom .collapsible__gradient";
+        const selGradRs = document.querySelector(selGrad);
+        if (!selGradRs) return;
+        const toggleHideClass = 'hide';
+        selGradRs.classList.toggle(toggleHideClass);
+
+    });
 }
 
 /**
@@ -852,7 +940,7 @@ filtersGroupItemClick();
 mobileWrapperBackArrowClick();
 closeMobileFiltersBlockHandler();
 showMobileFiltersBlockHandler();
-collaplseContentClickHandler();
+//collaplseContentClickHandler();
 imgsinitSliderZoomImgsArray();
 drawZoomImage(1);
 initSliderContentUlHeight();
@@ -863,3 +951,6 @@ slideContentImgTopArrow();
 slideContentImgBottomArrow();
 changeSwiperContainerHorizontalVerticalClassOnScreenWidth();
 changeSwiperSLiderLiStyleOnScreenWidth();
+toggleProductDescription();
+toggleAddInfoSection();
+setDefaultHeightForAddInfoSection();

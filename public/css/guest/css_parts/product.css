@@ -526,6 +526,9 @@ html{
 .mah224{
     max-height: 224px;
 }
+.mah76{
+    max-height: 76px;
+}
 .product-page .product-page__mix-block {
     -webkit-box-flex: 1;
     -ms-flex-positive: 1;

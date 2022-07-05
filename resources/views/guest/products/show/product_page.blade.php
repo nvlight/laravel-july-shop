@@ -244,7 +244,7 @@
                     <div class="details__content collapsable"
                          data-link="{collapsibleBlock btnClass='j-wba-card-item j-wba-card-item-show j-description-btn' nameForWba='Item_Description_More' itemSelector='.j-description' maxCollapsedHeight=80 collapsedMsg='Развернуть описание' unCollapsedMsg='Свернуть описание'}class{merge: !product^description toggle='hide'}"
                          data-jsv="#5548^/5548^">
-                        <div class="collapsable__content j-description mh80"><p
+                        <div class="collapsable__content j-description" style="max-height: 80px;"><p
                                 class="collapsable__text" data-link="text{:product^description}">Десять никак не
                                 связанных между собой людей в особняке на уединенном острове. Кто вызвал их сюда
                                 таинственным приглашением? Зачем кто-то убивает их, одного за другим, самыми
@@ -311,12 +311,9 @@
                     <div
                         data-link="{collapsibleBlock btnClass='j-parameters-btn j-wba-card-item j-wba-card-item-show' nameForWba='Item_Parameters_More' itemSelector='.j-add-info-section' maxCollapsedHeight=(~wbSettings^displayMode=='m' ? 76 : 224) collapsedMsg='Развернуть характеристики' unCollapsedMsg='Свернуть характеристики' useGradient=true}"
                         data-jsv="#5559^/5559^">
-                        <div class="collapsable__content j-add-info-section mah224" >
+                        <div class="collapsable__content j-add-info-section" style="max-height: 224px;">
                             <div class="product-params"
                                  data-link="{include tmpl='productCardOptions' ^~groupedAddedOptions=product^groupedAddedOptions ~showCategoryName=true}">
-                                <script type="jsv#17675_"></script>
-                                <script type="jsv#17676_"></script>
-                                <script type="jsv#17677_"></script>
                                 <table class="product-params__table">
                                     <caption data-jsv="#5560^#17678_" class="product-params__caption">Дополнительная
                                         информация
@@ -327,9 +324,7 @@
                                                         type="jsv#5561^"></script>Автор<script
                                                         type="jsv/5561^"></script></span></span></th>
                                         <td class="product-params__cell">
-                                            <script type="jsv#5562^"></script>
                                             Агата Кристи
-                                            <script type="jsv/5562^"></script>
                                         </td>
                                     </tr>
                                     <tr data-jsv="/17680_#17681_" class="product-params__row">
@@ -337,9 +332,7 @@
                                                         type="jsv#5563^"></script>Вес товара с упаковкой (г)<script
                                                         type="jsv/5563^"></script></span></span></th>
                                         <td class="product-params__cell">
-                                            <script type="jsv#5564^"></script>
                                             135 г
-                                            <script type="jsv/5564^"></script>
                                         </td>
                                     </tr>
                                     <tr data-jsv="/17681_#17682_" class="product-params__row">
@@ -347,9 +340,7 @@
                                                         type="jsv#5565^"></script>Вид бумаги<script
                                                         type="jsv/5565^"></script></span></span></th>
                                         <td class="product-params__cell">
-                                            <script type="jsv#5566^"></script>
                                             газетная
-                                            <script type="jsv/5566^"></script>
                                         </td>
                                     </tr>
                                     <tr data-jsv="/17682_#17683_" class="product-params__row">
