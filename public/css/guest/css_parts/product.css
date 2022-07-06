@@ -1381,3 +1381,58 @@ html{
     font-weight: 600;
     text-decoration: line-through;
 }
+.product-page .product-page__order-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.product-page .digital-info {
+    font-size: 14px;
+    line-height: 20px;
+    color: #242424;
+    margin-bottom: 24px;
+}
+.product-page .product-page__price-block--common .price-block {
+    margin-bottom: 12px;
+}
+.product-page .product-page__delivery .delivery__row {
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 100%;
+}
+.seller-info .seller-info__link:hover {
+    color: #cb11ab;
+    border-color: initial;
+}
+.product-page .price-history__trend {
+    position: relative;
+    margin-left: 12px;
+    padding-left: 14px;
+}
+.product-page .price-history__trend.uptrend {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    border: none;
+    background-color: transparent;
+    font-size: 12px;
+    line-height: 16px;
+    color: #f44;
+}
+.product-page .price-history__trend::before {
+    position: absolute;
+    left: 0;
+    top: 4px;
+}
+.product-page .price-history__trend.uptrend::before {
+    content: "";
+    display: block;
+    width: 9px;
+    height: 9px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.product-page .price-history__trend.uptrend::before {
+    background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M7.361.238a.977.977%200%20011.278%200l7.097%206.377a.755.755%200%20010%201.147.977.977%200%2001-1.278%200L8%201.96%201.542%207.762a.977.977%200%2001-1.277%200%20.755.755%200%20010-1.147L7.36.238z%22%20fill%3D%22%23ff4444%22%2F%3E%3Crect%20width%3D%222%22%20height%3D%2216%22%20rx%3D%221%22%20transform%3D%22matrix(-1%200%200%201%209%200)%22%20fill%3D%22%23ff4444%22%2F%3E%3C%2Fsvg%3E");
+}
