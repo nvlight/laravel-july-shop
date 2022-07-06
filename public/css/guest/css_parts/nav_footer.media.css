@@ -95,7 +95,8 @@
         height: 16px;
         border-radius: 0;
         /* todo посмотрим проканает ли :smirk канает так типа, но при прокрутке вверху что-то идет не так - пофиксить*/
-        background: transparent;
+        /*background: transparent;*/
+        background: var(--test-bg-color);
     }
     .header__top {
         display: none;

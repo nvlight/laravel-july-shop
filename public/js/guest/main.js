@@ -299,9 +299,17 @@ function burgerMenuMobileScrollAnimateHandle() {
             console.log('scrolled top: '+window.pageYOffset)
         }
         if (window.pageYOffset > 72){
-            addHeaderFixedAnimate()
+            addHeaderFixedAnimate();
+            // тут нужно добавить bgc - transparent
+            let box      = document.getElementsByClassName('header')[0]
+            let boxAfter = window.getComputedStyle(box, "::after");
+            box.style.setProperty('--test-bg-color','transparent');
         }else{
             findAndDeleteClassesToTarget('.header.j-header', ['header--fixed', 'header--fixed-animate']);
+            // тут нужно убрать его обратно bgc - transparent
+            let box      = document.getElementsByClassName('header')[0]
+            let boxAfter = window.getComputedStyle(box, "::after");
+            box.style.setProperty('--test-bg-color','');
         }
     }
 }
