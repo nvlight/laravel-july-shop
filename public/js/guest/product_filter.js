@@ -879,7 +879,38 @@ function initSliderContentUlHeight() {
 // ####################
 // теперь идут функции для ширины меньше 1024px
 
+/**
+ * Показать закрепленную линию с текущим продуктом и кнопкой добавить в корзину
+ */
+function productLineFixedTopShow(){
+    findAndAddClassesToTarget('.product-line.j-product-card-line.product-line--invisible', 'show')
+}
 
+/**
+ * Спрятать закрепленную линию с текущим продуктом и кнопкой добавить в корзину
+ */
+function productLineFixedTopHide(){
+    findAndDeleteClassesToTargetArray('.product-line.j-product-card-line.product-line--invisible.show', ['show']);
+}
+
+/**
+ * При изменении клиентской высоты спрятать/показать верхнюю линию с продуктом и корзиной.
+ */
+function productLineFixedTopWithScrollHandler(){
+    if (window.scrollY >= 960){
+        productLineFixedTopShow();
+    }else{
+        productLineFixedTopHide();
+    }
+}
+
+
+/**
+ * Перехватить событие скролла и выполнить нужные действия.
+ */
+function scrollWindowHandler(){
+    window.addEventListener('scroll', productLineFixedTopWithScrollHandler);
+}
 
 ////////////////////////////
 showHideFilters();
@@ -904,3 +935,4 @@ changeSwiperSLiderLiStyleOnScreenWidth();
 toggleProductDescription();
 toggleAddInfoSection();
 setDefaultHeightForAddInfoSection();
+scrollWindowHandler();
