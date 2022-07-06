@@ -138,6 +138,35 @@
         padding-top: 16px;
         border-top: 1px solid #e8e8e8;
     }
+    .product-page .product-page__seller-wrap:not(:empty) {
+        border-top: 12px solid #f6f6f6;
+        padding: 16px 16px 0;
+        margin: 20px -16px 0;
+    }
+    .seller-info .seller-info__list {
+        scrollbar-width: none;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        overflow: auto;
+        margin: 0 -16px;
+        padding: 16px;
+    }
+    .seller-info .seller-info__item {
+        white-space: nowrap;
+    }
+    .product-page .product-page__price-history:not(:empty) {
+        border-top: 12px solid #f6f6f6;
+        padding: 16px 16px 0;
+        margin: 20px -16px 0;
+    }
+    .seller-info .seller-info__logo {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 52px;
+        height: 22px;
+    }
 }
 /* max-width: 1023.98px */
 

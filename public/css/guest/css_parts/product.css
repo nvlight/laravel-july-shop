@@ -1060,3 +1060,23 @@ html{
     line-height: 20px;
     color: #8b8b8b;
 }
+.seller-info .seller-info__item ~ .seller-info__item {
+    margin: 0 0 0 8px;
+}
+.seller-info .seller-info__link {
+    font-size: 16px;
+    line-height: 22px;
+    color: #242424;
+    border-color: initial;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #8b8b8b;
+    border-color: transparent;
+    font-size: 14px;
+    line-height: 20px;
+}
+.seller-info .seller-info__logo img {
+    width: 100%;
+    height: auto;
+}
