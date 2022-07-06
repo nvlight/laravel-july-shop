@@ -477,6 +477,31 @@
     .sw-slider-kt-mix .slide.active .slide__content {
         border-color: #cb11ab;
     }
+    .seller-info .seller-info__header {
+        border-bottom: 1px solid #e8e8e8;
+        padding: 0 0 16px;
+        margin: 0 0 16px;
+    }
+    .seller-info .seller-info__name {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .seller-info .seller-info__item {
+        padding: 0 22px 0 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    .seller-info .seller-info__desc {
+        display: inline;
+    }
+    .seller-info .seller-info__item::after {
+        top: 3px;
+        right: 0;
+        left: auto;
+    }
+    .seller-info .seller-info__item ~ .seller-info__item {
+        margin: 10px 0 0;
+    }
 }
 /* min-width: 1024px */
 
