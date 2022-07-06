@@ -1292,3 +1292,92 @@ html{
     font-size: 0;
     line-height: 0;
 }
+.product-line .product-line__img-wrap {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    width: 27px;
+    margin-right: 12px;
+    position: relative;
+}
+.product-line .product-line__img {
+    padding-top: calc(100% * (64/48));
+    display: block;
+    width: 100%;
+    position: relative;
+    border-radius: 4px;
+    font-size: 0;
+    line-height: 0;
+}
+.product-line .product-line__img::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(41,43,83,.03);
+    z-index: 1;
+}
+.product-line .product-line__img img {
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.product-line .product-line__wrap {
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    max-width: calc(100% - 48px - 16px - 370px);
+    overflow: visible;
+}
+.product-line .product-line__rating {
+    margin-right: 16px;
+    width: 96px;
+    vertical-align: baseline;
+    margin-top: -2px;
+}
+.product-line .product-line__param {
+    font-size: 16px;
+    line-height: 22px;
+    color: #242424;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #8b8b8b;
+    border-color: initial;
+    font-size: 14px;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: text-bottom;
+    max-width: 192px;
+    margin-right: 16px;
+}
+.product-line .product-line__price {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    margin-left: 24px;
+    padding-left: 24px;
+    border-left: 2px solid #e8e8e8;
+}
+.product-line .product-line__price-old {
+    font-size: 14px;
+    line-height: 20px;
+    color: #8b8b8b;
+    font-weight: 600;
+    text-decoration: line-through;
+}
