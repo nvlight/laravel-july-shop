@@ -1,5 +1,6 @@
-<div class="hide" data-link="{include tmpl='productCardMiniCard'}">
-    <div class="product-line j-product-card-line product-line--invisible" id="f0ccf25a-5b82-1dc4-c640-0bf999fe3bc7"
+{{-- hide скрыл hide --}}
+<div class="" data-link="{include tmpl='productCardMiniCard'}">
+    <div class="product-line j-product-card-line product-line--invisible show" id="f0ccf25a-5b82-1dc4-c640-0bf999fe3bc7"
          data-link="class{merge: isProductCard toggle='product-line--invisible'}class{merge: showInvisibleCard toggle='show'}class{merge: adult &amp;&amp; !$adult.isConfirmed toggle='for-adults'}">
         <div class="product-line__container">
             <div class="product-line__img-wrap hide-mobile"
