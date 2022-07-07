@@ -4,7 +4,8 @@
         <script type="jsv#17623_"></script>
         <div class="product-page__slider" id="c9b886c8-f0ab-8c86-91cd-ac1f72dc8e1b">
             <div class="sw-slider-kt-mix">
-                <p class="badge-express-sm hide" data-link="class{merge:!(enabledForRegion &amp;&amp; deliveryModel^deliveryInfoModel &amp;&amp; deliveryModel^deliveryInfoModel.isExpress) toggle='hide'}">
+                <p class="badge-express-sm hide"
+                   data-link="class{merge:!(enabledForRegion &amp;&amp; deliveryModel^deliveryInfoModel &amp;&amp; deliveryModel^deliveryInfoModel.isExpress) toggle='hide'}">
                     Экспресс-доставка</p>
                 <p class="badge-abroad-sm hide"
                    data-link="class{merge: !isImport toggle='hide'}{tooltip tmplName='abroadInfoTooltip' classes='i-tooltip-abroad-delivery' distance=4 pos='alignleft bottom'}"
@@ -27,17 +28,19 @@
                                     <script type="jsv#17627_"></script>
                                     <img
                                         {{-- src="//images.wbstatic.net/big/new/9410000/9414496-1.jpg" --}}
-                                         src="//images.wbstatic.net/big/new/9410000/9414496-1.jpg"
-                                         alt=" Вид 1.">
+                                        src="//images.wbstatic.net/big/new/9410000/9414496-1.jpg"
+                                        alt=" Вид 1.">
                                     <script type="jsv/17627_"></script>
                                 </div>
                             </li>
-                            <li class="swiper-slide slide" data-image-index="1" style="height: 96px; margin-bottom: 8px;">
+                            <li class="swiper-slide slide" data-image-index="1"
+                                style="height: 96px; margin-bottom: 8px;">
                                 <div class="slide__content img-plug j-wba-card-item">
                                     <img src="//images.wbstatic.net/big/new/9410000/9414496-2.jpg" alt=" Вид 2.">
                                 </div>
                             </li>
-                            <li class="swiper-slide slide" data-image-index="2" style="height: 96px; margin-bottom: 8px;">
+                            <li class="swiper-slide slide" data-image-index="2"
+                                style="height: 96px; margin-bottom: 8px;">
                                 <div class="slide__content img-plug j-wba-card-item">
                                     <img src="//images.wbstatic.net/big/new/9410000/9414496-3.jpg" alt=" Вид 3.">
                                 </div>
@@ -147,6 +150,14 @@
                                 </div>
                                 <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
                         </ul>
+
+                        <button class="mix-block__slider-btnCustom btn--prev hide-desktop" type="button">
+                            prev
+                        </button>
+                        <button class="mix-block__slider-btnCustom btn--next hide-desktop" type="button">
+                            next
+                        </button>
+
                         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
                     <div class="sw-slider-kt-mix__btns-bottom hide-desktop">
                         <script type="jsv#5422^"></script>

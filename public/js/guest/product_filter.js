@@ -912,6 +912,65 @@ function scrollWindowHandler(){
     window.addEventListener('scroll', productLineFixedTopWithScrollHandler);
 }
 
+let sliderTableStepOffset = 500;
+let sliderTableCurrentOffset = 0;
+let sliderTableWidth = 0;
+let sliderItemCount = 11;
+let sliderTableCurrentItemPosition = 1;
+
+function getLiMaxWidth(swSlider) {
+    let li = swSlider.querySelector('li');
+    if (!li) return;
+    sliderTableStepOffset = li.offsetWidth + 24;
+    return (sliderItemCount -1 ) * (li.offsetWidth + 24);
+}
+
+/**
+ *
+ * @constructor
+ */
+function SliderTabletWidthRightBtnHandler() {
+    const swSlider = document.querySelector('ul.swiper-wrapper');
+    if (!swSlider) return;
+
+    let liRes = getLiMaxWidth(swSlider);
+    if (!liRes) return;
+    sliderTableWidth = liRes;
+
+    if ( (sliderTableCurrentOffset + sliderTableStepOffset) > sliderTableWidth){
+        sliderTableCurrentOffset = sliderTableWidth;
+    }else{
+        sliderTableCurrentOffset += sliderTableStepOffset;
+    }
+
+    swSlider.style.transform = `translate3d(-${sliderTableCurrentOffset}px, 0px, 0px)`;
+    conlog(sliderTableCurrentOffset);
+}
+
+/**
+ *
+ * @constructor
+ */
+function SliderTabletWidthLeftBtnHandler() {
+    const swSlider = document.querySelector('ul.swiper-wrapper');
+    if (!swSlider) return;
+
+    let liRes = getLiMaxWidth(swSlider);
+    if (!liRes) return;
+    sliderTableWidth = liRes;
+
+    if ( (sliderTableCurrentOffset - sliderTableStepOffset) <= 0){
+        sliderTableCurrentOffset = 0;
+    }else{
+        sliderTableCurrentOffset -= sliderTableStepOffset;
+    }
+
+    swSlider.style.transform = `translate3d(-${sliderTableCurrentOffset}px, 0px, 0px)`
+    sliderTableCurrentOffset -= sliderTableStepOffset;
+    conlog(sliderTableCurrentOffset);
+    //conlog(sliderTableStepOffset);
+}
+
 ////////////////////////////
 showHideFilters();
 clickFilterCheckbox();

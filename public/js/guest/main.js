@@ -309,7 +309,7 @@ function burgerMenuMobileScrollAnimateHandle() {
             // тут нужно убрать его обратно bgc - transparent
             let box      = document.getElementsByClassName('header')[0]
             let boxAfter = window.getComputedStyle(box, "::after");
-            box.style.setProperty('--test-bg-color','');
+            box.style.setProperty('--test-bg-color','#fff');
         }
     }
 }

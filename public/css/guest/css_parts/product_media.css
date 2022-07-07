@@ -281,6 +281,19 @@
         transition: transform .3s ease 0s;
         transition: transform .3s ease 0s,-webkit-transform .3s ease 0s;
     }
+    .swiper-container .mix-block__slider-btnCustom{
+        position: absolute;
+        padding: 20px;
+        background-color: gray;
+        top: 156px;
+        z-index: 1;
+    }
+    .swiper-container .mix-block__slider-btnCustom.btn--prev{
+        left: 0;
+    }
+    .swiper-container .mix-block__slider-btnCustom.btn--next{
+        right: 0;
+    }
 }
 /* max-width: 1023.98px */
 
