@@ -10,7 +10,9 @@
                         @include('guest.parts.breadcrumbs')
                     </div>
                 </div>
-                <div class="catalog-title-wrap"><h1 class="catalog-title">{{$currentCategory->title}}</h1></div>
+                <div class="catalog-title-wrap">
+                    <h1 class="catalog-title">{{$currentCategory->title}}</h1>
+                </div>
                 <p class="j-open-tecdoc-mobile selection-btn hide-desktop hide">Подбор запчастей</p>
                 <div class="catalog-start-content">
 
@@ -18,7 +20,9 @@
                         <div>
                             <div class="menu-catalog">
                                 <ul class="menu-catalog__list-1">
-                                    <li>Категории</li>
+                                    @if($currentCategory->parent_id == 0)
+                                        <li>Категории</li>
+                                    @endif
                                     <li class="name">{{$currentCategory->title}}</li>
                                 </ul>
                                 @foreach($childCategories as $childCategory)

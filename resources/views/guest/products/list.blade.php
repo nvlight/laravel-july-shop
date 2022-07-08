@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="catalog-title-wrap">
-        <h1 class="catalog-title" >Детективы</h1>
+        <h1 class="catalog-title">{{$currentCategory->title}}</h1>
         <span class="goods-count">
             <span class="hide">ТОП</span>
             <span>13 835</span>
@@ -64,11 +64,11 @@
         <div class="sidemenu-overflow">
             <div class="">
                 <ul class="sidemenu" >
-                    <li data-jsv="#17869^#49064_#49065_" class="selected opened haschild">
-                        <a href="/catalog/knigi/hudozhestvennaya-literatura">Художественная литература</a>
-                        <ul >
+                    <li class="selected opened haschild">
+                        <a href="{{route('guest.category.show', $parentCategory->id)}}">Художественная литература</a>
+                        <ul>
                             <li class="selected hasnochild">
-                                <a href="/catalog/knigi/hudozhestvennaya-literatura/detektivy">Детективы</a>
+                                <a href="{{route('guest.category.show', $currentCategory->id)}}">{{$currentCategory->title}}</a>
                             </li>
                         </ul>
                     </li>
