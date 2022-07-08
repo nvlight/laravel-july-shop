@@ -284,8 +284,8 @@
     .swiper-container .mix-block__slider-btnCustom{
         position: absolute;
         padding: 20px;
-        background-color: gray;
-        top: 156px;
+        /*background-color: gray;*/
+        top: var(--slider-current-height);
         z-index: 1;
     }
     .swiper-container .mix-block__slider-btnCustom.btn--prev{
@@ -294,6 +294,29 @@
     .swiper-container .mix-block__slider-btnCustom.btn--next{
         right: 0;
     }
+
+    .swiper-container .mix-block__slider-btnCustom.btn--prev::before, .swiper-container .mix-block__slider-btnCustom.btn--next::before {
+        content: "";
+        display: block;
+        width: 28px;
+        height: 28px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .swiper-container .mix-block__slider-btnCustom.btn--prev::before, .swiper-container .mix-block__slider-btnCustom.btn--next::before {
+        background-image: url(data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M26.57%2013.614a1.587%201.587%200%200%201-2.076%200L14%204.184l-10.494%209.43a1.587%201.587%200%200%201-2.076%200%201.226%201.226%200%200%201%200-1.865L12.962%201.386a1.587%201.587%200%200%201%202.076%200L26.57%2011.75c.573.515.573%201.35%200%201.865Z%22%20fill%3D%22%23313132%22%2F%3E%3Cpath%20d%3D%22M12.375%2025.375a1.625%201.625%200%201%200%203.25%200V2.625a1.625%201.625%200%201%200-3.25%200v22.75Z%22%20fill%3D%22%23313132%22%2F%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M15.628%205.63v19.765a1.628%201.628%200%201%201-3.256%200V5.63l-8.885%207.984a1.59%201.59%200%200%201-2.08%200%201.229%201.229%200%200%201%200-1.868L12.785%201.52A1.632%201.632%200%200%201%2014%20.977a1.621%201.621%200%200%201%201.215.544l11.378%2010.224a1.229%201.229%200%200%201%200%201.868%201.59%201.59%200%200%201-2.08%200l-8.885-7.984Zm.275-4.803%2011.342%2010.191a2.205%202.205%200%200%201%200%203.322c-.945.85-2.44.85-3.385%200l-7.255-6.52v17.575a2.605%202.605%200%201%201-5.21%200V7.82L4.14%2014.34c-.946.85-2.44.85-3.385%200a2.205%202.205%200%200%201%200-3.322L12.096.827A2.598%202.598%200%200%201%2014%200c.751%200%201.428.318%201.903.827Z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E);
+    }
+
+    .swiper-container .mix-block__slider-btnCustom.btn--prev::before{
+        transform: rotate(270deg);
+    }
+    .swiper-container .mix-block__slider-btnCustom.btn--next::before {
+        transform: rotate(90deg);
+    }
+
+
 }
 /* max-width: 1023.98px */
 

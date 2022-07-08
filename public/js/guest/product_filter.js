@@ -912,28 +912,41 @@ function scrollWindowHandler(){
     window.addEventListener('scroll', productLineFixedTopWithScrollHandler);
 }
 
+
+
+
+
+
 let sliderTableStepOffset = 500;
 let sliderTableCurrentOffset = 0;
 let sliderTableWidth = 0;
 let sliderItemCount = 11;
 let sliderTableCurrentItemPosition = 1;
 
-function getLiMaxWidth(swSlider) {
+/**
+ * Получить ширину элементов слайдера
+ * мобильная версия
+ * @param swSlider
+ * @returns {number}
+ */
+function getSliderTabletLiMaxWidth(swSlider) {
     let li = swSlider.querySelector('li');
     if (!li) return;
-    sliderTableStepOffset = li.offsetWidth + 24;
-    return (sliderItemCount -1 ) * (li.offsetWidth + 24);
+    let liAdditionOffset = 24;
+    sliderTableStepOffset = li.offsetWidth + liAdditionOffset; // e.g. 24
+    return (sliderItemCount -1) * (li.offsetWidth + liAdditionOffset); // e.g. 24
 }
 
 /**
- *
+ * Кнопка вперед, слайдера для таблетов - обработчик-исполнитель
  * @constructor
  */
-function SliderTabletWidthRightBtnHandler() {
+function SliderTabletWidthRightBtnHandle() {
     const swSlider = document.querySelector('ul.swiper-wrapper');
     if (!swSlider) return;
+    //conlog('clicked: '+SliderTabletWidthRightBtnHandle.name);
 
-    let liRes = getLiMaxWidth(swSlider);
+    let liRes = getSliderTabletLiMaxWidth(swSlider);
     if (!liRes) return;
     sliderTableWidth = liRes;
 
@@ -941,34 +954,60 @@ function SliderTabletWidthRightBtnHandler() {
         sliderTableCurrentOffset = sliderTableWidth;
     }else{
         sliderTableCurrentOffset += sliderTableStepOffset;
+        swSlider.style.transform = `translate3d(-${sliderTableCurrentOffset}px, 0px, 0px)`;
     }
 
-    swSlider.style.transform = `translate3d(-${sliderTableCurrentOffset}px, 0px, 0px)`;
-    conlog(sliderTableCurrentOffset);
+    //conlog(sliderTableCurrentOffset);
 }
 
 /**
- *
+ * Кнопка назад, слайдера для таблетов - обработчик-исполнитель
  * @constructor
  */
-function SliderTabletWidthLeftBtnHandler() {
+function SliderTabletWidthLeftBtnHandle() {
     const swSlider = document.querySelector('ul.swiper-wrapper');
     if (!swSlider) return;
+    //conlog('clicked: '+SliderTabletWidthLeftBtnHandle.name);
 
-    let liRes = getLiMaxWidth(swSlider);
+    let liRes = getSliderTabletLiMaxWidth(swSlider);
     if (!liRes) return;
     sliderTableWidth = liRes;
 
-    if ( (sliderTableCurrentOffset - sliderTableStepOffset) <= 0){
+    if ( (sliderTableCurrentOffset - sliderTableStepOffset) < 0){
         sliderTableCurrentOffset = 0;
     }else{
         sliderTableCurrentOffset -= sliderTableStepOffset;
+        swSlider.style.transform = `translate3d(-${sliderTableCurrentOffset}px, 0px, 0px)`
     }
 
-    swSlider.style.transform = `translate3d(-${sliderTableCurrentOffset}px, 0px, 0px)`
-    sliderTableCurrentOffset -= sliderTableStepOffset;
-    conlog(sliderTableCurrentOffset);
-    //conlog(sliderTableStepOffset);
+    //conlog(sliderTableCurrentOffset);
+}
+
+/**
+ * Кнопка назад, слайдера для таблетов - обработчик
+ * @constructor
+ */
+function SliderTabletWidthLeftBtnHandler() {
+    const btn = document.querySelector('.mix-block__slider-btnCustom.btn--prev');
+    if (!btn) return;
+
+    btn.addEventListener('click', function (e) {
+        SliderTabletWidthLeftBtnHandle();
+    });
+}
+
+
+/**
+ * Кнопка вперед, слайдера для таблетов - обработчик-исполнитель
+ * @constructor
+ */
+function SliderTabletWidthRightBtnHandler(){
+    const btn = document.querySelector('.mix-block__slider-btnCustom.btn--next');
+    if (!btn) return;
+
+    btn.addEventListener('click', function (e) {
+        SliderTabletWidthRightBtnHandle();
+    });
 }
 
 ////////////////////////////
@@ -980,7 +1019,6 @@ filtersGroupItemClick();
 mobileWrapperBackArrowClick();
 closeMobileFiltersBlockHandler();
 showMobileFiltersBlockHandler();
-//collaplseContentClickHandler();
 imgsinitSliderZoomImgsArray();
 drawZoomImage(1);
 initSliderContentUlHeight();
@@ -995,3 +1033,6 @@ toggleProductDescription();
 toggleAddInfoSection();
 setDefaultHeightForAddInfoSection();
 scrollWindowHandler();
+SliderTabletWidthRightBtnHandler();
+SliderTabletWidthLeftBtnHandler();
+setSliderTabletButtonsHeight();

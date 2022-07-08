@@ -666,6 +666,38 @@ function setDefaultHeightForAddInfoSection() {
 }
 
 /**
+ * Получить высоту слайдер в таблете.
+ */
+function getSliderTabletHeight() {
+    let h = 0;
+
+    const swSlider = document.querySelector('ul.swiper-wrapper');
+    if (!swSlider) return h;
+
+    h = swSlider.offsetHeight;
+
+    return h;
+}
+
+/**
+ * Установить высоту кнопок слайдера для таблета
+ */
+function setSliderTabletButtonsHeight() {
+    const swSlider = document.querySelector('ul.swiper-wrapper');
+    if (!swSlider) return ;
+
+    const btns = swSlider.parentElement.querySelectorAll('button');
+    if (!btns) return;
+
+    let h = getSliderTabletHeight();
+    for(let i=0; i<btns.length; i++){
+        let currH = h/2-34+'px';
+        //conlog(h + ' -- ' + currH);
+        btns[i].style.setProperty('--slider-current-height',currH);
+    }
+}
+
+/**
  * Перехватить изменение размера окна и выполнить нужные действия
  */
 function resizeWindowHandler() {
@@ -685,6 +717,7 @@ function resizeWindowHandler() {
     window.addEventListener('resize', changeSwiperContainerHorizontalVerticalClassOnScreenWidth);
     window.addEventListener('resize', changeSwiperSLiderLiStyleOnScreenWidth);
     window.addEventListener('resize', setDefaultHeightForAddInfoSection);
+    window.addEventListener('resize', setSliderTabletButtonsHeight);
 }
 
 /**

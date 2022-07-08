@@ -57,7 +57,7 @@
                                          alt=" Вид 4.">
                                     <script type="jsv/17633_"></script>
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
+
                             <li data-jsv="/17632_#17634_" class="swiper-slide slide"
                                 data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
                                 data-image-index="4" style="height: 96px; margin-bottom: 8px;">
@@ -70,7 +70,7 @@
                                          alt=" Вид 5.">
                                     <script type="jsv/17635_"></script>
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
+
                             <li data-jsv="/17634_#17636_" class="swiper-slide slide"
                                 data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
                                 data-image-index="5" style="height: 96px; margin-bottom: 8px;">
@@ -83,7 +83,7 @@
                                          alt=" Вид 6.">
                                     <script type="jsv/17637_"></script>
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
+
                             <li data-jsv="/17636_#17638_" class="swiper-slide slide"
                                 data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
                                 data-image-index="6" style="height: 96px; margin-bottom: 8px;">
@@ -96,7 +96,7 @@
                                          alt=" Вид 7.">
                                     <script type="jsv/17639_"></script>
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
+
                             <li data-jsv="/17638_#17640_" class="swiper-slide slide"
                                 data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
                                 data-image-index="7" style="height: 96px; margin-bottom: 8px;">
@@ -109,7 +109,7 @@
                                          alt=" Вид 8.">
                                     <script type="jsv/17641_"></script>
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
+
                             <li data-jsv="/17640_#17642_" class="swiper-slide slide"
                                 data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
                                 data-image-index="8" style="height: 96px; margin-bottom: 8px;">
@@ -122,7 +122,7 @@
                                          alt=" Вид 9.">
                                     <script type="jsv/17643_"></script>
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
+
                             <li data-jsv="/17642_#17644_" class="swiper-slide slide"
                                 data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
                                 data-image-index="9" style="height: 96px; margin-bottom: 8px;">
@@ -135,7 +135,7 @@
                                          alt=" Вид 10.">
                                     <script type="jsv/17645_"></script>
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
+
                             <li data-jsv="/17644_#17646_" class="swiper-slide slide"
                                 data-link="class{merge: ~currentSlide == (#getIndex() + ~delta)  toggle='active'}"
                                 data-image-index="10" style="height: 96px; margin-bottom: 8px;">
@@ -148,14 +148,12 @@
                                          alt=" Вид 11.">
                                     <script type="jsv/17647_"></script>
                                 </div>
-                                <p class="slide__for-adults hide-desktop">Товары для взрослых</p></li>
+
                         </ul>
 
                         <button class="mix-block__slider-btnCustom btn--prev hide-desktop" type="button">
-                            prev
                         </button>
                         <button class="mix-block__slider-btnCustom btn--next hide-desktop" type="button">
-                            next
                         </button>
 
                         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
