@@ -1,6 +1,6 @@
 @extends('_layouts.main')
 
-@section('title', 'Laravel - July shop!')
+@section('title', 'user/show-product')
 
 @section('content')
     @include('guest.parts.header')

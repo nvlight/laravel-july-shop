@@ -13,8 +13,13 @@
             <div class="product-line__wrap">
                 <div class="product-line__main">
                     <a class="product-line__name" href="https://www.wildberries.ru/catalog/9414496/detail.aspx">
-                        <b>Эксмо
-                        </b> / Десять негритят
+                        @if( !str_contains('/', $product->title))
+                            <b>{{$product->title}}
+                            </b>
+                        @else
+                            <b>{{explode('/', $product->title)[0]}}
+                            </b> / {{explode('/', $product->title)[1]}}
+                        @endif
                     </a>
                     <div class="product-line__desc hide-mobile">
                         <span class="product-line__rating stars-line star5"></span>
@@ -23,11 +28,11 @@
                         </a>
                     </div>
                     <div class="product-line__mobile-info hide-desktop">
-                        <b class="product-line__price-now">264&nbsp;₽</b>
+                        <b class="product-line__price-now">{{$product->price}}&nbsp;₽</b>
                     </div>
                 </div>
                 <div class="product-line__price hide-mobile">
-                    <b class="product-line__price-now">264&nbsp;₽</b>
+                    <b class="product-line__price-now">{{$product->price}}&nbsp;₽</b>
                     <span class="product-line__price-old">343&nbsp;₽</span>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 @extends('_layouts.admin_main')
 
-@section('title', 'Laravel - July shop!')
+@section('title', 'admin/product')
 
 @section('sidebar')
     <p>Sidebar</p>

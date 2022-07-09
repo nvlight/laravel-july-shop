@@ -3,7 +3,6 @@
      id="1aab5db7-e68b-6313-2da9-7ba2ce30b8ba">
 
     @include('guest.products.show.product_line__product_card_line')
-
     <div class="product-page__top-wrap">
         <div class="product-page__breadcrumbs breadcrumbs">
             <a class="breadcrumbs__back">К предыдущей странице</a>
@@ -17,84 +16,49 @@
     </div>
 
     <div class="product-page__grid">
-
         @include('guest.products.show.product-page__slider-wrap')
-
         <div class="product-page__price-block product-page__price-block--common">
             <div data-link="{include priceModel tmpl=priceModel.template ~align='alignleft bottom'}">
-                <script type="jsv#17651_"></script>
-                <script type="jsv#5480^"></script>
-                <script type="jsv/5480^"></script>
-                <script type="jsv#5481^"></script>
-                <script type="jsv/5481^"></script>
-                <script type="jsv#5487^"></script>
-                <script type="jsv#17652_"></script>
                 <div class="price-block">
-                    <script type="jsv#5486^"></script>
-                    <script type="jsv#17738_"></script>
                     <div class="price-block__content">
-                        <p class="price-block__price-wrap"><span class="price-block__price">                    <script
-                                    type="jsv#5759^"></script><script type="jsv/5759^"></script>                    <ins
-                                    class="price-block__final-price">                        264&nbsp;₽                    </ins>                                    </span>
-                            <script type="jsv#5760^"></script>
-                            <script type="jsv#17739_"></script>
+                        <p class="price-block__price-wrap">
+                            <span class="price-block__price">
+                                <ins class="price-block__final-price">{{$product->price}}&nbsp;₽</ins>
+                            </span>
                             <del class="price-block__old-price j-final-saving j-wba-card-item-show"
                                  data-name-for-wba="Item_PriceDetails"
                                  data-link="{tooltip tmplName='priceTooltipster' classes='i-tooltip-add-discount' distance=12 tmplData=#data pos='alignright bottom'}"
-                                 data-jsv="#5763^/5763^"> 343&nbsp;₽
+                                 data-jsv="#5763^/5763^">343&nbsp;₽
                             </del>
-                            <script type="jsv/17739_"></script>
-                            <script type="jsv/5760^"></script>
                         </p>
-                        <script type="jsv#5761^"></script>
-                        <script type="jsv/5761^"></script>
                     </div>
-                    <script type="jsv#5762^"></script>
-                    <script type="jsv/5762^"></script>
-                    <script type="jsv/17738_"></script>
-                    <script type="jsv/5486^"></script>
                 </div>
-                <script type="jsv/17652_"></script>
-                <script type="jsv/5487^"></script>
-                <script type="jsv/17651_"></script>
             </div>
             <p class="digital-info hide"
                data-link="class{merge:!product^isDigital toggle='hide'}text{:product^isVideo ? 'Видеоматериалы будут доступны для просмотра в Личном кабинете сразу после покупки' : product^isActivationKey ? 'Ключ активации будет доступен сразу после покупки в Личном кабинете, в полной версии сайта' : 'Электронная книга будет доступна для скачивания в Личном кабинете сразу после покупки'}">
-                Электронная книга будет доступна для скачивания в Личном кабинете сразу после покупки</p></div>
+                Электронная книга будет доступна для скачивания в Личном кабинете сразу после покупки
+            </p>
+        </div>
         <div class="product-page__composition hide-mobile hide"
              data-link="class{merge: !product^consist || product^showMinDetails toggle='hide'}{collapsibleBlock itemSelector='.j-consist-popup' maxCollapsedHeight=40 collapsedMsg='Развернуть состав' unCollapsedMsg='Свернуть состав'}"
              data-jsv="#5493^/5493^">
-            <div class="collapsable"><p class="collapsable__content j-consist-popup" style="max-height: 40px;"><span>Состав:</span>
+            <div class="collapsable">
+                <p class="collapsable__content j-consist-popup" style="max-height: 40px;">
+                    <span>Состав:</span>
                     <span data-link="text{:product^consist}"></span></p>
-                <div class="collapsible__bottom">
-                    <script type="jsv#17726_"></script>
-                    <script type="jsv#5744^"></script>
-                    <script type="jsv/5744^"></script>
-                    <script type="jsv#5745^"></script>
-                    <script type="jsv/5745^"></script>
-                    <script type="jsv/17726_"></script>
-                </div>
+                <div class="collapsible__bottom"></div>
             </div>
         </div>
         <div class="product-page__colors-wrap">
-            <div
-                data-link="{include selectedNomenclature^digitalLinks tmpl='digitalLinks'}{on 'click' '.j-digital-link' digitalLinkClicked}"
-                data-jsv="#5496^/5496^">
-                <script type="jsv#17655_"></script>
-                <script type="jsv/17655_"></script>
+            <div data-link="{include selectedNomenclature^digitalLinks tmpl='digitalLinks'}{on 'click' '.j-digital-link' digitalLinkClicked}">
             </div>
             <div data-link="{include colorsModel tmpl=colorsModel.template}">
-                <script type="jsv#17656_"></script>
                 <div data-link="id{: 'colors-' + parentId}" id="colors-1aab5db7-e68b-6313-2da9-7ba2ce30b8ba">
-                    <script type="jsv#5497^"></script>
-                    <script type="jsv/5497^"></script>
-                    <div class="slider-color hide"
-                         data-link="class{merge:!(nomenclatures^length > 1 &amp;&amp; !showTones) toggle='hide'}">
+                    <div class="slider-color hide" data-link="class{merge:!(nomenclatures^length > 1 &amp;&amp; !showTones) toggle='hide'}">
                         <div class="sw-slider-colorpicker">
                             <button class="swiper-button-prev" type="button" tabindex="0" role="button"
                                     aria-label="Previous slide" aria-disabled="false"></button>
-                            <div
-                                class="swiper-container j-swiper-color-carousel swiper-container-initialized swiper-container-horizontal"
+                            <div class="swiper-container j-swiper-color-carousel swiper-container-initialized swiper-container-horizontal"
                                 id="0c0c22a5-d813-380e-b820-ff536cc7994a">
                                 <ul class="swiper-wrapper"
                                     data-link="{on 'click' '.j-color' updateNomenclature}{on 'mouseenter' '.j-color' showMiniCarousel}{on 'mouseleave' '.j-color' hideMiniCarousel}"
@@ -190,121 +154,57 @@
                    href="#options" data-jsv="#5522^/5522^">Все характеристики</a></div>
             <div class="product-page__sizes-wrap hide"
                  data-link="class{merge: !selectedNomenclature^showSize toggle='hide'}{include sizeModel tmpl=sizeModel.template}">
-                <script type="jsv#17669_"></script>
-                <script type="jsv#5525^"></script>
-                <script type="jsv/5525^"></script>
-                <script type="jsv/17669_"></script>
             </div>
         </div>
+
         <div class="product-page__header-wrap">
             <div class="product-page__header">
                 <a class="hide-desktop" data-link="text{:product^brandName}href{:product^brandUrl}" href="/brands/eksmo">Эксмо</a>
-                <span class="hide-mobile" data-link="text{:product^brandName}">Эксмо</span>
-                <h1 data-link="text{:product^goodsName}">Десять негритят</h1></div>
+                @if( !str_contains('/', $product->title))
+                    <span class="hide-mobile" data-link="text{:product^brandName}">{{$product->title}}</span>
+                    <h1 data-link="text{:product^goodsName}"></h1></div>
+                @else
+                    <span class="hide-mobile" data-link="text{:product^brandName}">{{explode('/', $product->title)[0]}}</span>
+                    <h1 data-link="text{:product^goodsName}">{{explode('/', $product->title)[1]}}</h1></div>
+                @endif
             <div class="product-page__spec-action">
                 <div class="spec-action hide"
                      data-link="class{merge:(selectedNomenclature^promoText == null || selectedNomenclature^promoText == '')  toggle='hide'}     {include tmpl='productCardPromoText'}style{:~getCustomPromoPanelStyle(selectedNomenclature^promoText)}">
-                    <script type="jsv#17670_"></script>
-                    <script type="jsv#5532^"></script>
-                    <script type="jsv#17671_"></script>
                     <span class="spec-action__text" data-link="text{:selectedNomenclature^promoText}"></span>
-                    <script type="jsv/17671_"></script>
-                    <script type="jsv/5532^"></script>
-                    <script type="jsv/17670_"></script>
                 </div>
             </div>
-            <div class="product-page__common-info"><a class="product-review j-wba-card-item" id="comments_reviews_link"
-                                                      data-name-for-wba="Item_Feedback_Top"
-                                                      data-link="{on isPopup ? $void : $moveToAnchor 'footerTabs' true true 84}href{urlForGood:selectedNomenclature^nmId true targetInfo^targetUrl 'Comments' isAdv}"
-                                                      href="https://www.wildberries.ru/catalog/9414496/detail.aspx?targetUrl=GP#Comments"
-                                                      data-jsv="#5536^/5536^"> <span
-                        class="product-review__rating stars-line star5"
-                        data-link="class{: 'product-review__rating stars-line star' + product^star}">        <span
-                            data-link="text{: product^star}">5</span>    </span>
+            <div class="product-page__common-info">
+                <a class="product-review j-wba-card-item" id="comments_reviews_link"
+                      data-name-for-wba="Item_Feedback_Top"
+                      data-link="{on isPopup ? $void : $moveToAnchor 'footerTabs' true true 84}href{urlForGood:selectedNomenclature^nmId true targetInfo^targetUrl 'Comments' isAdv}"
+                      href="https://www.wildberries.ru/catalog/9414496/detail.aspx?targetUrl=GP#Comments"
+                      data-jsv="#5536^/5536^">
+                    <span class="product-review__rating stars-line star5"
+                        data-link="class{: 'product-review__rating stars-line star' + product^star}">
+                        <span data-link="text{: product^star}">5</span>
+                    </span>
                     <span class="product-review__count-review" data-link="{include tmpl='productCardCommentsCount'}">261 отзыв</span>
                 </a>
-                <p class="product-article"><span class="hide-mobile">Артикул:</span> <span
-                        class="hide-desktop">Арт:</span> <span id="productNmId"
-                                                               data-link="text{: selectedNomenclature^nmId}{on copyNmId}"
-                                                               data-jsv="#5544^/5544^">9414496</span></p>
+                <p class="product-article"><span class="hide-mobile">Артикул:</span>
+                    <span class="hide-desktop">Арт:</span>
+                    <span id="productNmId"
+                       data-link="text{: selectedNomenclature^nmId}{on copyNmId}"
+                       data-jsv="#5544^/5544^">9414496</span></p>
                 <p class="product-order-quantity j-orders-count-wrapper"
-                   data-link="class{merge: selectedNomenclature^ordersCount < 1 || isPopup toggle='hide'}">Купили <span
-                        data-link="{include tmpl='productCardOrderCount' ^~ordersCount=selectedNomenclature^ordersCount}"><script
-                            type="jsv#17736_"></script>    <script type="jsv#17737_"></script>    более 7&nbsp;600 раз    <script
-                            type="jsv/17737_"></script><script type="jsv/17736_"></script></span></p>
+                   data-link="class{merge: selectedNomenclature^ordersCount < 1 || isPopup toggle='hide'}">Купили
+                    <span data-link="{include tmpl='productCardOrderCount' ^~ordersCount=selectedNomenclature^ordersCount}">
+                        более 7&nbsp;600 раз
+                    </span></p>
             </div>
         </div>
+
         <section class="product-page__details-section details-section">
             <div class="details-section__header-wrap" id="options"><h2 class="details-section__header">О товаре</h2>
                 <div data-link="{if promoUrl tmpl='spaProductPromoUrl'}"></div>
             </div>
-            <div class="details-section__inner-wrap">
-                <section class="details-section__details details">
-                    <div class="details__header-wrap hide-mobile"><h3 class="details__header">Описание</h3></div>
-                    <div class="details__content collapsable"
-                         data-link="{collapsibleBlock btnClass='j-wba-card-item j-wba-card-item-show j-description-btn' nameForWba='Item_Description_More' itemSelector='.j-description' maxCollapsedHeight=80 collapsedMsg='Развернуть описание' unCollapsedMsg='Свернуть описание'}class{merge: !product^description toggle='hide'}"
-                         data-jsv="#5548^/5548^">
-                        <div class="collapsable__content j-description" style="max-height: 80px;"><p
-                                class="collapsable__text" data-link="text{:product^description}">Десять никак не
-                                связанных между собой людей в особняке на уединенном острове. Кто вызвал их сюда
-                                таинственным приглашением? Зачем кто-то убивает их, одного за другим, самыми
-                                невероятными способами? Почему все происходящее так тесно переплетено с веселым детским
-                                стишком?</p></div>
-                        <div class="collapsible__bottom">
-                            <script type="jsv#17727_"></script>
-                            <script type="jsv#5746^"></script>
-                            <script type="jsv/5746^"></script>
-                            <script type="jsv#5747^"></script>
-                            <script type="jsv#17728_"></script>
-                            <div class="collapsible__toggle-wrap description">
-                                <button
-                                    class="collapsible__toggle j-wba-card-item j-wba-card-item-show j-description-btn"
-                                    data-name-for-wba="Item_Description_More"
-                                    data-link="text{:isCollapsed ? collapsedMsg : unCollapsedMsg}{on toggleCollapse !isCollapsed}"
-                                    type="button" data-jsv="#5749^/5749^">Развернуть описание
-                                </button>
-                            </div>
-                            <script type="jsv/17728_"></script>
-                            <script type="jsv/5747^"></script>
-                            <script type="jsv/17727_"></script>
-                        </div>
-                    </div>
-                    <p class="details__empty hide-mobile hide"
-                       data-link="class{merge: product^description toggle='hide'}">Описания пока нет. Возможно, оно
-                        появится тут позже</p></section>
-                <section class="details-section__details details-section__details--consist details hide"
-                         data-link="class{merge: !product^consist toggle='hide'}{collapsibleBlock itemSelector='.j-consist' maxCollapsedHeight=40 collapsedMsg='Развернуть состав' unCollapsedMsg='Свернуть состав'}"
-                         data-jsv="#5553^/5553^"><h3 class="details__header">Состав</h3>
-                    <div class="details__content collapsable">
-                        <div class="collapsable__content j-consist" data-link="text{:product^consist}"
-                             style="max-height: 40px;"></div>
-                        <div class="collapsible__bottom">
-                            <script type="jsv#17730_"></script>
-                            <script type="jsv#5750^"></script>
-                            <script type="jsv/5750^"></script>
-                            <script type="jsv#5751^"></script>
-                            <script type="jsv/5751^"></script>
-                            <script type="jsv/17730_"></script>
-                        </div>
-                    </div>
-                </section>
-                <section class="details-section__details details hide"
-                         data-link="class{merge: !product^discountReason toggle='hide'}{collapsibleBlock itemSelector='.j-discount' maxCollapsedHeight=40 collapsedMsg='Развернуть причину уценки' unCollapsedMsg='Свернуть причину уценки'}"
-                         data-jsv="#5556^/5556^"><h3 class="details__header">Причина уценки</h3>
-                    <div class="details__content collapsable">
-                        <div class="collapsable__content j-discount" style="max-height: 40px;"><p
-                                class="collapsable__text" data-link="text{:product^discountReason}"></p></div>
-                        <div class="collapsible__bottom">
-                            <script type="jsv#17731_"></script>
-                            <script type="jsv#5752^"></script>
-                            <script type="jsv/5752^"></script>
-                            <script type="jsv#5753^"></script>
-                            <script type="jsv/5753^"></script>
-                            <script type="jsv/17731_"></script>
-                        </div>
-                    </div>
-                </section>
-            </div>
+
+            @include('guest.products.show.details-section__inner-wrap')
+
             <div class="details-section__details details-section__details--about details">
                 <div class="details__content collapsable"
                      data-link="class{merge: !(product^groupedAddedOptions &amp;&amp; product^groupedAddedOptions^length > 0) toggle='hide'}">
@@ -521,40 +421,23 @@
                 <div class="product-page__delivery"
                      data-link="class{merge: !selectedNomenclature^deliveryInfoEnable toggle='hide'}">
                     <div data-link="{include deliveryHelper^deliveryInfoModel tmpl=deliveryHelper^template}">
-                        <script type="jsv#17766_"></script>
-                        <script type="jsv#5783^"></script>
-                        <script type="jsv#17767_"></script>
                         <div class="delivery">
-                            <script type="jsv#5782^"></script>
-                            <script type="jsv#17768_"></script>
                             <p class="delivery__row">
-                                <script type="jsv#17769_"></script>
-                                <span class="delivery__title">                        <script
-                                        type="jsv#17770_"></script>2-4 июля<script type="jsv/17770_"></script>                    </span>
+                                <span class="delivery__title">2-4 июля</span>
                                 <script type="jsv#17771_"></script>
-                                <span class="delivery__info">                        <script type="jsv#17772_"></script>                            доставит Wildberries<span
-                                        class="delivery__store"> со&nbsp;склада&nbsp;Коледино WB</span>                        <script
-                                        type="jsv/17772_"></script>                    </span>
-                                <script type="jsv/17771_"></script>
-                                <script type="jsv/17769_"></script>
-                                <script type="jsv#5781^"></script>
-                                <script type="jsv#17773_"></script>
-                                <span>                                    </span>
-                                <script type="jsv/17773_"></script>
-                                <script type="jsv/5781^"></script>
+                                <span class="delivery__info"><script type="jsv#17772_"></script>доставит Wildberries
+                                    <span class="delivery__store"> со&nbsp;склада&nbsp;Коледино WB</span>
+                                </span>
+                                <span></span>
                             </p>
-                            <script type="jsv/17768_"></script>
-                            <script type="jsv/5782^"></script>
                         </div>
-                        <script type="jsv/17767_"></script>
-                        <script type="jsv/5783^"></script>
-                        <script type="jsv/17766_"></script>
                     </div>
                 </div>
             </div>
-            <div class="product-page__links hide-mobile"><p class="j-wba-card-item" data-name-for-wba="Item_Brand_Name"
-                                                            data-link="class{merge: !product^brandUrl toggle='hide'}"><a
-                        data-link="href{:product^brandUrl}" href="/brands/eksmo">Все товары <span
+
+            <div class="product-page__links hide-mobile">
+                <p class="j-wba-card-item" data-name-for-wba="Item_Brand_Name" data-link="class{merge: !product^brandUrl toggle='hide'}">
+                    <a data-link="href{:product^brandUrl}" href="/brands/eksmo">Все товары <span
                             data-link="text{:product^brandName}">Эксмо</span></a></p>
                 <p class="j-wba-card-item hide"
                    data-link="class{merge: !(product^brandAndSubjectUrl &amp;&amp; product^subjectName) toggle='hide'}"
@@ -568,8 +451,10 @@
                    data-name-for-wba="Item_Category"><a
                         data-link="href{:product^categoryUrl}{on $analitic.proceedAndSave 'ICC'}"
                         data-jsv="#5613^/5613^">Все <span
-                            data-link="text{toLower: (product^subjectName || '')}">книги</span> в категории</a></p>
+                            data-link="text{toLower: (product^subjectName || '')}">книги</span> в категории</a>
+                </p>
             </div>
+
             <div class="product-page__advantages advantages"
                  data-link="class{merge: !selectedNomenclature^enabledForRegion || selectedNomenclature^allSizesSoldOut || product^isDigital toggle='hide'}">
                 <ul class="advantages__list">
@@ -599,9 +484,6 @@
         </div>
         <div class="product-page__seller-wrap"
              data-link="{include (suppliersHelper &amp;&amp; suppliersHelper^currentSupplier) tmpl=(suppliersHelper &amp;&amp; suppliersHelper.template) ~showSellerCatalog=true ~cardFullModel=false}">
-            <script type="jsv#17794_"></script>
-            <script type="jsv#5795^"></script>
-            <script type="jsv#17798_"></script>
             <div class="seller-info">
                 <div class="seller-info__header">
                     <div class="seller-info__wrap">
@@ -750,49 +632,28 @@
                 </div>
             </div>
         </div>
+
         <div class="product-page__aside">
             <div class="product-page__aside-sticky">
                 <div class="product-page__aside-container j-price-block">
                     <div class="product-page__price-block product-page__price-block--aside"
                          data-link="{include priceModel tmpl=priceModel.template ~align='aligncenter bottom'}">
-                        <script type="jsv#17701_"></script>
-                        <script type="jsv#5648^"></script>
-                        <script type="jsv/5648^"></script>
-                        <script type="jsv#5649^"></script>
-                        <script type="jsv/5649^"></script>
-                        <script type="jsv#5655^"></script>
-                        <script type="jsv#17702_"></script>
                         <div class="price-block">
-                            <script type="jsv#5654^"></script>
-                            <script type="jsv#17740_"></script>
                             <div class="price-block__content">
-                                <p class="price-block__price-wrap"><span class="price-block__price">                    <script
-                                            type="jsv#5764^"></script><script type="jsv/5764^"></script>                    <ins
-                                            class="price-block__final-price">                        264&nbsp;₽                    </ins>                                    </span>
-                                    <script type="jsv#5765^"></script>
-                                    <script type="jsv#17741_"></script>
+                                <p class="price-block__price-wrap">
+                                    <span class="price-block__price">
+                                        <ins class="price-block__final-price">{{$product->price}}&nbsp;₽</ins>
+                                    </span>
                                     <del class="price-block__old-price j-final-saving j-wba-card-item-show"
                                          data-name-for-wba="Item_PriceDetails"
                                          data-link="{tooltip tmplName='priceTooltipster' classes='i-tooltip-add-discount' distance=12 tmplData=#data pos='alignright bottom'}"
-                                         data-jsv="#5768^/5768^"> 343&nbsp;₽
+                                         data-jsv="#5768^/5768^">343&nbsp;₽
                                     </del>
-                                    <script type="jsv/17741_"></script>
-                                    <script type="jsv/5765^"></script>
                                 </p>
-                                <script type="jsv#5766^"></script>
-                                <script type="jsv/5766^"></script>
                             </div>
-                            <script type="jsv#5767^"></script>
-                            <script type="jsv/5767^"></script>
-                            <script type="jsv/17740_"></script>
-                            <script type="jsv/5654^"></script>
                         </div>
-                        <script type="jsv/17702_"></script>
-                        <script type="jsv/5655^"></script>
-                        <script type="jsv/17701_"></script>
                     </div>
                     <div data-link="{include orderModel tmpl=orderModel.template}">
-                        <script type="jsv#17705_"></script>
                         <div class="order" data-link="class{merge: isDigital toggle='hide'}">
                             <button class="order__btn-buy btn-base hide"
                                     data-link="class{merge: !showAddToBasketBtn() || !userIsAuth || isPreorder toggle='hide'}{on $adult.proceedIfAdultConfirmed adult buyItNow #data}"
