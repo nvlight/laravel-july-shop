@@ -43,7 +43,24 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $categories = Category::where('parent_id', 0)->get();
-        return view('guest.products.show.show_product', ['product' => $product, 'categories' => $categories]);
+
+        $sliderImages = $product->images;
+        if (count($sliderImages)){
+            //dd($sliderImages);
+            $sliderImages = $sliderImages
+                ->pluck('image')
+                ->toArray()
+            ;
+            $newImages = [];
+            foreach($sliderImages as $image){
+                $newImages[] = asset(env('PRODUCT_IMAGES_SHOW_PATH') . $image);
+            }
+            $sliderImages = $newImages;
+            //dd($sliderImages);
+        }
+
+        return view('guest.products.show.show_product',
+            ['product' => $product, 'categories' => $categories, 'sliderImages' => $sliderImages]);
     }
 
     /**

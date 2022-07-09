@@ -1,3 +1,49 @@
+<script>
+
+let zoomImgsArr = [];
+let zoomImgsArrCount = 0;
+let zoomImgsArrId = 0;
+
+/**
+ * Инициализировать массив картинок Зум-слайдера
+ */
+function imgsinitSliderZoomImgsArray() {
+    @if(count($sliderImages))
+        let imgId;
+        let imgName;
+        <?php $i = 1; ?>
+        @foreach($sliderImages as $key => $image)
+            imgId = {{$i}};
+            imgName = `{{$image}}`;
+            //conlog("{{$image}}");
+            <?php $i++; ?>
+            zoomImgsArr.push( {id:imgId, name:imgName});
+        @endforeach
+        zoomImgsArrCount = {{count($sliderImages)}};
+        zoomImgsArrId = 1;
+        return zoomImgsArr;
+    @else
+        return zoomImgsArr;
+    @endif
+}
+
+/**
+ * Инициализировать массив картинок Зум-слайдера статическими рисунками
+ */
+function imgsinitSliderZoomImgsArrayWithStaticValues() {
+    let n = 11;
+    for (let i=1; i<=n; i++){
+        let imgId = i;
+        let imgName = `//images.wbstatic.net/big/new/9410000/9414496-${imgId}.jpg`;
+        zoomImgsArr.push( {id:imgId, name:imgName})
+    }
+    zoomImgsArrCount = n;
+    zoomImgsArrId = 1;
+    return zoomImgsArr;
+}
+
+</script>
+
 <div class="product-page__slider-wrap">
     <div class="product-page__sticky-wrap"
          data-link="{include imageGalleryModel tmpl=imageGalleryModel.template}">

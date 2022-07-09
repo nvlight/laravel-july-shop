@@ -2,10 +2,6 @@ let filterShowHideList  = ['.render_type_7', '.render_type_1', '.render_type_5',
 let filterCheckboxClass = filterShowHideList[0];
 let filterSelectClass   = [filterShowHideList[1], filterShowHideList[3]];
 
-let zoomImgsArr = [];
-let zoomImgsArrCount = 0;
-let zoomImgsArrId = 0;
-
 let sliderContentUlCurrentHeight = 0;
 const fixedNumForslideContentImgHeightOffset = 104;
 let sliderContentUlHeight = 0;
@@ -648,6 +644,9 @@ function toggleAddInfoSection() {
  */
 function drawZoomImage(inputImgId) {
     let imgsArr = zoomImgsArr;
+    //conlog(typeof imgsArr);
+    //conlog(imgsArr);
+    if (!imgsArr.length) return;
 
     let currentImgId = inputImgId;
     let currentImgName = imgsArr.find(item => item.id == currentImgId).name;
@@ -667,7 +666,7 @@ function drawZoomImage(inputImgId) {
 }
 
 /**
- * Большой рисунок слайдера - нажали не стрелку вперед
+ * Большой рисунок слайдера - нажали на стрелку вперед
  */
 function mixBlockSliderBtnNextHandler() {
     const sel = '.mix-block__slider-btn--next';
@@ -730,7 +729,15 @@ function mixBlockSliderBtnPrevHandler() {
 /**
  * Инициализировать массив картинок Зум-слайдера
  */
-function imgsinitSliderZoomImgsArray() {
+function imgsinitSliderZoomImgsArrayHandler() {
+    //imgsinitSliderZoomImgsArrayWithStaticValues();
+    imgsinitSliderZoomImgsArray();
+}
+
+/**
+ * Инициализировать массив картинок Зум-слайдера статическими рисунками
+ */
+function imgsinitSliderZoomImgsArrayWithStaticValues() {
     let n = 11;
     for (let i=1; i<=n; i++){
         let imgId = i;
@@ -1019,7 +1026,7 @@ filtersGroupItemClick();
 mobileWrapperBackArrowClick();
 closeMobileFiltersBlockHandler();
 showMobileFiltersBlockHandler();
-imgsinitSliderZoomImgsArray();
+imgsinitSliderZoomImgsArrayHandler();
 drawZoomImage(1);
 initSliderContentUlHeight();
 mixBlockSliderBtnNextHandler();

@@ -23,6 +23,9 @@ class Product extends Model
     ];
 
     public function images(){
-        return $this->hasMany(Gallery::class, 'parent_id');
+        return $this
+            ->hasMany(Gallery::class, 'parent_id')
+            ->orderBy('is_main', 'desc')
+        ;
     }
 }

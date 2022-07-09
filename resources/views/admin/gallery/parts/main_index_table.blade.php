@@ -14,40 +14,11 @@
         @foreach($galleries as $key => $gallery)
 
             @if(!$start)
-                <tr>
-                    <td>{{ $gallery->id }}</td>
-                    <td>{{ $gallery->title}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <img src="{{asset('storage/'.$gallery->image)}}" alt="" width="100px" height="100px">
-                        <br>
-                        {{ $gallery->image }}
-                    </td>
-                    <td>{{ $gallery->is_main }}</td>
-                    <td>
-                        @include('admin.gallery.parts.buttons.actions_buttons', ['gallery' => $gallery])
-                    </td>
-                </tr>
+                @include('admin.gallery.parts.tr_with_id_and_title')
+                @include('admin.gallery.parts.tr_without_id_and_title')
+
             @else
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <img src="{{asset('storage/'.$gallery->image)}}" alt="" width="100px" height="100px">
-                        <br>
-                        {{ $gallery->image }}
-                    </td>
-                    <td>{{ $gallery->is_main }}</td>
-                    <td>
-                        @include('admin.gallery.parts.buttons.actions_buttons', ['gallery' => $gallery])
-                    </td>
-                </tr>
+                @include('admin.gallery.parts.tr_without_id_and_title')
             @endif
 
             <?php
