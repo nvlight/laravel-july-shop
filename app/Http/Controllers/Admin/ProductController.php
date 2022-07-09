@@ -105,7 +105,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //return $product;
+        if (count($product->images)) {
+            session()->flash('product_delete',
+                ['success' => false,
+                'message' => 'К продукты прикреплены картики, сначала нужно удалить их, а потом сам продукт!']);
+            return redirect()->route('admin.product.index');
+        }
 
         try{
             $product->delete();

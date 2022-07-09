@@ -26,7 +26,14 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = Gallery::all();
+        //$galleries = Gallery::all();
+        $galleries = Gallery::
+              join('products', 'products.id', '=', 'galleries.parent_id')
+            ->select('galleries.*', 'products.title')
+            ->get()
+            //->toArray()
+        ;
+        //dd($galleries);
 
         return view('admin.gallery.index', compact('galleries'));
     }

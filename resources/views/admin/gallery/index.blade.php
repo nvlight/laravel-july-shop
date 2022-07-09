@@ -32,20 +32,51 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($galleries as $gallery)
-                <tr>
-                    <td>{{ $gallery->id }}</td>
-                    <td>{{ $gallery->parent_id }}</td>
-                    <td>
-                        <img src="{{asset('storage/'.$gallery->image)}}" alt="" width="100px" height="100px">
-                        <br>
-                        {{ $gallery->image }}
-                    </td>
-                    <td>{{ $gallery->is_main }}</td>
-                    <td>
-                        @include('admin.gallery.parts.buttons.actions_buttons', ['gallery' => $gallery])
-                    </td>
-                </tr>
+            <?php $start = 0; ?>
+            @foreach($galleries as $key => $gallery)
+
+                    @if(!$start)
+                        <tr>
+                            <td>{{ $gallery->id }}</td>
+                            <td>{{ $gallery->title}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <img src="{{asset('storage/'.$gallery->image)}}" alt="" width="100px" height="100px">
+                                <br>
+                                {{ $gallery->image }}
+                            </td>
+                            <td>{{ $gallery->is_main }}</td>
+                            <td>
+                                @include('admin.gallery.parts.buttons.actions_buttons', ['gallery' => $gallery])
+                            </td>
+                        </tr>
+                    @else
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <img src="{{asset('storage/'.$gallery->image)}}" alt="" width="100px" height="100px">
+                                <br>
+                                {{ $gallery->image }}
+                            </td>
+                            <td>{{ $gallery->is_main }}</td>
+                            <td>
+                                @include('admin.gallery.parts.buttons.actions_buttons', ['gallery' => $gallery])
+                            </td>
+                        </tr>
+                    @endif
+
+                <?php
+                    isset($galleries[$key+1]) && $galleries[$key+1]->parent_id != $galleries[$key]->parent_id ?
+                        $start = 0 :
+                        $start++;
+                ?>
             @endforeach
             </tbody>
         </table>
