@@ -59,8 +59,11 @@ class ProductController extends Controller
             //dd($sliderImages);
         }
 
-        return view('guest.products.show.show_product',
-            ['product' => $product, 'categories' => $categories, 'sliderImages' => $sliderImages]);
+        return view('guest.products.show.show_product', [
+            'product' => $product,
+            'categories' => $categories,
+            'sliderImages' => $sliderImages
+        ]);
     }
 
     /**
@@ -95,5 +98,33 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Получение картинок продукта по Id Ajax запросом
+     * @param Product $product
+     * @return \Illuminate\Http\JsonResponse
+     */
+    function productImagesAjax(Product $product)
+    {
+        $rs = [];
+        try {
+            $images = $product->images;
+            $rs['success'] = true;
+            $rs['message'] = 'Получены картинки продукта';
+
+            $newImages = [];
+            foreach($images as $image){
+                $image->image = asset(env('PRODUCT_IMAGES_SHOW_PATH') . $image->image);
+                $newImages[] = $image;
+            }
+
+            $rs['images'] = $newImages;
+        }catch (\Exception $e){
+            $rs['success'] = false;
+            $rs['message'] = 'Error with request: ' . $e->getMessage();
+        }
+
+        return response()->json($rs);
     }
 }

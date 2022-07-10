@@ -1,4 +1,4 @@
-<main class="main left-bg" role="main" id="body-layout">
+<main class="main left-bg" role="main" id="body-layout" data-product-id="{{$product->id}}">
 
     {{--    @include('guest.parts.main.parts.lk-menu')--}}
 

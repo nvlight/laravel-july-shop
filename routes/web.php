@@ -52,5 +52,6 @@ Route::group([
         'as' => 'product.'
     ], function (){
         Route::get('/{product}', [GuestProductController::class,'show'])->name('show');
+        Route::get('/productImagesAjax/{product}', [GuestProductController::class,'productImagesAjax'])->name('product_images_ajax');
     });
 });

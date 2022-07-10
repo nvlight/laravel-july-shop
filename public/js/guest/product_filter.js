@@ -6,6 +6,12 @@ let sliderContentUlCurrentHeight = 0;
 const fixedNumForslideContentImgHeightOffset = 104;
 let sliderContentUlHeight = 0;
 
+let lastAjaxRequestRs = null;
+
+let zoomImgsArr = [];
+let zoomImgsArrCount = 0;
+let zoomImgsArrId = 0;
+
 /**
  * Для всех фильтров-выпадашек сделать скрытие/показ
  * бонусом тут также вызывается функция, сбрасывающая чекбоксы/селекты
@@ -727,14 +733,6 @@ function mixBlockSliderBtnPrevHandler() {
 }
 
 /**
- * Инициализировать массив картинок Зум-слайдера
- */
-function imgsinitSliderZoomImgsArrayHandler() {
-    //imgsinitSliderZoomImgsArrayWithStaticValues();
-    imgsinitSliderZoomImgsArray();
-}
-
-/**
  * Инициализировать массив картинок Зум-слайдера статическими рисунками
  */
 function imgsinitSliderZoomImgsArrayWithStaticValues() {
@@ -1017,7 +1015,111 @@ function SliderTabletWidthRightBtnHandler(){
     });
 }
 
-////////////////////////////
+/**
+ * Получить Csrf token из хедера
+ * @returns {string}
+ */
+function getCsrfToken(){
+    let token = document.head.querySelector('meta[name="csrf-token"]');
+    if (!token) return;
+    if ( !token.hasAttribute('content')) return;
+
+    return token.getAttribute('content');
+}
+
+/**
+ * Получить рисунки продукта аяксом
+ */
+function getProductImagesAjax(productId) {
+    return new Promise(function (resolve, reject) {
+        const xhr = new XMLHttpRequest();
+        const method = "GET";
+        const url = "/product/productImagesAjax/"+productId;
+        let params = "";
+        xhr.open(method, url);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onload = function () {
+            // if (xhr.readyState === 4 && xhr.status === 200) {
+            if (this.status >= 200 && this.status < 300) {
+                let rs = JSON.parse(xhr.responseText);
+                lastAjaxRequestRs = rs;
+                //resolve(xhr.response);
+                resolve(rs);
+            } else {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            }
+        };
+        xhr.onerror = function () {
+            reject({
+                status: this.status,
+                statusText: xhr.statusText
+            });
+        };
+        xhr.send(params);
+    });
+}
+
+/**
+ * Получить картинки продукта и выполнить необходимые действия
+ */
+async function getProductImagesHandler() {
+    // <main class="main left-bg" role="main" id="body-layout" data-product-id="{{$product->id}}">
+    const productSel = "main[class*='main'][data-product-id]";
+    const productRs = document.querySelector(productSel);
+    if (!productRs) return;
+
+    const productId = +productRs.dataset.productId;
+
+    const rs = await getProductImagesAjax(productId);
+    // заполнить массив zoomImgsArr
+    if (!rs.images.length) return;
+    let n = rs.images.length
+    //conlog(rs.images)
+    for(let i=1; i<=n; i++){
+        let imgId = i;
+        //let imgName = `//images.wbstatic.net/big/new/9410000/9414496-${imgId}.jpg`;
+        let imgName = rs.images[i-1].image;
+        zoomImgsArr.push( {id:imgId, name:imgName})
+    }
+    drawZoomImage(1);
+
+    //conlog(rs);
+    return rs;
+}
+
+/**
+ * Инициализировать массив картинок Зум-слайдера статическими рисунками
+ */
+function imgsinitSliderZoomImgsArrayWithStaticValues() {
+    let n = 11;
+    for (let i=1; i<=n; i++){
+        let imgId = i;
+        let imgName = `//images.wbstatic.net/big/new/9410000/9414496-${imgId}.jpg`;
+        zoomImgsArr.push( {id:imgId, name:imgName})
+    }
+    zoomImgsArrCount = n;
+    zoomImgsArrId = 1;
+    return zoomImgsArr;
+}
+
+/**
+ * Инициализировать массив картинок Зум-слайдера
+ */
+function imgsinitSliderZoomImgsArrayHandler() {
+    //imgsinitSliderZoomImgsArrayWithStaticValues();
+    //imgsinitSliderZoomImgsArray();
+    //drawZoomImage(1);
+    let rs = getProductImagesHandler();
+    if (!rs) return;
+    //conlog(rs);
+    // zoomImgsArr
+    //drawZoomImage(1);
+}
+
+////////////////////////////////////////////////////////
 showHideFilters();
 clickFilterCheckbox();
 clickFilterSelect();
@@ -1026,8 +1128,6 @@ filtersGroupItemClick();
 mobileWrapperBackArrowClick();
 closeMobileFiltersBlockHandler();
 showMobileFiltersBlockHandler();
-imgsinitSliderZoomImgsArrayHandler();
-drawZoomImage(1);
 initSliderContentUlHeight();
 mixBlockSliderBtnNextHandler();
 mixBlockSliderBtnPrevHandler();
@@ -1043,3 +1143,4 @@ scrollWindowHandler();
 SliderTabletWidthRightBtnHandler();
 SliderTabletWidthLeftBtnHandler();
 setSliderTabletButtonsHeight();
+imgsinitSliderZoomImgsArrayHandler();

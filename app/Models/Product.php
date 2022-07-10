@@ -25,6 +25,7 @@ class Product extends Model
     public function images(){
         return $this
             ->hasMany(Gallery::class, 'parent_id')
+            ->select('image')
             ->orderBy('is_main', 'desc')
         ;
     }
