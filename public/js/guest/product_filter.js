@@ -3,14 +3,19 @@ let filterCheckboxClass = filterShowHideList[0];
 let filterSelectClass   = [filterShowHideList[1], filterShowHideList[3]];
 
 let sliderContentUlCurrentHeight = 0;
-const fixedNumForslideContentImgHeightOffset = 104;
-let sliderContentUlHeight = 0;
+let sliderItemHeight = 104; // li + margin = 104
 
 let lastAjaxRequestRs = null;
 
-let zoomImgsArr = [];
-let zoomImgsArrCount = 0;
-let zoomImgsArrId = 0;
+let sliderImgsArr = [];
+let sliderItemCount = 0;
+let sliderActiveItemId = 0;
+
+let swHeight = 0;
+
+let sliderTableStepOffset = 500;
+let sliderTableCurrentOffset = 0;
+let sliderTableWidth = 0;
 
 /**
  * Для всех фильтров-выпадашек сделать скрытие/показ
@@ -649,7 +654,7 @@ function toggleAddInfoSection() {
  * Нарисовали для Большой картинки слайдера через канвас картиночку.
  */
 function drawZoomImage(inputImgId) {
-    let imgsArr = zoomImgsArr;
+    let imgsArr = sliderImgsArr;
     //conlog(typeof imgsArr);
     //conlog(imgsArr);
     if (!imgsArr.length) return;
@@ -667,7 +672,7 @@ function drawZoomImage(inputImgId) {
         ctx = ctx.getContext("2d");
         ctx.drawImage(img, 0, 0);
 
-        zoomImgsArrId = inputImgId;
+        sliderActiveItemId = inputImgId;
     });
 }
 
@@ -683,21 +688,21 @@ function mixBlockSliderBtnNextHandler() {
     rs.addEventListener('click', function (e) {
         //conlog(mixBlockSliderBtnNextHandler.name + ' clicked!');
 
-        if ( (zoomImgsArrId+1) > zoomImgsArrCount){
-            zoomImgsArrId = 1;
+        if ( (sliderActiveItemId+1) > sliderItemCount){
+            //sliderActiveItemId = 1;
         }else{
-            zoomImgsArrId += 1;
+            sliderActiveItemId += 1;
         }
-        drawZoomImage(zoomImgsArrId);
-        setActiveItemOnImageSlider(zoomImgsArrId);
+        drawZoomImage(sliderActiveItemId);
+        setActiveItemOnImageSlider(sliderActiveItemId);
 
-        if ( (zoomImgsArrId == 1)){
-            // переместиться наверх!
-            sliderTransformTranslate(0);
-            sliderContentUlCurrentHeight = 0;
-        }else{
-            sliderScrollBottom(fixedNumForslideContentImgHeightOffset);
-        }
+        // if ( (sliderActiveItemId == 1)){
+        //     // переместиться наверх!
+        //     sliderTransformTranslate(0);
+        //     sliderContentUlCurrentHeight = 0;
+        // }else{
+        //     sliderScrollBottom(sliderItemHeight);
+        // }
     });
 }
 
@@ -714,21 +719,21 @@ function mixBlockSliderBtnPrevHandler() {
     rs.addEventListener('click', function (e) {
         //conlog(mixBlockSliderBtnPrevHandler.name + ' clicked!');
 
-        if ( (zoomImgsArrId-1) < 1){
-            zoomImgsArrId = zoomImgsArrCount;
+        if ( (sliderActiveItemId-1) < 1){
+            //sliderActiveItemId = sliderItemCount;
         }else{
-            zoomImgsArrId -= 1;
+            sliderActiveItemId -= 1;
         }
-        drawZoomImage(zoomImgsArrId);
-        setActiveItemOnImageSlider(zoomImgsArrId);
+        drawZoomImage(sliderActiveItemId);
+        setActiveItemOnImageSlider(sliderActiveItemId);
 
-        if ( zoomImgsArrId == zoomImgsArrCount){
-            // переместиться вниз!
-            sliderTransformTranslate(sliderContentUlHeight);
-            sliderContentUlCurrentHeight = sliderContentUlHeight;
-        }else{
-            sliderScrollTop(fixedNumForslideContentImgHeightOffset);
-        }
+        // if ( sliderActiveItemId == sliderItemCount){
+        //     // переместиться вниз!
+        //     sliderTransformTranslate(sliderContentUlHeight);
+        //     sliderContentUlCurrentHeight = sliderContentUlHeight;
+        // }else{
+        //     sliderScrollTop(sliderItemHeight);
+        // }
     });
 }
 
@@ -740,11 +745,11 @@ function imgsinitSliderZoomImgsArrayWithStaticValues() {
     for (let i=1; i<=n; i++){
         let imgId = i;
         let imgName = `//images.wbstatic.net/big/new/9410000/9414496-${imgId}.jpg`;
-        zoomImgsArr.push( {id:imgId, name:imgName})
+        sliderImgsArr.push( {id:imgId, name:imgName})
     }
-    zoomImgsArrCount = n;
-    zoomImgsArrId = 1;
-    return zoomImgsArr;
+    sliderItemCount = n;
+    sliderActiveItemId = 1;
+    return sliderImgsArr;
 }
 
 /**
@@ -764,11 +769,11 @@ function slideContentImgMouseOverHandler() {
             if (!actLiRs) return;
 
             // получили индекс, по индексу изменим главное большое фото!
-            let imageIndex = +(actLiRs.dataset.imageIndex)+1;
-            //conlog('imageIndex: '+imageIndex);
+            let imageIndex = +(actLiRs.dataset.imageIndex);
+            conlog('slider li hove - imageIndex: '+imageIndex);
 
-            zoomImgsArrId = imageIndex;
-            drawZoomImage(zoomImgsArrId);
+            sliderActiveItemId = imageIndex;
+            drawZoomImage(sliderActiveItemId);
 
             // reset all active slide images
             const activeCl = 'active';
@@ -790,7 +795,7 @@ function setActiveItemOnImageSlider(zoomId) {
     const activeCl = 'active';
     findAndDeleteClassesToTargetArray('li.slide.active', [activeCl]);
 
-    const rs = document.querySelector(`li[class~='slide'][data-image-index='${zoomId - 1}']`);
+    const rs = document.querySelector(`li[class~='slide'][data-image-index='${zoomId}']`);
     if (!rs) return;
 
     if (!rs.classList.contains(activeCl)){
@@ -838,7 +843,7 @@ function sliderTransformTranslate(needHeight) {
  * Прокручивает слайдер вверх через транслейт
  * @param jumpOffset
  */
-function sliderScrollTop(jumpOffset=fixedNumForslideContentImgHeightOffset) {
+function sliderScrollTop(jumpOffset=sliderItemHeight) {
     const swSlider = document.querySelector('ul.swiper-wrapper');
     if (!swSlider) return;
     const height = swSlider.offsetHeight;
@@ -857,19 +862,36 @@ function sliderScrollTop(jumpOffset=fixedNumForslideContentImgHeightOffset) {
  * Прокручивает слайдер вниз транслейт
  * @param jumpOffset
  */
-function sliderScrollBottom(jumpOffset=fixedNumForslideContentImgHeightOffset) {
-    const swSlider = document.querySelector('ul.swiper-wrapper');
+function sliderScrollBottom(jumpOffset=sliderItemHeight)
+{
+    // sliderContentUlHeight
+    // sliderItemCount
+    // sliderItemHeight - 104
+    let swSlider = document.querySelector('ul.swiper-wrapper')
     if (!swSlider) return;
-    const height = swSlider.offsetHeight;
-    sliderContentUlHeight = height;
-
-    if ( (sliderContentUlCurrentHeight + jumpOffset) < sliderContentUlHeight ){
-        sliderContentUlCurrentHeight += jumpOffset;
-    }else{
-        sliderContentUlCurrentHeight = sliderContentUlHeight;
+    //let liCount = document.querySelector('ul.swiper-wrapper').getElementsByTagName("li").length;
+    if (swSlider) {
+        //swHeight = liCount * sliderItemHeight + liCount * 8;
+        swHeight = swSlider.offsetHeight;
+        //conlog(swHeight);
     }
 
-    sliderTransformTranslate(sliderContentUlCurrentHeight);
+    let liVmCount = swHeight / sliderItemHeight;
+    //conlog(liVmCount);
+    let liCntCeil = Math.ceil(liVmCount);
+    //conlog(liCntCeil);
+
+    if (sliderItemCount > liCntCeil){
+        //sliderContentUlCurrentHeight = sliderItemHeight * sliderItemCount;
+        let heightDiff = sliderItemHeight * sliderItemCount - swHeight;
+        if ( (sliderContentUlCurrentHeight + jumpOffset) < (heightDiff) ){
+            sliderContentUlCurrentHeight += jumpOffset;
+        }else{
+            sliderContentUlCurrentHeight = heightDiff;
+        }
+        //conlog(sliderContentUlCurrentHeight);
+        sliderTransformTranslate(sliderContentUlCurrentHeight);
+    }
 }
 
 /**
@@ -916,17 +938,6 @@ function productLineFixedTopWithScrollHandler(){
 function scrollWindowHandler(){
     window.addEventListener('scroll', productLineFixedTopWithScrollHandler);
 }
-
-
-
-
-
-
-let sliderTableStepOffset = 500;
-let sliderTableCurrentOffset = 0;
-let sliderTableWidth = 0;
-let sliderItemCount = 11;
-let sliderTableCurrentItemPosition = 1;
 
 /**
  * Получить ширину элементов слайдера
@@ -1001,7 +1012,6 @@ function SliderTabletWidthLeftBtnHandler() {
     });
 }
 
-
 /**
  * Кнопка вперед, слайдера для таблетов - обработчик-исполнитель
  * @constructor
@@ -1074,7 +1084,7 @@ async function getProductImagesHandler() {
     const productId = +productRs.dataset.productId;
 
     const rs = await getProductImagesAjax(productId);
-    // заполнить массив zoomImgsArr
+    // заполнить массив sliderImgsArr
     if (!rs.images.length) return;
     let n = rs.images.length
     //conlog(rs.images)
@@ -1082,9 +1092,11 @@ async function getProductImagesHandler() {
         let imgId = i;
         //let imgName = `//images.wbstatic.net/big/new/9410000/9414496-${imgId}.jpg`;
         let imgName = rs.images[i-1].image;
-        zoomImgsArr.push( {id:imgId, name:imgName})
+        sliderImgsArr.push( {id:imgId, name:imgName})
     }
-    drawZoomImage(1);
+    sliderItemCount = n;
+    sliderActiveItemId = 1;
+    drawZoomImage(sliderActiveItemId);
 
     //conlog(rs);
     return rs;
@@ -1098,24 +1110,24 @@ function imgsinitSliderZoomImgsArrayWithStaticValues() {
     for (let i=1; i<=n; i++){
         let imgId = i;
         let imgName = `//images.wbstatic.net/big/new/9410000/9414496-${imgId}.jpg`;
-        zoomImgsArr.push( {id:imgId, name:imgName})
+        sliderImgsArr.push( {id:imgId, name:imgName})
     }
-    zoomImgsArrCount = n;
-    zoomImgsArrId = 1;
-    return zoomImgsArr;
+    sliderItemCount = n;
+    sliderActiveItemId = 1;
+    return sliderImgsArr;
 }
 
 /**
  * Инициализировать массив картинок Зум-слайдера
  */
-function imgsinitSliderZoomImgsArrayHandler() {
+function imgsinitSlidersliderImgsArrayHandler() {
     //imgsinitSliderZoomImgsArrayWithStaticValues();
     //imgsinitSliderZoomImgsArray();
     //drawZoomImage(1);
     let rs = getProductImagesHandler();
     if (!rs) return;
     //conlog(rs);
-    // zoomImgsArr
+    // sliderImgsArr
     //drawZoomImage(1);
 }
 
@@ -1143,4 +1155,4 @@ scrollWindowHandler();
 SliderTabletWidthRightBtnHandler();
 SliderTabletWidthLeftBtnHandler();
 setSliderTabletButtonsHeight();
-imgsinitSliderZoomImgsArrayHandler();
+imgsinitSlidersliderImgsArrayHandler();

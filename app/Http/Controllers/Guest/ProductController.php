@@ -62,7 +62,7 @@ class ProductController extends Controller
         return view('guest.products.show.show_product', [
             'product' => $product,
             'categories' => $categories,
-            'sliderImages' => $sliderImages
+            'sliderImages' => $sliderImages,
         ]);
     }
 
