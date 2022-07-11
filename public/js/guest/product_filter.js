@@ -689,12 +689,14 @@ function mixBlockSliderBtnNextHandler() {
         //conlog(mixBlockSliderBtnNextHandler.name + ' clicked!');
 
         if ( (sliderActiveItemId+1) > sliderItemCount){
-            //sliderActiveItemId = 1;
+            sliderActiveItemId = 1;
+            sliderScrollFullTop();
         }else{
             sliderActiveItemId += 1;
+            sliderScrollBottom();
         }
-        drawZoomImage(sliderActiveItemId);
         setActiveItemOnImageSlider(sliderActiveItemId);
+        drawZoomImage(sliderActiveItemId);
 
         // if ( (sliderActiveItemId == 1)){
         //     // переместиться наверх!
@@ -720,12 +722,14 @@ function mixBlockSliderBtnPrevHandler() {
         //conlog(mixBlockSliderBtnPrevHandler.name + ' clicked!');
 
         if ( (sliderActiveItemId-1) < 1){
-            //sliderActiveItemId = sliderItemCount;
+            sliderActiveItemId = sliderItemCount;
+            sliderScrollFullBottom();
         }else{
             sliderActiveItemId -= 1;
+            sliderScrollTop();
         }
-        drawZoomImage(sliderActiveItemId);
         setActiveItemOnImageSlider(sliderActiveItemId);
+        drawZoomImage(sliderActiveItemId);
 
         // if ( sliderActiveItemId == sliderItemCount){
         //     // переместиться вниз!
@@ -789,7 +793,7 @@ function slideContentImgMouseOverHandler() {
 }
 
 /**
- * Установить активную картинку для Слайдера
+ * Установить активную картинку для Слайдера, т.е. сделать ободок-бордер
  */
 function setActiveItemOnImageSlider(zoomId) {
     const activeCl = 'active';
@@ -889,6 +893,27 @@ function sliderScrollBottom(jumpOffset=sliderItemHeight)
         //conlog(sliderContentUlCurrentHeight);
         sliderTransformTranslate(sliderContentUlCurrentHeight);
     }
+}
+
+/**
+ * Проскроллить вверх немедленно!
+ */
+function sliderScrollFullTop()  {
+    sliderContentUlCurrentHeight = 0;
+    sliderTransformTranslate(sliderContentUlCurrentHeight);
+}
+
+/**
+ * Проскроллить вниз немедленно!
+ */
+function sliderScrollFullBottom() {
+    let swSlider = document.querySelector('ul.swiper-wrapper')
+    if (!swSlider) return;
+    swHeight = swSlider.offsetHeight;
+
+    let heightDiff = sliderItemHeight * sliderItemCount - swHeight;
+    sliderContentUlCurrentHeight = heightDiff;
+    sliderTransformTranslate(sliderContentUlCurrentHeight);
 }
 
 /**
