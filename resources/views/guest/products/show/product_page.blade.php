@@ -5,7 +5,10 @@
     @include('guest.products.show.product_line__product_card_line')
     <div class="product-page__top-wrap">
         <div class="product-page__breadcrumbs breadcrumbs">
-            <a class="breadcrumbs__back">К предыдущей странице</a>
+            @php
+                //dump($product->parent);
+            @endphp
+            <a class="breadcrumbs__back" href="{{route('guest.category.show', $product->parent->id)}}">К предыдущей странице</a>
         </div>
         <div class="product-page__share">
             <button class="btn-share" aria-label="Поделиться ссылкой на товар" type="button"></button>

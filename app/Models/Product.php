@@ -29,4 +29,8 @@ class Product extends Model
             ->orderBy('is_main', 'desc')
         ;
     }
+
+    public function parent(){
+        return $this->hasOne(Category::class, 'id','category_id');
+    }
 }

@@ -774,7 +774,7 @@ function slideContentImgMouseOverHandler() {
 
             // получили индекс, по индексу изменим главное большое фото!
             let imageIndex = +(actLiRs.dataset.imageIndex);
-            conlog('slider li hove - imageIndex: '+imageIndex);
+            //conlog('slider li hove - imageIndex: '+imageIndex);
 
             sliderActiveItemId = imageIndex;
             drawZoomImage(sliderActiveItemId);
