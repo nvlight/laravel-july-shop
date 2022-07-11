@@ -69,6 +69,7 @@ function burgerMenuClose(){
  * Закрывает бургер-меню, если нажать по элементу, который не является частью открытого бургер-меню
  */
 function burgerMenuCloseWithAnatherAreaClickHandler(){
+
     document.addEventListener('click', function(event) {
         let e1 = document.getElementsByClassName('menu-burger');
         let e2 = document.getElementsByClassName('nav-element__burger');
@@ -77,11 +78,25 @@ function burgerMenuCloseWithAnatherAreaClickHandler(){
             if (   !e1.item(0).contains(event.target)
                 && !e2.item(0).contains(event.target) )
             {
+                if (!isBurgerMenuOpened()){
+                    return;
+                }
                 burgerMenuCloseClickHandle();
             }
         }
 
     });
+}
+
+/**
+ * Проверка, открыт ли бургер-меню ?
+ * @returns {boolean}
+ */
+function isBurgerMenuOpened() {
+    const isOpen = document.querySelector('.menu-burger.j-menu-burger.menu-burger--active');
+    if (!isOpen) return false;
+
+    return true;
 }
 
 /**
