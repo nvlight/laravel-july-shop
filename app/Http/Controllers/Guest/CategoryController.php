@@ -88,6 +88,11 @@ class CategoryController extends Controller
             //->select('products.*', 'galleries.image', 'galleries.is_main')
             ->get();
 
+        //dump($products);
+        // $products->count()
+        //dump($products->find($products->count()-1)->images);
+        //die;
+
         return view('guest.products.index', [
             'categories' => $categories,
             'parentCategory' => $parentCategory,

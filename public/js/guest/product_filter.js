@@ -864,9 +864,6 @@ function sliderScrollTop(jumpOffset=sliderItemHeight) {
  */
 function sliderScrollBottom(jumpOffset=sliderItemHeight)
 {
-    // sliderContentUlHeight
-    // sliderItemCount
-    // sliderItemHeight - 104
     let swSlider = document.querySelector('ul.swiper-wrapper')
     if (!swSlider) return;
     //let liCount = document.querySelector('ul.swiper-wrapper').getElementsByTagName("li").length;

@@ -14,7 +14,8 @@
                             @if($image->is_main)
                                 <img class="j-thumbnail thumbnail"
                                      alt="{{$product->title}} main_thumbnail"
-                                     src="{{asset('storage/'.$image->image)}}"
+                                    {{-- todo: потом занести src в отдельный файл и обернуть image --}}
+                                     src="{{asset(env('PRODUCT_IMAGES_SHOW_PATH').$image->image)}}"
                                      {{-- src="https://images.wbstatic.net/c516x688/new/24810000/24811954-1.jpg"--}}
                                      width="516" height="688">
                             @endif
