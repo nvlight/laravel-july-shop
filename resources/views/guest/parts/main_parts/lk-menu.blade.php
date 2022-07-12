@@ -43,7 +43,7 @@
                                         возврата</a>
                                 </li>
                                 <li class="lk-menu-main__sub-item">
-                                    <a href="https://travel.wildberries.ru/orders" class="lk-menu-main__sub-link"
+                                    <a href="/wildberries/orders" class="lk-menu-main__sub-link"
                                        data-main="false" data-full-match="true">Авиабилеты</a>
                                 </li>
                             </ul>
@@ -127,7 +127,7 @@
                         <a href="/lk/refund" data-main="false">Оформление возврата</a>
                     </li>
                     <li data-id="30">
-                        <a href="https://travel.wildberries.ru/orders" data-main="false" data-full-match="true">Авиабилеты</a>
+                        <a href="/wildberries/orders" data-main="false" data-full-match="true">Авиабилеты</a>
                     </li>
                 </ul>
                 <ul class="lk-menu-sub__list" data-attr="3">

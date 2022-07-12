@@ -3,16 +3,21 @@
     <div class="product-line j-product-card-line product-line--invisible" id="f0ccf25a-5b82-1dc4-c640-0bf999fe3bc7"
          data-link="class{merge: isProductCard toggle='product-line--invisible'}class{merge: showInvisibleCard toggle='show'}class{merge: adult &amp;&amp; !$adult.isConfirmed toggle='for-adults'}">
         <div class="product-line__container">
-            <div class="product-line__img-wrap hide-mobile"
-                 data-link="class{merge: isProductCard toggle='hide-mobile'}">
-                    <a class="product-line__img img-plug" href="https://www.wildberries.ru/catalog/9414496/detail.aspx">
-                        <img src="//images.wbstatic.net/c246x328/new/9410000/9414496-1.jpg" alt="Десять негритят" width="48" height="64">
-                    </a>
+            <div class="product-line__img-wrap hide-mobile">
+                @if(count($product->images))
+                    @foreach($product->images as $image)
+                        @if($image->is_main)
+                            <a class="product-line__img img-plug" href="#">
+                                <img src="{{asset(env('PRODUCT_IMAGES_SHOW_PATH').$image->image)}}" alt="Main img" width="48" height="64">
+                            </a>
+                        @endif
+                    @endforeach
+                @endif
             </div>
             <button class="product-line__back hide-desktop">Назад</button>
             <div class="product-line__wrap">
                 <div class="product-line__main">
-                    <a class="product-line__name" href="https://www.wildberries.ru/catalog/9414496/detail.aspx">
+                    <a class="product-line__name" href="#">
                         @if( !str_contains('/', $product->title))
                             <b>{{$product->title}}
                             </b>

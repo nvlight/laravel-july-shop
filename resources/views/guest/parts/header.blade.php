@@ -26,7 +26,7 @@
                     <span class="radio-with-text__flag flag-ru"></span>
                 </span>
                                     </label>
-                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://am.wildberries.ru'">
+                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://am.wildberries.mgdev.ru'">
                                         <input type="radio" name="country" value="am" autocomplete="off">
                                         <span class="radio-with-text__decor"></span>
                                         <span class="radio-with-text__text radio-with-text__text--flag">
@@ -36,7 +36,7 @@
                     <span class="radio-with-text__flag flag-am"></span>
                 </span>
                                     </label>
-                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://by.wildberries.ru'">
+                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://by.wildberries.mgdev.ru'">
                                         <input type="radio" name="country" value="by" autocomplete="off">
                                         <span class="radio-with-text__decor"></span>
                                         <span class="radio-with-text__text radio-with-text__text--flag">
@@ -56,7 +56,7 @@
                     <span class="radio-with-text__flag flag-il"></span>
                 </span>
                                     </label>
-                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://kz.wildberries.ru'">
+                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://kz.wildberries.mgdev.ru'">
                                         <input type="radio" name="country" value="kz" autocomplete="off">
                                         <span class="radio-with-text__decor"></span>
                                         <span class="radio-with-text__text radio-with-text__text--flag">
@@ -66,7 +66,7 @@
                     <span class="radio-with-text__flag flag-kz"></span>
                 </span>
                                     </label>
-                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://kg.wildberries.ru'">
+                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://kg.wildberries.mgdev.ru'">
                                         <input type="radio" name="country" value="kg" autocomplete="off">
                                         <span class="radio-with-text__decor"></span>
                                         <span class="radio-with-text__text radio-with-text__text--flag">
@@ -76,7 +76,7 @@
                     <span class="radio-with-text__flag flag-kg"></span>
                 </span>
                                     </label>
-                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://uz.wildberries.ru'">
+                                    <label class="radio-with-text j-country-item " onclick="return false; window.location.href = 'https://uz.wildberries.mgdev.ru'">
                                         <input type="radio" name="country" value="uz" autocomplete="off">
                                         <span class="radio-with-text__decor"></span>
                                         <span class="radio-with-text__text radio-with-text__text--flag">

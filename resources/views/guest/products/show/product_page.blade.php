@@ -20,6 +20,7 @@
 
     <div class="product-page__grid">
         @include('guest.products.show.product-page__slider-wrap')
+
         <div class="product-page__price-block product-page__price-block--common">
             <div data-link="{include priceModel tmpl=priceModel.template ~align='alignleft bottom'}">
                 <div class="price-block">
@@ -42,9 +43,8 @@
                 Электронная книга будет доступна для скачивания в Личном кабинете сразу после покупки
             </p>
         </div>
-        <div class="product-page__composition hide-mobile hide"
-             data-link="class{merge: !product^consist || product^showMinDetails toggle='hide'}{collapsibleBlock itemSelector='.j-consist-popup' maxCollapsedHeight=40 collapsedMsg='Развернуть состав' unCollapsedMsg='Свернуть состав'}"
-             data-jsv="#5493^/5493^">
+
+        <div class="product-page__composition hide-mobile hide">
             <div class="collapsable">
                 <p class="collapsable__content j-consist-popup" style="max-height: 40px;">
                     <span>Состав:</span>
@@ -52,52 +52,22 @@
                 <div class="collapsible__bottom"></div>
             </div>
         </div>
+
         <div class="product-page__colors-wrap">
-            <div data-link="{include selectedNomenclature^digitalLinks tmpl='digitalLinks'}{on 'click' '.j-digital-link' digitalLinkClicked}">
-            </div>
-            <div data-link="{include colorsModel tmpl=colorsModel.template}">
-                <div data-link="id{: 'colors-' + parentId}" id="colors-1aab5db7-e68b-6313-2da9-7ba2ce30b8ba">
-                    <div class="slider-color hide" data-link="class{merge:!(nomenclatures^length > 1 &amp;&amp; !showTones) toggle='hide'}">
-                        <div class="sw-slider-colorpicker">
-                            <button class="swiper-button-prev" type="button" tabindex="0" role="button"
-                                    aria-label="Previous slide" aria-disabled="false"></button>
-                            <div class="swiper-container j-swiper-color-carousel swiper-container-initialized swiper-container-horizontal"
-                                id="0c0c22a5-d813-380e-b820-ff536cc7994a">
-                                <ul class="swiper-wrapper"
-                                    data-link="{on 'click' '.j-color' updateNomenclature}{on 'mouseenter' '.j-color' showMiniCarousel}{on 'mouseleave' '.j-color' hideMiniCarousel}"
-                                    data-jsv-df="" data-jsv="#5501^/5501^#5502^/5502^#5503^/5503^"
-                                    style="transition-duration: 0ms;">
-                                    <li data-jsv="#5498^#17657_#17658_" class="j-color swiper-slide active"
-                                        data-link="class{merge: ~currentNmId == nmId toggle='active'}class{merge: allSizesSoldOut toggle='blur'}">
-                                        <a class="img-plug"
-                                           href="https://www.wildberries.ru/catalog/9414496/detail.aspx" aria-label="">
-                                            <img loading="lazy" src="//images.wbstatic.net/tm/new/9410000/9414496-1.jpg"
-                                                 alt="" title="" width="72" height="96"> </a></li>
-                                </ul>
-                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
-                            <button class="swiper-button-next" type="button" tabindex="0" role="button"
-                                    aria-label="Next slide" aria-disabled="false"></button>
-                        </div>
-                    </div>
-                </div>
-                <script type="jsv/17656_"></script>
-            </div>
+            <div data-link="{include selectedNomenclature^digitalLinks tmpl='digitalLinks'}{on 'click' '.j-digital-link' digitalLinkClicked}"></div>
+            <div data-link="{include colorsModel tmpl=colorsModel.template}"></div>
+
             <div class="product-page__options" data-link="class{merge: !product^showMinDetails toggle='hide'}">
-                <div class=""
-                     data-link="class{merge: !(product^groupedAddedOptions &amp;&amp; product^groupedAddedOptions^length > 0) toggle='hide'}">
-                    <div class="product-params"
-                         data-link="{include tmpl='productCardOptions' ^~groupedAddedOptions=product^minGroupedAddedOptions ~showCategoryName=true}">
-                        <script type="jsv#17659_"></script>
-                        <script type="jsv#17660_"></script>
-                        <script type="jsv#17661_"></script>
+                <div class="">
+                    <div class="product-params">
                         <table class="product-params__table">
-                            <caption data-jsv="#5509^#17662_" class="product-params__caption">Дополнительная
-                                информация
-                            </caption>
-                            <tbody data-jsv="/17662_/5509^" data-jsv-df="">
-                            <tr data-jsv="#5520^#17663_#17664_" class="product-params__row">
-                                <th class="product-params__cell"><span class="product-params__cell-decor"><span><script
-                                                type="jsv#5510^"></script>Автор<script type="jsv/5510^"></script></span></span>
+                            <caption class="product-params__caption">Дополнительная информация</caption>
+                            <tbody>
+                            <tr class="product-params__row">
+                                <th class="product-params__cell">
+                                    <span class="product-params__cell-decor">
+                                        <span>Автор</span>
+                                    </span>
                                 </th>
                                 <td class="product-params__cell">
                                     <script type="jsv#5511^"></script>
@@ -155,8 +125,7 @@
                 <a class=""
                    data-link="{on $moveToAnchor 'options' true false 84}class{merge: !showMinAddedOptions() toggle='hide'}"
                    href="#options" data-jsv="#5522^/5522^">Все характеристики</a></div>
-            <div class="product-page__sizes-wrap hide"
-                 data-link="class{merge: !selectedNomenclature^showSize toggle='hide'}{include sizeModel tmpl=sizeModel.template}">
+            <div class="product-page__sizes-wrap hide">
             </div>
         </div>
 
@@ -177,27 +146,20 @@
                 </div>
             </div>
             <div class="product-page__common-info">
-                <a class="product-review j-wba-card-item" id="comments_reviews_link"
-                      data-name-for-wba="Item_Feedback_Top"
-                      data-link="{on isPopup ? $void : $moveToAnchor 'footerTabs' true true 84}href{urlForGood:selectedNomenclature^nmId true targetInfo^targetUrl 'Comments' isAdv}"
-                      href="https://www.wildberries.ru/catalog/9414496/detail.aspx?targetUrl=GP#Comments"
-                      data-jsv="#5536^/5536^">
-                    <span class="product-review__rating stars-line star5"
-                        data-link="class{: 'product-review__rating stars-line star' + product^star}">
+                <a class="product-review j-wba-card-item" id="comments_reviews_link" data-name-for-wba="Item_Feedback_Top"
+                      href="/targetUrl=GP#Comments">
+                    <span class="product-review__rating stars-line star5">
                         <span data-link="text{: product^star}">5</span>
                     </span>
                     <span class="product-review__count-review" data-link="{include tmpl='productCardCommentsCount'}">261 отзыв</span>
                 </a>
                 <p class="product-article"><span class="hide-mobile">Артикул:</span>
                     <span class="hide-desktop">Арт:</span>
-                    <span id="productNmId"
-                       data-link="text{: selectedNomenclature^nmId}{on copyNmId}"
-                       data-jsv="#5544^/5544^">9414496</span></p>
-                <p class="product-order-quantity j-orders-count-wrapper"
-                   data-link="class{merge: selectedNomenclature^ordersCount < 1 || isPopup toggle='hide'}">Купили
-                    <span data-link="{include tmpl='productCardOrderCount' ^~ordersCount=selectedNomenclature^ordersCount}">
-                        более 7&nbsp;600 раз
-                    </span></p>
+                    <span id="productNmId">9414496</span>
+                </p>
+                <p class="product-order-quantity j-orders-count-wrapper">Купили
+                    <span>более 7&nbsp;600 раз</span>
+                </p>
             </div>
         </div>
 
@@ -414,6 +376,7 @@
                 </div>
             </div>
         </section>
+
         <div class="product-page__delivery-advantages"
              data-link="class{merge: (!selectedNomenclature^enabledForRegion || selectedNomenclature^allSizesSoldOut) &amp;&amp; ~wbSettings.displayMode == 'm' toggle='hide'}">
             <div class="product-page__delivery-wrap"
@@ -485,74 +448,45 @@
                     забронировать интересующий товар и забрать его в магазинах партнёров.</p>
                 <p class="warning-info-alcohol">Черезмерное употребление алкоголя вредит здоровью</p></div>
         </div>
-        <div class="product-page__seller-wrap"
-             data-link="{include (suppliersHelper &amp;&amp; suppliersHelper^currentSupplier) tmpl=(suppliersHelper &amp;&amp; suppliersHelper.template) ~showSellerCatalog=true ~cardFullModel=false}">
+
+        <div class="product-page__seller-wrap">
             <div class="seller-info">
                 <div class="seller-info__header">
                     <div class="seller-info__wrap">
                         <div class="seller-info__title">
-                            <script type="jsv#17799_"></script>
                             <a href="/seller/8969" class="seller-info__name seller-info__name--link">ТД Эксмо</a>
-                            <script type="jsv/17799_"></script>
-                            <span class="seller-info__tip-info tip-info"
-                                  data-link="{tooltip tmplName='suppliersInfoTooltipster' classes='tooltip-supplier' distance=8 tmplData=#data pos='center bottom' trigger='click'}"
-                                  data-jsv="#5800^/5800^"></span></div>
+                            <span class="seller-info__tip-info tip-info"></span>
+                        </div>
                         <div class="seller-info__param">
-                            <script type="jsv#17800_"></script>
                             <span class="address-rate-mini">4.7</span>
-                            <script type="jsv/17800_"></script>
-                            <script type="jsv#17801_"></script>
-                            <span class="seller-info__review"><script type="jsv#17802_"></script>179 008<script
-                                    type="jsv/17802_"></script> отзывов на товары</span>
-                            <script type="jsv/17801_"></script>
+                            <span class="seller-info__review">179 008отзывов на товары</span>
                         </div>
                     </div>
-                    <script type="jsv#17803_"></script>
                     <a class="seller-info__logo img-plug" href="/seller/8969">
-                        <script type="jsv#17804_"></script>
-                        <img src="//images.wbstatic.net/shops/8969_logo.jpg" alt="ТД Эксмо" width="96" height="40">
-                        <script type="jsv/17804_"></script>
+                        <img src="#" alt="ТД Эксмо mobile img" width="96" height="40">
                     </a>
-                    <script type="jsv/17803_"></script>
                 </div>
-                <script type="jsv#17805_"></script>
                 <ul class="seller-info__list" data-jsv-df="">
-                    <li data-jsv="#17806_" class="seller-info__item seller-info__item--delivered"><b
-                            class="seller-info__value">
-                            <script type="jsv#17807_"></script>
-                            12 269 914
-                            <script type="jsv/17807_"></script>
-                        </b>
+                    <li class="seller-info__item seller-info__item--delivered">
+                        <b class="seller-info__value">12 269 914</b>
                         <p class="seller-info__desc">проданных товаров</p></li>
-                    <li data-jsv="/17806_#17808_" class="seller-info__item seller-info__item--time"><b
-                            class="seller-info__value">
-                            <script type="jsv#17809_"></script>
-                            7 лет и 6 мес
-                            <script type="jsv/17809_"></script>
-                        </b>
-                        <p class="seller-info__desc">
-                            <script type="jsv#17810_"></script>
-                            продает
-                            <script type="jsv/17810_"></script>
-                            на Wildberries
-                        </p>
+                    <li class="seller-info__item seller-info__item--time">
+                        <b class="seller-info__value">7 лет и 6 мес</b>
+                        <p class="seller-info__desc">продает на Wildberries</p>
                     </li>
-                    <li data-jsv="/17808_#17811_" class="seller-info__item seller-info__item--delivery"><b
-                            class="seller-info__value">99.8%</b>
-                        <p class="seller-info__desc">доставок вовремя</p></li>
-                    <li data-jsv="/17811_#17812_" class="seller-info__item seller-info__item--defective"><b
-                            class="seller-info__value">0.1%</b>
-                        <p class="seller-info__desc">товаров с браком</p></li>
+                    <li class="seller-info__item seller-info__item--delivery">
+                        <b class="seller-info__value">99.8%</b>
+                        <p class="seller-info__desc">доставок вовремя</p>
+                    </li>
+                    <li class="seller-info__item seller-info__item--defective">
+                        <b class="seller-info__value">0.1%</b>
+                        <p class="seller-info__desc">товаров с браком</p>
+                    </li>
                 </ul>
-                <script type="jsv/17805_"></script>
-                <script type="jsv#17813_"></script>
                 <a href="/seller/8969" class="seller-info__link hide-desktop">Перейти в магазин продавца</a>
-                <script type="jsv/17813_"></script>
             </div>
-            <script type="jsv/17798_"></script>
-            <script type="jsv/5795^"></script>
-            <script type="jsv/17794_"></script>
         </div>
+
         <div class="product-page__order">
             <div class="product-page__order-container" data-link="{include orderModel tmpl=orderModel.template}">
                 <script type="jsv#17698_"></script>
@@ -792,12 +726,11 @@
                 </div>
             </div>
         </div>
-        <div class="product-page__brand-logo hide-mobile" data-link="class{merge: !product^brandUrl toggle='hide'}"><a
-                class="img-plug j-wba-card-item" data-name-for-wba="Item_Brand_Photo"
-                data-link="title{:product^brandName}href{:product^brandUrl}target{: isPopup ? '_blank' : '_self'}{on $analitic.proceedAndSave 'IBP'}"
-                title="Эксмо" target="_self" data-jsv="#5693^/5693^" href="/brands/eksmo"> <img
-                    data-link="alt{:product^brandName}src{:product^brandLogo}class{merge:!product^brandLogo toggle='hide'}"
-                    alt="Эксмо" class="" src="//images.wbstatic.net/brands/small/4481.jpg" width="96" height="40"></a>
+
+        <div class="product-page__brand-logo hide-mobile" data-link="class{merge: !product^brandUrl toggle='hide'}">
+            <a class="img-plug j-wba-card-item" title="Эксмо" target="_self" href="/brands/eksmo">
+                <img alt="Эксмо img desktop" class="" src="" width="96" height="40">
+            </a>
         </div>
     </div>
 

@@ -4,7 +4,6 @@
      style="min-height: 488px;">
     <div class="product-card__wrapper">
         <a draggable="false" class="product-card__main j-card-link"
-           {{--href="https://www.wildberries.ru/catalog/24811954/detail.aspx?targetUrl=GP"--}}
            href="/product/{{$product->id}}">
             <div class="product-card__img">
                 <div class="product-card__tip-wrap"></div>
