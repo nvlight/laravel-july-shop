@@ -9,6 +9,9 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    protected $sortName;
+    protected $activeSortName;
+
     /**
      * Display a listing of the resource.
      *
@@ -64,7 +67,8 @@ class CategoryController extends Controller
         return [
             "popular" => 'популярности',
             "rate" => 'рейтингу',
-            "price" => 'цене',
+            "priceAsc"  => 'цене',
+            "priceDesc" => 'цене',
             "sale" => 'скидке',
             "newly" => 'обновлению',
         ];
@@ -125,8 +129,10 @@ class CategoryController extends Controller
             case $this->getSortNameKeyById(2):
                 $sortedProducts = $products->orderBy('price', 'asc'); break;
             case $this->getSortNameKeyById(3):
-                $sortedProducts = $products->orderBy('id', 'asc'); break;
+                $sortedProducts = $products->orderBy('price', 'desc'); break;
             case $this->getSortNameKeyById(4):
+                $sortedProducts = $products->orderBy('id', 'asc'); break;
+            case $this->getSortNameKeyById(5):
                 $sortedProducts = $products->orderBy('id', 'desc'); break;
             default:
                 $sortedProducts = $products->orderBy('id', 'asc'); break;
@@ -135,6 +141,35 @@ class CategoryController extends Controller
         $sortedProducts = $sortedProducts->get();
 
         return $sortedProducts;
+    }
+
+    /**
+     * Вернуть спиоск ключей сортировки, удалив один из них, связанное с ценой.
+     * @param $sortName
+     * @return string[]|void
+     */
+    protected function getPriceExcludedsortNames($sortName)
+    {
+        $priceAsc  = 'priceAsc';
+        $priceDesc = 'priceDesc';
+        $sortNames = $this->getSortNamesArray();
+
+        if ($this->sortName == $priceAsc){
+            $this->sortName = $priceAsc;
+            $this->activeSortName = $priceDesc;
+            unset($sortNames[$priceAsc]);
+        }elseif ($this->sortName == $priceDesc){
+            $this->sortName = $priceDesc;
+            $this->activeSortName = $priceAsc;
+            unset($sortNames[$priceDesc]);
+        }else{
+            $this->activeSortName = $this->sortName;
+            unset($sortNames[$priceDesc]);
+        }
+
+        //dump($this->sortName);
+        //dump($sortNames);
+        return $sortNames;
     }
 
     /**
@@ -167,14 +202,14 @@ class CategoryController extends Controller
         // исходя из параметра sort
         // 1. сделать сортировку
         // 2. узнать, какая ссылка будет активной
-        $sortNamesArray = $this->getSortNamesArray();
         $userCheckedSortName = $this->getUserCheckedSortName($request);
-        $sortName = $userCheckedSortName ? $userCheckedSortName : $this->getDefaultSortName();
+        $this->sortName = $userCheckedSortName ? $userCheckedSortName : $this->getDefaultSortName();
 
-        $sortedProductsBySortName = $this->getSortedProductsBySortName($category->id, $sortName);
+        $priceExcludedsortNames   = $this->getPriceExcludedsortNames($this->sortName);
+        $sortedProductsBySortName = $this->getSortedProductsBySortName($category->id, $this->sortName);
 
-        //dump($products);
-        // $products->count()
+        //dump($this->sortName);
+        // $products->count();
         //dump($products->find($products->count()-1)->images);
         //die;
 
@@ -185,8 +220,8 @@ class CategoryController extends Controller
             'childCategories' => $childCategories,
             'breadCrumbs' => $breadCrumbs,
             'products' => $sortedProductsBySortName,
-            'sortNamesArray' => $sortNamesArray,
-            'sortName' => $sortName,
+            'priceExcludedsortNames' => $priceExcludedsortNames,
+            'activeSortName' => $this->activeSortName,
         ]);
     }
 
