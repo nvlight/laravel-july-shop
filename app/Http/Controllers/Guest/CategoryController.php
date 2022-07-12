@@ -60,18 +60,32 @@ class CategoryController extends Controller
     }
 
     /**
-     * Получить все ключи сортировки продуктов в категории
+     * Получить все ключи сортировки продуктов в категории для десктопа
      * @return void
      */
     protected function getSortNamesArray(){
         return [
             "popular" => 'популярности',
             "rate" => 'рейтингу',
-            "priceAsc"  => 'цена',
-            "priceDesc" => 'цена',
+            "priceAsc"  => 'цене',
+            "priceDesc" => 'цене',
             "sale" => 'скидке',
             "newly" => 'обновлению',
         ];
+    }
+
+    /**
+     * Получить все ключи сортировки продуктов в категории для tablet / mobile
+     * @return void
+     */
+    protected function getMobileSortNamesArray()
+    {
+        $sortNames = $this->getSortNamesArray();
+
+        $sortNames['priceAsc']  .= " min";
+        $sortNames['priceDesc'] .= " max";
+
+        return $sortNames;
     }
 
     /**
@@ -208,6 +222,8 @@ class CategoryController extends Controller
         $priceExcludedsortNames   = $this->getPriceExcludedsortNames($this->sortName);
         $sortedProductsBySortName = $this->getSortedProductsBySortName($category->id, $this->sortName);
 
+        $mobileSortNamesArray = $this->getMobileSortNamesArray();
+
         //dump($this->sortName);
         // $products->count();
         //dump($products->find($products->count()-1)->images);
@@ -222,6 +238,8 @@ class CategoryController extends Controller
             'products' => $sortedProductsBySortName,
             'priceExcludedsortNames' => $priceExcludedsortNames,
             'activeSortName' => $this->activeSortName,
+            'sortName' => $this->sortName,
+            'mobileSortNamesArray' => $mobileSortNamesArray,
         ]);
     }
 

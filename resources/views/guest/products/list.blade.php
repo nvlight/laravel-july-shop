@@ -92,10 +92,9 @@
     <div class="catalog-page__main new-size">
         <div class="">
             <div class="inner-sorter">
-                <div id="catalog_sorter" class="sort">
-                    <span>Сортировать по:</span>
-                    @include('guest.products.show.catalog_sorter_items')
-                </div>
+
+                @include('guest.products.show.catalog_sorter')
+
                 <div class="card-sizes" data-link="">
                     <a class="card-sizes-link card-sizes-link--c516x688 active"
                        href="?cardSize=c516x688">
@@ -110,33 +109,9 @@
                      data-link="{on model.showMobileFilters}data-numb{: model.yourChoice^length}"
                      data-jsv="#17905^/17905^">Фильтр
                 </div>
-                <div class="sorter-mobile__select">
-                    <div class="select-filter">
-                        <div class="select-filter__value"
-                             data-link="{on model.showMobileSorter}text{:model.sorterModel.textValue}">По популярности
-                        </div>
-                        <div class="select-filter__list j-mobile-sorter-list">
-                            <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['popular']}">По популярности
-                            </div>
-                            <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['rate']}">По рейтингу
-                            </div>
-                            <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['pricedown']}">По цене max
-                            </div>
-                            <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['priceup']}">По цене min
-                            </div>
-                            <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['sale']}">По скидке
-                            </div>
-                            <div class="select-filter__item"
-                                 data-link="{on model.updateSort model.sorterModel.sortingEntries['newly']}">По обновлению
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                @include('guest.products.show.sorter-mobile__select')
+
                 <div class="sorter-mobile__card-refresh"
                      data-link="class{merge: model.sizerModel.value == 'big' toggle='big'}{on model.applyNextSize}"
                      data-jsv="#17917^/17917^"></div>
