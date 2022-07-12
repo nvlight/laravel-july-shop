@@ -12,26 +12,6 @@
                     <a href="?sort={{$key}}" class="select-filter__item" style="display:block;">По {{$value}}</a>
                 </div>
             @endforeach
-
-                {{--            <div class="select-filter__item"--}}
-{{--                 data-link="{on model.updateSort model.sorterModel.sortingEntries['popular']}">По популярности--}}
-{{--            </div>--}}
-{{--            <div class="select-filter__item"--}}
-{{--                 data-link="{on model.updateSort model.sorterModel.sortingEntries['rate']}">По рейтингу--}}
-{{--            </div>--}}
-{{--            <div class="select-filter__item"--}}
-{{--                 data-link="{on model.updateSort model.sorterModel.sortingEntries['pricedown']}">По цене max--}}
-{{--            </div>--}}
-{{--            <div class="select-filter__item"--}}
-{{--                 data-link="{on model.updateSort model.sorterModel.sortingEntries['priceup']}">По цене min--}}
-{{--            </div>--}}
-{{--            <div class="select-filter__item"--}}
-{{--                 data-link="{on model.updateSort model.sorterModel.sortingEntries['sale']}">По скидке--}}
-{{--            </div>--}}
-{{--            <div class="select-filter__item"--}}
-{{--                 data-link="{on model.updateSort model.sorterModel.sortingEntries['newly']}">По обновлению--}}
-{{--            </div>--}}
-
         </div>
     </div>
 </div>

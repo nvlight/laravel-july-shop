@@ -8,7 +8,7 @@
         <h1 class="catalog-title">{{$currentCategory->title}}</h1>
         <span class="goods-count">
             <span class="hide">ТОП</span>
-            <span>13 835</span>
+            <span>{{$productsCount}}</span>
             <span>товаров</span>
         </span>
     </div>

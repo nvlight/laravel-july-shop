@@ -28,11 +28,11 @@
                             <button class="footer__btn-open" type="button">Открыть</button>
                         </div>
                         <ul class="footer__list footer__list--dropdown">
-                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Seller"><a rel="nofollow" target="_blank" href="https://seller.wildberries.ru/">Продавайте на Wildberries</a></li>
+                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Seller"><a rel="nofollow" target="_blank" href="/seller.wildberries">Продавайте на Wildberries</a></li>
 
                             <li class="footer__item j-wba-footer-item" data-wba-footer-name="Carrier"><a rel="nofollow" target="_blank" href="/promo/priglashaem-k-sotrudnichestvu">Перевозчикам</a></li>
 
-                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Pick_up_points_open"><a rel="nofollow" target="_blank" href="https://point-promo.wb.ru/">Откройте пункт выдачи</a></li>
+                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Pick_up_points_open"><a rel="nofollow" target="_blank" href="point-promo.wildberries">Откройте пункт выдачи</a></li>
 
                             <li class="footer__item j-wba-footer-item" data-wba-footer-name="Franchise"><a rel="nofollow" target="_blank" href="/services/franshizniy-punkt-vydachi">Франшизный пункт выдачи</a></li>
                         </ul>
@@ -44,9 +44,9 @@
                             <button class="footer__btn-open" type="button">Открыть</button>
                         </div>
                         <ul class="footer__list footer__list--dropdown">
-                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Guru"><a rel="nofollow" target="_blank" href="https://guru.wildberries.ru/?utm_source=main_footer">WB Guru</a></li>
-                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Job"><a rel="nofollow" target="_blank" href="https://vsemrabota.ru/appwb/">Трудоустройство</a></li>
-                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Digital"><a rel="nofollow" target="_blank" href="https://digital.wildberries.ru/">Цифровые товары</a></li>
+                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Guru"><a rel="nofollow" target="_blank" href="/guru.wildberries">WB Guru</a></li>
+                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Job"><a rel="nofollow" target="_blank" href="/vsemrabota.">Трудоустройство</a></li>
+                            <li class="footer__item j-wba-footer-item" data-wba-footer-name="Digital"><a rel="nofollow" target="_blank" href="/digital.wildberries">Цифровые товары</a></li>
                         </ul>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         <li class="footer__item j-wba-footer-item" data-wba-footer-name="Press"><a rel="nofollow" href="/presscenter">Пресс-центр</a></li>
                         <li class="footer__item j-wba-footer-item" data-wba-footer-name="Сontacts"><a rel="nofollow" href="/services/kontakty">Контакты</a></li>
                         <li class="footer__item j-wba-footer-item" data-wba-footer-name="Bug_Bounty"><a rel="nofollow" href="/services/bug-bounty">Bug Bounty</a></li>
-                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="WB_Tech"><a target="_blank" rel="nofollow" href="https://t.me/wbdevs">WB.Tech</a></li>
+                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="WB_Tech"><a target="_blank" rel="nofollow" href="https://t.me/wildberry_devsss123">ildB.Tech</a></li>
                     </ul>
                 </div>
             </div>
@@ -71,20 +71,20 @@
                 <div class="footer__list-wrap footer__list-wrap--download">
                     <h3 class="footer__header">Мобильные устройства</h3>
                     <ul class="footer__list">
-                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="GooglePlay"><a class="google-play" rel="nofollow noopener" target="_blank" href="https://play.google.com/store/apps/details?id=com.wildberries.ru">Загрузить из Google Play</a></li>
-                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="AppStore"><a class="app-store" rel="nofollow noopener" target="_blank" href="https://apps.apple.com/ru/app/wildberries/id597880187">Загрузить из AppStore</a></li>
-                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="AppGallery"><a class="app-gallery" rel="nofollow noopener" target="_blank" href="https://appgallery8.huawei.com/#/app/C101183325">Загрузить из AppGallery</a></li>
+                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="GooglePlay"><a class="google-play" rel="nofollow noopener" target="_blank" href="https://play.google.com/store/apps/details?id=com.ild_bery.net">Загрузить из Google Play</a></li>
+                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="AppStore"><a class="app-store" rel="nofollow noopener" target="_blank" href="https://apps.apple.com/ru/app/.ild_bery.net/id879770127">Загрузить из AppStore</a></li>
+                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="AppGallery"><a class="app-gallery" rel="nofollow noopener" target="_blank" href="https://appgallery8.huawei.com/#/app/C102514417">Загрузить из AppGallery</a></li>
                     </ul>
                 </div>
 
                 <div class="footer__list-wrap footer__list-wrap--social">
                     <h3 class="footer__header">Мы в соцсетях</h3>
                     <ul class="footer__list">
-                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="Vk"><a class="icon-vk" rel="nofollow noopener" target="_blank" href="http://vk.com/club9695053">Вконтакте</a></li>
+                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="Vk"><a class="icon-vk" rel="nofollow noopener" target="_blank" href="http://vk.com/club9796071">Вконтакте</a></li>
 
-                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="Ok"><a class="icon-ok" rel="nofollow noopener" target="_blank" href="http://www.odnoklassniki.ru/wildberries">Одноклассники</a></li>
-                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="YouTube"><a class="icon-yt" rel="nofollow noopener" target="_blank" href="https://www.youtube.com/Wildberriesshop">YouTube</a></li>
-                        <li class="footer__item"><a class="icon-tg" rel="nofollow noopener" target="_blank" href="https://t.me/wildberriesru_official">Телеграм</a></li>
+                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="Ok"><a class="icon-ok" rel="nofollow noopener" target="_blank" href="http://www.odnoklassniki.ru/ild_berrypp">Одноклассники</a></li>
+                        <li class="footer__item j-wba-footer-item" data-wba-footer-name="YouTube"><a class="icon-yt" rel="nofollow noopener" target="_blank" href="https://www.youtube.com/ild_berrypp">YouTube</a></li>
+                        <li class="footer__item"><a class="icon-tg" rel="nofollow noopener" target="_blank" href="https://t.me/ild_berryp_piesru_official">Телеграм</a></li>
                     </ul>
                 </div>
             </div>
@@ -104,7 +104,7 @@
             <p class="footer__copyrights">
 
 
-                <span>2004-2022 © Wildberries</span><span class="footer__text-desktop"> — модный интернет-магазин одежды, обуви и аксессуаров. Все права защищены.</span>
+                <span>2004-<script>document.write((new Date()).getFullYear())</script> © Wildberries</span><span class="footer__text-desktop"> — модный интернет-магазин одежды, обуви и аксессуаров. Все права защищены.</span>
                 <span class="footer__text-desktop">Доставка по всей России.</span>
             </p>
         </div>

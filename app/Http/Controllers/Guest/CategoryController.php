@@ -187,6 +187,16 @@ class CategoryController extends Controller
     }
 
     /**
+     * Получить количество дочерних продуктов у категории.
+     * @param $categoryId
+     * @return int
+     */
+    protected function getProductsCount($categoryId)
+    {
+        return Product::where('category_id', $categoryId)->count();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -221,8 +231,9 @@ class CategoryController extends Controller
 
         $priceExcludedsortNames   = $this->getPriceExcludedsortNames($this->sortName);
         $sortedProductsBySortName = $this->getSortedProductsBySortName($category->id, $this->sortName);
-
         $mobileSortNamesArray = $this->getMobileSortNamesArray();
+
+        $productsCount = $this->getProductsCount($category->id);
 
         //dump($this->sortName);
         // $products->count();
@@ -240,6 +251,7 @@ class CategoryController extends Controller
             'activeSortName' => $this->activeSortName,
             'sortName' => $this->sortName,
             'mobileSortNamesArray' => $mobileSortNamesArray,
+            'productsCount' => $productsCount,
         ]);
     }
 

