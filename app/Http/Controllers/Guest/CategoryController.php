@@ -67,8 +67,8 @@ class CategoryController extends Controller
         return [
             "popular" => 'популярности',
             "rate" => 'рейтингу',
-            "priceAsc"  => 'цене',
-            "priceDesc" => 'цене',
+            "priceAsc"  => 'цена',
+            "priceDesc" => 'цена',
             "sale" => 'скидке',
             "newly" => 'обновлению',
         ];
@@ -167,8 +167,8 @@ class CategoryController extends Controller
             unset($sortNames[$priceDesc]);
         }
 
-        //dump($this->sortName);
-        //dump($sortNames);
+        dump($this->sortName);
+        dump($this->activeSortName);
         return $sortNames;
     }
 
