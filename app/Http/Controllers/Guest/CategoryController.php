@@ -167,8 +167,8 @@ class CategoryController extends Controller
             unset($sortNames[$priceDesc]);
         }
 
-        dump($this->sortName);
-        dump($this->activeSortName);
+        //dump($this->sortName);
+        //dump($this->activeSortName);
         return $sortNames;
     }
 
