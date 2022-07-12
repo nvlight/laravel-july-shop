@@ -57,12 +57,93 @@ class CategoryController extends Controller
     }
 
     /**
+     * Получить все ключи сортировки продуктов в категории
+     * @return void
+     */
+    protected function getSortNamesArray(){
+        return [
+            "popular" => 'популярности',
+            "rate" => 'рейтингу',
+            "price" => 'цене',
+            "sale" => 'скидке',
+            "newly" => 'обновлению',
+        ];
+    }
+
+    /**
+     * Получить ключ сортировки по умолчанию
+     * @param $key можно выбрать нужный ключ по индексу
+     * @return int|string
+     */
+    protected function getDefaultSortName($key = 0){
+        return $this->getSortNameKeyById($key);
+    }
+
+    /**
+     * Получить ключ сортировки по индексу массива
+     * @param $key можно выбрать нужный ключ по индексу
+     * @param $key
+     * @return int|string
+     */
+    protected function getSortNameKeyById($key = 0){
+        return array_keys($this->getSortNamesArray())[$key];
+    }
+
+    /**
+     * Получить выбранный пользователем метод сортировки
+     * @param $request
+     * @return void
+     */
+    protected function getUserCheckedSortName($request){
+        if (!$request->sort){
+            return false;
+        }
+        $sort = $request->sort;
+        if (!array_key_exists($sort, $this->getSortNamesArray())){
+            $sort = $this->getDefaultSortName();
+        }
+
+        return $sort;
+    }
+
+    /**
+     * @param $products
+     * @return void
+     */
+    protected function getSortedProductsBySortName($categoryId, $sortName)
+    {
+        $products = Product::where('category_id', $categoryId)
+            //->leftJoin('galleries', 'galleries.parent_id','=','products.id')
+            //->select('products.*', 'galleries.image', 'galleries.is_main')
+        ;
+
+        switch($sortName){
+            case $this->getSortNameKeyById(0):
+                $sortedProducts = $products->orderBy('id', 'asc'); break;
+            case $this->getSortNameKeyById(1):
+                $sortedProducts = $products->orderBy('id', 'asc'); break;
+            case $this->getSortNameKeyById(2):
+                $sortedProducts = $products->orderBy('price', 'asc'); break;
+            case $this->getSortNameKeyById(3):
+                $sortedProducts = $products->orderBy('id', 'asc'); break;
+            case $this->getSortNameKeyById(4):
+                $sortedProducts = $products->orderBy('id', 'desc'); break;
+            default:
+                $sortedProducts = $products->orderBy('id', 'asc'); break;
+        }
+
+        $sortedProducts = $sortedProducts->get();
+
+        return $sortedProducts;
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Category $category, Request $request)
     {
         $parentCategory = $category->parent;
         $childCategories = ($category->children);
@@ -83,10 +164,14 @@ class CategoryController extends Controller
             ]);
         }
 
-        $products = Product::where('category_id', $category->id)
-            //->leftJoin('galleries', 'galleries.parent_id','=','products.id')
-            //->select('products.*', 'galleries.image', 'galleries.is_main')
-            ->get();
+        // исходя из параметра sort
+        // 1. сделать сортировку
+        // 2. узнать, какая ссылка будет активной
+        $sortNamesArray = $this->getSortNamesArray();
+        $userCheckedSortName = $this->getUserCheckedSortName($request);
+        $sortName = $userCheckedSortName ? $userCheckedSortName : $this->getDefaultSortName();
+
+        $sortedProductsBySortName = $this->getSortedProductsBySortName($category->id, $sortName);
 
         //dump($products);
         // $products->count()
@@ -99,7 +184,9 @@ class CategoryController extends Controller
             'currentCategory' => $category,
             'childCategories' => $childCategories,
             'breadCrumbs' => $breadCrumbs,
-            'products' => $products,
+            'products' => $sortedProductsBySortName,
+            'sortNamesArray' => $sortNamesArray,
+            'sortName' => $sortName,
         ]);
     }
 

@@ -93,30 +93,15 @@
         <div class="">
             <div class="inner-sorter">
                 <div id="catalog_sorter" class="sort">
-                    <span>Сортировать по:</span> <a class="sort-item sort_select"
-                                                    href="https://www.wildberries.ru/catalog/knigi/hudozhestvennaya-literatura/detektivy?sort=popular">
-                        <span>популярности</span>
-                    </a> | <a class="sort-item"
-                              href="https://www.wildberries.ru/catalog/knigi/hudozhestvennaya-literatura/detektivy?sort=rate">
-                        <span>рейтингу</span> </a> | <a class="sort-item"
-                                                        href="https://www.wildberries.ru/catalog/knigi/hudozhestvennaya-literatura/detektivy?sort=price"
-                    >
-                        цене<span
-                            class=""></span> </a> | <a class="sort-item"
-                                                       href="https://www.wildberries.ru/catalog/knigi/hudozhestvennaya-literatura/detektivy?sort=sale"
-                    >
-                        <span>скидке</span> </a> |
-                    <a class="sort-item"
-                       href="https://www.wildberries.ru/catalog/knigi/hudozhestvennaya-literatura/detektivy?sort=newly">
-                        <span>обновлению</span>
-                    </a>
+                    <span>Сортировать по:</span>
+                    @include('guest.products.show.catalog_sorter_items')
                 </div>
-                <div class="card-sizes" data-link="{include tmpl='catalogCardSizePicker' ~model=model}">
+                <div class="card-sizes" data-link="">
                     <a class="card-sizes-link card-sizes-link--c516x688 active"
-                       href="https://www.wildberries.ru/catalog/knigi/hudozhestvennaya-literatura/detektivy?cardSize=c516x688">
+                       href="?cardSize=c516x688">
                     </a>
                     <a class="card-sizes-link card-sizes-link--big"
-                       href="https://www.wildberries.ru/catalog/knigi/hudozhestvennaya-literatura/detektivy?cardSize=big">
+                       href="?cardSize=big">
                     </a>
                 </div>
             </div>
