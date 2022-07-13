@@ -152,7 +152,11 @@ class CategoryController extends Controller
                 $sortedProducts = $products->orderBy('id', 'asc'); break;
         }
 
-        $sortedProducts = $sortedProducts->get();
+        // paginate
+        //$sortedProducts = $sortedProducts->get();
+        $paginateCount = 4;
+        $sortedProducts = $sortedProducts->paginate($paginateCount);
+        //dd($sortedProducts);
 
         return $sortedProducts;
     }
@@ -252,6 +256,7 @@ class CategoryController extends Controller
             'sortName' => $this->sortName,
             'mobileSortNamesArray' => $mobileSortNamesArray,
             'productsCount' => $productsCount,
+            //'sortedProductsBySortName' => $sortedProductsBySortName,
         ]);
     }
 
