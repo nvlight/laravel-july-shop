@@ -107,7 +107,7 @@
             <div class="header__nav-element nav-element">
                 <button class="nav-element__burger j-menu-burger-btn j-wba-header-item" data-wba-header-name="Catalog" type="button" aria-label="Навигация по сайту"><span class="nav-element__burger-line"></span></button>
                 <a class="nav-element__logo j-wba-header-item" data-wba-header-name="Main" href="/">
-                    <img src="//static.wbstatic.net/i/header/logo-v1.svg" alt="Wildberries" width="240" height="64">
+                    <img src="{{asset('img/logo-v1.svg')}}" alt="ildberries" width="240" height="64">
                 </a>
 
                 <div class="header__nav-icons">

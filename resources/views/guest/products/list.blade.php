@@ -26,17 +26,16 @@
         <div class="seller-details hide">
             <div class="seller-details__info-wrap">
                 <div class="seller-details__logo-wrap">
-                    <div class="seller-details__logo img-plug"><img
-                            src="//static.wbstatic.net/i/v3/catalog/seller-logo-new.jpg"
-                            alt="Логотип продавца"
-                            data-link="class{merge: model.sellerExtInfo &amp;&amp; model.sellerExtInfo.hasLogo toggle='hide'}"
-                            class="" width="120" height="50"> <img src="//static.wbstatic.net/i/blank.gif"
-                                                                   data-link="src{:model.sellerExtInfo &amp;&amp; model.sellerExtInfo.hasLogo ? ('//images.wbstatic.net/shops/' + model.sellerId + '_logo.jpg'):'//static.wbstatic.net/i/blank.gif'}                     alt{>~trimWord(model.sellerInfo &amp;&amp; (model.sellerInfo.trademark || model.sellerInfo.fineName), model.sellerInfo &amp;&amp; model.sellerInfo.orgForms)}"
-                                                                   alt="" width="120" height="50"></div>
+                    <div class="seller-details__logo img-plug">
+                        {{-- //static.wbstatic.net/i/v3/catalog/seller-logo-new.jpg --}}
+                        <img src="" alt="Логотип продавца" class="" width="120" height="50">
+                        {{-- //static.wbstatic.net/i/blank.gif --}}
+                        <img src="" alt="" width="120" height="50">
+                    </div>
                 </div>
                 <div class="seller-details__info">
-                    <div class="seller-details__title-wrap"><h2 class="seller-details__title"
-                                                                data-link="{>~trimWord(model.sellerInfo &amp;&amp; (model.sellerInfo.trademark || model.sellerInfo.fineName),  model.sellerInfo &amp;&amp; model.sellerInfo.orgForms)}"></h2>
+                    <div class="seller-details__title-wrap">
+                        <h2 class="seller-details__title"></h2>
                         <span class="seller-details__tip-info tip-info"
                               data-link="{tooltip tmplName='suppliersInfoTooltipster' classes='tooltip-supplier' distance=8 tmplData=model.sellerTooltipInfo pos='center bottom' trigger='click'}"
                               data-jsv="#17850^/17850^"></span></div>
@@ -56,7 +55,8 @@
             <div class="seller-details__parameter-wrap"></div>
         </div>
         <div class="seller-head img-plug" style="display: none;">
-            <img src="//static.wbstatic.net/i/blank.gif" class="seller-head__img" alt="" width="1440" height="158">
+            {{-- //static.wbstatic.net/i/blank.gif --}}
+            <img src="" class="seller-head__img" alt="" width="1440" height="158">
         </div>
     </div>
     <div class="catalog-page__side">
@@ -80,9 +80,7 @@
         @include('guest.products.filters')
         <!--/noindex-->
 
-        <div class="sidemenu-mobile"
-             data-link="{include tmpl='catalogPromoMenuMobile' model}class{merge: model.menuMobileShown toggle='open'}">
-        </div>
+        <div class="sidemenu-mobile"></div>
         <button class="btn-quick-nav j-quicknav btn-quick-nav--mobile" type="button" style="display: none;">
             К началу страницы
         </button>

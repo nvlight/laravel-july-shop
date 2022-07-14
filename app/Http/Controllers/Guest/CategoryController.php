@@ -11,6 +11,7 @@ class CategoryController extends Controller
 {
     protected $sortName;
     protected $activeSortName;
+    protected $paginateCount = 12;
 
     /**
      * Display a listing of the resource.
@@ -154,7 +155,7 @@ class CategoryController extends Controller
 
         // paginate
         //$sortedProducts = $sortedProducts->get();
-        $paginateCount = 4;
+        $paginateCount = $this->paginateCount;
         $sortedProducts = $sortedProducts->paginate($paginateCount);
         //dd($sortedProducts);
 
