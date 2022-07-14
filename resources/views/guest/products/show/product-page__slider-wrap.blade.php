@@ -82,27 +82,17 @@
                         data-jsv="#5452^/5452^"></button>
                 <div id="imageContainer" class="mix-block__photo-zoom photo-zoom j-wba-card-item"
                      data-name-for-wba="Item_Photo">
-                    <div class="photo-zoom__img-plug img-plug"
-                         data-link="css-opacity{: (currentSlide - delta) >= 0 ? 1 : 0}"
-                         data-plug-text="Фото отсутствует" style="opacity: 1;">
-                        <script type="jsv#5423^"></script>
-                        <script type="jsv#18930_"></script>
+                    <div class="photo-zoom__img-plug img-plug" data-plug-text="Фото отсутствует" style="opacity: 1;">
                         <div class="zoom-image-container">
-                            <img class="photo-zoom__preview j-zoom-image hide"
-                                 data-link="src{:~tag.imageSrc}class{merge: ~tag.imageLoaded toggle='hide'}{on 'load' ~tag.renderCanvas}"
-                                 src="//images.wbstatic.net/big/new/9410000/9414496-1.jpg"
-                                 data-jsv="#6113^/6113^" width="900" height="1200">
-                            <canvas class="photo-zoom__preview j-image-canvas"
-                                    data-link="class{merge: !~tag.imageLoaded toggle='hide'}{on 'mousemove' ~tag.renderZoom}{on 'mouseleave' ~tag.resetCanvas}"
-                                    data-jsv="#6115^/6115^#6116^/6116^" width="900" height="1200"></canvas>
+                            <img class="photo-zoom__preview j-zoom-image hide" src="" width="900" height="1200">
+                            <canvas class="photo-zoom__preview j-image-canvas" width="900" height="1200"></canvas>
                         </div>
-                        <script type="jsv/18930_"></script>
-                        <script type="jsv/5423^"></script>
                         <a class="mix-block__find-similar j-wba-card-item"
                            data-name-for-wba="Item_SimilarItems_PhotoSearch"
                            data-link="href{: urlForReccomendations}class{merge: !~globalSettings.switches.enableVisuallySimilar || currentSlide < 0  toggle='hide'}"
                            href="/recommendation/catalog?type=visuallysimilar&amp;forproduct=9414496&amp;excludeNms=true">
-                            <span>Похожие</span> </a></div>
+                            <span>Похожие</span> </a>
+                    </div>
                 </div>
                 <div id="video" class="mix-block__video j-wba-card-item product-card-video"
                      data-name-for-wba="Item_Video_Icon"
@@ -143,7 +133,7 @@
                 <p class="badge-abroad hide"
                    data-link="class{merge: !isImport toggle='hide'}{tooltip tmplName='abroadInfoTooltip' classes='i-tooltip-abroad-delivery' distance=4 pos='alignleft bottom'}"
                    data-jsv="#5478^/5478^">Доставка из-за рубежа</p>
-                <p class="mix-block__for-adults">Товары для взрослых</p></div>
+            </div>
         </div>
         <script type="jsv/17623_"></script>
     </div>
