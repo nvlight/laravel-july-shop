@@ -59,6 +59,10 @@ class ProductController extends Controller
             //dd($sliderImages);
         }
 
+        // todo: 900 * 1200, это размер главной картинки слайдера на десктопе
+        // todo: 246 * 328,  это размеры маленьких картинок слайдера на десктопе, она также в верхней всплывашке
+        // todo: 516 * 688,  это размеры картинок, когда показывается список продуктов на десктопе
+
         return view('guest.products.show.show_product', [
             'product' => $product,
             'categories' => $categories,
