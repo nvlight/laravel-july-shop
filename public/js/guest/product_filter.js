@@ -570,6 +570,7 @@ function hideMobileWrapperMovedStandalone() {
 
 /**
  * Нажматие на кнопку свернуть/развернуть описание
+ * for desktop/tablet/mobile
  */
 function toggleProductDescription() {
     const sel = ".j-description + .collapsible__bottom button.collapsible__toggle";
@@ -577,7 +578,7 @@ function toggleProductDescription() {
     if (!rs) return;
 
     rs.addEventListener('click', function (e) {
-        if ( !window.matchMedia("(max-width: 1023px)").matches) {
+        if ( 1 ) { // !window.matchMedia("(max-width: 1023px)").matches
             const detailsContent = rs.closest('.details__content');
             if (!detailsContent) return;
             const jDescription = detailsContent.querySelector('.j-description');
@@ -601,6 +602,9 @@ function toggleProductDescription() {
         }
     });
 }
+
+// details__content collapsable
+
 
 /**
  * Нажматие на кнопку свернуть/развернуть Дополнительную информацию

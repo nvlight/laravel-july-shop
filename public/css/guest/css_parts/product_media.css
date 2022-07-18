@@ -131,7 +131,7 @@
         margin-top: 2px;
     }
     .collapsible__toggle-wrap.description{
-        display: none;
+        /*display: none;*/
     }
     .product-page .product-page__details-section {
         margin-top: 20px;
