@@ -277,6 +277,11 @@
         background-color: #e313bf;
         border-color: #e313bf;
     }
+    .btn-main-sm:active {
+        color: #fff;
+        background-color: #b30f97;
+        border-color: #b30f97;
+    }
     .pagination .pagination__next:hover .prev, .pagination .pagination__prev:hover .prev {
         left: -8px;
     }

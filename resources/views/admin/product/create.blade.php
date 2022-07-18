@@ -13,41 +13,12 @@
         <a href="{{route('admin.product.index')}}" class="">Products list</a>
     </div>
 
-    <div class="mb-3">
-        {{--        @php--}}
-        {{--            dump($errors);--}}
-        {{--        @endphp--}}
-        {{--        @if($errors->any())--}}
-        {{--            @foreach($errors->all() as $error)--}}
-        {{--                @php--}}
-        {{--                    dump($error);--}}
-        {{--                @endphp--}}
-        {{--            @endforeach--}}
-        {{--        @endif--}}
-    </div>
     <div class="card p-3">
         <form action="{{route('admin.product.store')}}" method="POST">
             @csrf
-            <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="type title here"
-                       value="{{old('title')}}">
-                <div id="textHelp" class="form-text">* required field</div>
-                @error('title')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
 
             <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
-                <input type="text" class="form-control" id="price" name="price" placeholder="type price here">
-                <div id="priceHelp" class="form-text">* required field</div>
-                @error('price')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="category_id" class="form-label">parent_id</label>
+                <label for="category_id" class="form-label">category_id</label>
                 <select class="form-select" id="category_id" name="category_id" aria-label="Default select example">
                     <option value="0" selected>Категория не выбрана</option>
                     @include('admin.category.parts.recursive_children_select_part', [
@@ -57,72 +28,38 @@
                     ])
                 </select>
                 @error('category_id')
-                <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="age_start" class="form-label">Age start</label>
-                <input type="text" class="form-control" id="age_start" name="age_start" placeholder="от 5 лет"
-                       value="{{$product->age_start ?? old('age_start')}}">
-                @error('age_start')
-                <div class="alert alert-danger">{{ $message }}</div>
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="type title here"
+                       value="{{old('title')}}">
+                <div id="textHelp" class="form-text">* required field</div>
+                @error('title')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="text" class="form-control" id="price" name="price" placeholder="type price here"
+                       value="{{old('price')}}">
+                <div id="priceHelp" class="form-text">* required field</div>
+                @error('price')
+                    <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="age_end" class="form-label">Age end</label>
-                <input type="text" class="form-control" id="age_end" name="age_end" placeholder="до 7.5 лет"
-                       value="{{$product->age_end ?? old('age_end')}}">
-                @error('age_end')
-                <div class="alert alert-danger">{{ $message }}</div>
+                <label for="old_price" class="form-label">old_price</label>
+                <input type="text" class="form-control" id="old_price" name="old_price" placeholder="type old_price here"
+                       value="{{old('old_price')}}">
+                <div id="priceHelp" class="form-text">* required field</div>
+                @error('old_price')
+                    <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="size" class="form-label">Size</label>
-                <input type="text" class="form-control" id="size" name="size" placeholder="type size here"
-                       value="{{$product->size ?? old('size')}}">
-                @error('size')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="brand_id" class="form-label">brand_id</label>
-                <select class="form-select" id="brand_id" name="brand_id" aria-label="Default select example">
-                    <option value="0">Choose brand</option>
-                    @php
-                        $staticBrands = ['Adidas','Beauti','Cool Design','In Soviet Country','Dolce montana',];
-                    @endphp
-                    @foreach($staticBrands as $key => $brand)
-                        @if( ($key+1) == old('brand_id'))
-                            <option value="{{$key+1}}" selected>{{$brand}}</option>
-                        @else
-                            <option value="{{$key+1}}">{{$brand}}</option>
-                        @endif
-                    @endforeach
-                </select>
-                @error('brand_id')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="country_id" class="form-label">country_id</label>
-                <select class="form-select" id="country_id" name="country_id" aria-label="Default select example">
-                    <option value="0">Choose country</option>
-                    @php
-                        $staticCountries = ['Russia','USA','Spain','China','France',];
-                    @endphp
-                    @foreach($staticCountries as $key => $country)
-                        @if( ($key+1) == old('country_id'))
-                            <option value="{{$key+1}}" selected>{{$country}}</option>
-                        @else
-                            <option value="{{$key+1}}">{{$country}}</option>
-                        @endif
-                    @endforeach
-                    <option value="1">Russia</option>
-                </select>
-                @error('country_id')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea name="description" class="form-control" id="description" cols="30"
@@ -130,7 +67,7 @@
                 <div id="descriptionHelp" class="form-text">simple description</div>
             </div>
             @error('description')
-            <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <button type="submit" class="btn btn-primary">Создать</button>
         </form>

@@ -1,9 +1,8 @@
 @foreach($categories as $category)
-    @if($target_value == $category->id)
-        <option selected value="{{$category->id}}">{{ str_repeat("-", $step) }} {{$category->title}}</option>
-    @else
-        <option value="{{$category->id}}">{{ str_repeat("-", $step) }} {{$category->title}}</option>
-    @endif
+
+    <option @if($target_value == $category->id) selected @endif value="{{$category->id}}">
+        {{ str_repeat("-", $step) }} {{$category->title}} ({{$category->id}})
+    </option>
 
     @if(count($category->children))
         @include('admin.category.parts.recursive_children_select_part', [

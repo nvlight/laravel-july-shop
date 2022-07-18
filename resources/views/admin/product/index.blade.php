@@ -19,14 +19,10 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th>category_id</th>
                 <th>title</th>
                 <th>price</th>
-                <th>age_start</th>
-                <th>age_end</th>
-                <th>size</th>
-                <th>category_id</th>
-                <th>brand_id</th>
-                <th>country_id</th>
+                <th>old_price</th>
                 <th>description</th>
                 <th>actions</th>
             </tr>
@@ -35,14 +31,10 @@
             @foreach($products as $product)
                 <tr>
                     <td>{{ $product->id }}</td>
+                    <td>{{ $product->category_id }}</td>
                     <td>{{ $product->title }}</td>
                     <td>{{ $product->price }}</td>
-                    <td>{{ $product->age_start }}</td>
-                    <td>{{ $product->age_end }}</td>
-                    <td>{{ $product->size }}</td>
-                    <td>{{ $product->category_id }}</td>
-                    <td>{{ $product->brand_id }}</td>
-                    <td>{{ $product->country_id }}</td>
+                    <td>{{ $product->old_price }}</td>
                     <td>{{ $product->description }}</td>
                     <td>
                         @include('admin.product.parts.buttons', ['product' => $product])

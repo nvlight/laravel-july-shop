@@ -11,10 +11,10 @@
                     @if(count($product->images))
                         @foreach($product->images as $image)
                             @if($image->is_main)
-                                <img class="j-thumbnail thumbnail"
-                                     alt="{{$product->title}} main_thumbnail"
+                                <img class="j-thumbnail thumbnail" alt="{{$product->title}} main_thumbnail"
                                     {{-- todo: потом занести src в отдельный файл и обернуть image --}}
-                                     src="{{asset(env('PRODUCT_IMAGES_SHOW_PATH').$image->image)}}"
+                                     src="{{asset(env('PRODUCT_IMAGES_SHOW_PATH').$product->id
+                                        .env('PRODUCT_IMAGES_SHOW_c516x688_folder').$image->image)}}"
                                      {{-- src="https://images.wbstatic.net/c516x688/new/24810000/24811954-1.jpg"--}}
                                      width="516" height="688">
                             @endif
@@ -23,10 +23,7 @@
                 </div>
                 {{-- если нам нужен товар-реклама, и допольнительно тут этот тег <p> --}}
                 <p class="product-card__tip-promo">Реклама</p>
-                <button class="product-card__fast-view j-open-product-popup">Быстрый
-                    просмотр
-                </button>
-                <div class="label-only-adults">Товары для взрослых</div>
+                <button class="product-card__fast-view j-open-product-popup">Быстрый просмотр</button>
                 <span class="product-card__sale">-55%</span>
                 <div class="product-card__nav j-image-pagination">
                     <div
@@ -54,13 +51,17 @@
                         <span class="price">
                             <ins class="lower-price">{{$product->price}}&nbsp;₽</ins>
                             <span class="price-old-block">
-                                <del>{{$product->price * random_int(2,3) }}&nbsp;₽</del>
+                                <del>{{$product->old_price}}&nbsp;₽</del>
                             </span>
                         </span>
                 </div>
                 <div class="product-card__brand-name">
-                    <strong class="brand-name">Мартин Inc <span>/ </span></strong>
-                    <span class="goods-name">{{$product->title}}</span>
+                    @if(str_contains($product->title, '/'))
+                        <strong class="brand-name">{{ explode('/', $product->title)[0] }}<span>/ </span></strong>
+                        <span class="goods-name">{{ explode('/', $product->title)[1] }}</span>
+                    @else
+                        <span class="goods-name">{{$product->title}}</span>
+                    @endif
                 </div>
             </div>
             <span class="product-card__rating stars-line star5"></span>
