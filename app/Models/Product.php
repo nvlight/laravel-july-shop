@@ -33,4 +33,8 @@ class Product extends Model
     public function parent(){
         return $this->hasOne(Category::class, 'id','category_id');
     }
+
+    public function params(){
+        return $this->hasMany(ProductParams::class, 'product_id');
+    }
 }
