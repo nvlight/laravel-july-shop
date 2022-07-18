@@ -7,13 +7,20 @@ const gulp = require('gulp');
 const imagemin = require('gulp-imagemin');
 const imageminWebp = require('imagemin-webp');
 const rename = require("gulp-rename");
+const del = require('del');
+const { copyLibs } = require('gulp-copy-libs')
 
 const images = {
-    src: 'src_images/**/*.{png,jpg}',
+    src: {
+        match: 'src_images/**/*.{png,jpg}',
+        path:  'src_images',
+    },
     dist: {
+        base_path:     'dist_images_webp',
         big:      'dist_images_webp/big',
         c516x688: 'dist_images_webp/c516x688',
         c246x328: 'dist_images_webp/c246x328',
+        orig:     'dist_images_webp/orig',
     }
 }
 
@@ -49,7 +56,7 @@ function images_compress(){
  * @returns {*}
  */
 function images_to_webp_big(){
-    return gulp.src(images.src)
+    return gulp.src(images.src.match)
         //.pipe(imagemin())
         .pipe(imagemin([
             imageminWebp({
@@ -79,7 +86,7 @@ function images_to_webp_big(){
  * @returns {*}
  */
 function images_to_webp_c516x688(){
-    return gulp.src(images.src)
+    return gulp.src(images.src.match)
         .pipe(imagemin([
             imageminWebp({
                 qualiti: 85,
@@ -108,7 +115,7 @@ function images_to_webp_c516x688(){
  * @returns {*}
  */
 function images_to_webp_c246x328(){
-    return gulp.src(images.src)
+    return gulp.src(images.src.match)
         .pipe(imagemin([
             imageminWebp({
                 qualiti: 85,
@@ -135,10 +142,54 @@ function images_to_webp_c246x328(){
  * @returns {number}
  */
 function images_to_webp(){
+    clearImagesDistFolder();
     images_to_webp_big();
     images_to_webp_c516x688();
     images_to_webp_c246x328();
+    copy_orig_images_to_dist();
+    //clearImagesSrcFolder();
     return 1;
+}
+
+/**
+ * Удалить синхронно файлы и папки
+ */
+function del_test_files(){
+    let delFiles = 'for_del/**';
+    //del.sync(['public/assets/**', '!public/assets/goat.png']);
+    del.sync([delFiles]);
+}
+
+/**
+ * Удалить синхронно файлы и папки с оригинальными картинками
+ */
+function clear_folder(path){
+    del.sync([path]);
+}
+
+function clearImagesDistFolder(){
+    let path = images.dist.base_path+"/**"; // "dist_images_webp/**";
+    del.sync([path]);
+}
+
+function clearImagesSrcFolder(){
+    let path = images.src.path+"/**"; // "dist_images_webp/**";
+    del.sync([path]);
+
+    // (async () => {
+    //     const deletedPaths = await del([path]);
+    // })();
+}
+
+/**
+ * Скопировать после сжатия оригинальные картинку в выходную папку + /orig/**
+ */
+function copy_orig_images_to_dist(){
+    const pathConfig = [{
+        outputDirectory: images.dist.orig + '/', // 'test-libs/jquery/',
+        inputFiles: images.src.path + '/**', //'node_modules/jquery/dist/*.js'
+    }];
+    copyLibs(pathConfig);
 }
 
 exports.default = defaults;
@@ -148,3 +199,10 @@ exports.images_to_webp_big       = images_to_webp_big;
 exports.images_to_webp_c516x688  = images_to_webp_c516x688;
 exports.images_to_webp_c246x328  = images_to_webp_c246x328;
 exports.images_to_webp           = images_to_webp;
+
+exports.del_test_files = del_test_files;
+//exports.clear_images_dist_folder = clear_folder(images.dist.base_path+"/**");
+exports.clear_images_dist_folder = clearImagesDistFolder;
+exports.clearImagesSrcFolder     = clearImagesSrcFolder;
+
+exports.copy_orig_images_to_dist = copy_orig_images_to_dist;
