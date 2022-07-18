@@ -665,6 +665,13 @@ function drawZoomImage(inputImgId) {
     let img = new Image();
     img.src = currentImgName;
 
+    // установить src для главной картинки, чтобы знали что загрузилось.
+
+    const zoomImg = document.querySelector('.zoom-image-container>img');
+    if (zoomImg){
+        zoomImg.setAttribute('src', currentImgName);
+    }
+
     img.addEventListener("load", function () {
         //conlog('img loaded!');
         let ctx = document.querySelector(".photo-zoom__preview.j-image-canvas")

@@ -8,7 +8,12 @@
                     @foreach($product->images as $image)
                         @if($image->is_main)
                             <a class="product-line__img img-plug" href="#">
-                                <img src="{{asset(env('PRODUCT_IMAGES_SHOW_PATH').$image->image)}}" alt="Main img" width="48" height="64">
+                                <img src="{{asset(env('PRODUCT_IMAGES_SHOW_PATH')
+                                            . $product->id
+                                            . env('PRODUCT_IMAGES_SHOW_c246x328_folder')
+                                            . $image->image
+                                        )}}"
+                                 alt="Main img" width="48" height="64">
                             </a>
                         @endif
                     @endforeach
@@ -18,7 +23,7 @@
             <div class="product-line__wrap">
                 <div class="product-line__main">
                     <a class="product-line__name" href="#">
-                        @if( !str_contains('/', $product->title))
+                        @if( str_contains($product->title, '/'))
                             <b>{{$product->title}}
                             </b>
                         @else
@@ -28,8 +33,7 @@
                     </a>
                     <div class="product-line__desc hide-mobile">
                         <span class="product-line__rating stars-line star5"></span>
-                        <a class="product-line__param"
-                           href="/catalog/9414496/feedbacks?size=31295101" data-jsv="#5400^/5400^">261 отзыв
+                        <a class="product-line__param" href="/catalog/9414496/feedbacks?size=31295101">261 отзыв
                         </a>
                     </div>
                     <div class="product-line__mobile-info hide-desktop">

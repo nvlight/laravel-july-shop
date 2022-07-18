@@ -40,6 +40,36 @@ class ProductController extends Controller
         //
     }
 
+    /**
+     * Выдать путь до рисунка для разрешения c246x328
+     * @param $product
+     * @param $image
+     * @return string
+     */
+    protected function image_c246x328_path($product, $image)
+    {
+        return asset(env('PRODUCT_IMAGES_SHOW_PATH')
+            . $product
+            . env('PRODUCT_IMAGES_SHOW_c246x328_folder')
+            . $image
+        );
+    }
+
+    /**
+     * Выдать путь до рисунка для разрешения big
+     * @param $product
+     * @param $image
+     * @return string
+     */
+    protected function image_big_path($product, $image)
+    {
+        return asset(env('PRODUCT_IMAGES_SHOW_PATH')
+            . $product
+            . env('PRODUCT_IMAGES_SHOW_big_folder')
+            . $image
+        );
+    }
+
     public function show(Product $product)
     {
         $categories = Category::where('parent_id', 0)->get();
@@ -53,7 +83,8 @@ class ProductController extends Controller
             ;
             $newImages = [];
             foreach($sliderImages as $image){
-                $newImages[] = asset(env('PRODUCT_IMAGES_SHOW_PATH') . $image);
+                //$newImages[] = asset(env('PRODUCT_IMAGES_SHOW_PATH') . $image);
+                $newImages[] = $this->image_c246x328_path($product->id, $image);
             }
             $sliderImages = $newImages;
             //dd($sliderImages);
@@ -119,7 +150,8 @@ class ProductController extends Controller
 
             $newImages = [];
             foreach($images as $image){
-                $image->image = asset(env('PRODUCT_IMAGES_SHOW_PATH') . $image->image);
+                //$image->image = asset(env('PRODUCT_IMAGES_SHOW_PATH') . $image->image);
+                $image->image = $this->image_big_path($product->id, $image->image);
                 $newImages[] = $image;
             }
 

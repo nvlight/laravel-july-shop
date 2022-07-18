@@ -48,15 +48,11 @@
                             @include('guest.products.show.slider_image_li')
                         </ul>
 
-                        <button class="mix-block__slider-btnCustom btn--prev hide-desktop" type="button">
-                        </button>
-                        <button class="mix-block__slider-btnCustom btn--next hide-desktop" type="button">
-                        </button>
+                        <button class="mix-block__slider-btnCustom btn--prev hide-desktop" type="button"></button>
+                        <button class="mix-block__slider-btnCustom btn--next hide-desktop" type="button"></button>
 
                         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
                     <div class="sw-slider-kt-mix__btns-bottom hide-desktop">
-                        <script type="jsv#5422^"></script>
-                        <script type="jsv/5422^"></script>
                         <a class="sw-slider-kt-mix__btn sw-slider-kt-mix__btn--same j-find-similar"
                            aria-label="Найти похожие по фото" data-link="href{:urlForReccomendations}"
                            href="/recommendation/catalog?type=visuallysimilar&amp;forproduct=9414496&amp;excludeNms=true">Похожие</a>
