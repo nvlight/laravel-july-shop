@@ -35,7 +35,7 @@
             <div class="sw-slider-kt-mix">
                 <p class="badge-express-sm hide">Экспресс-доставка</p>
                 <p class="badge-abroad-sm hide">Доставка из-за рубежа</p>
-                
+
                 @if($sliderImages && count($sliderImages) >= 5)
                     <button class="swiper-button-prev" type="button" tabindex="-1" role="button"
                             aria-label="Previous slide" aria-disabled="true">Предыдущий слайд
