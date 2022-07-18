@@ -30,9 +30,7 @@
                                 <ins class="price-block__final-price">{{$product->price}}&nbsp;₽</ins>
                             </span>
                             <del class="price-block__old-price j-final-saving j-wba-card-item-show"
-                                 data-name-for-wba="Item_PriceDetails"
-                                 data-link="{tooltip tmplName='priceTooltipster' classes='i-tooltip-add-discount' distance=12 tmplData=#data pos='alignright bottom'}"
-                                 data-jsv="#5763^/5763^">343&nbsp;₽
+                                 >{{$product->old_price}}&nbsp&nbsp;₽
                             </del>
                         </p>
                     </div>
@@ -305,9 +303,7 @@
                                         <ins class="price-block__final-price">{{$product->price}}&nbsp;₽</ins>
                                     </span>
                                     <del class="price-block__old-price j-final-saving j-wba-card-item-show"
-                                         data-name-for-wba="Item_PriceDetails"
-                                         data-link="{tooltip tmplName='priceTooltipster' classes='i-tooltip-add-discount' distance=12 tmplData=#data pos='alignright bottom'}"
-                                         data-jsv="#5768^/5768^">343&nbsp;₽
+                                         >{{$product->old_price}}&nbsp&nbsp;₽
                                     </del>
                                 </p>
                             </div>

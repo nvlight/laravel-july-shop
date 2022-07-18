@@ -42,7 +42,7 @@
                 </div>
                 <div class="product-line__price hide-mobile">
                     <b class="product-line__price-now">{{$product->price}}&nbsp;₽</b>
-                    <span class="product-line__price-old">343&nbsp;₽</span>
+                    <span class="product-line__price-old">{{$product->old_price}}&nbsp&nbsp;₽</span>
                 </div>
             </div>
             <div class="product-line__btn-wrap">
