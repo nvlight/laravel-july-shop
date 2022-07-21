@@ -2,7 +2,9 @@
     <td></td>
     <td></td>
     <td>
-        <img src="{{asset('storage/product_images/'.$gallery->image)}}" alt="" width="100px" height="100px">
+        <img src="{{ asset(env('PRODUCT_IMAGES_SHOW_PATH') . $gallery->parent_id . '/' .
+            config('product.gallery.paths.c516x688') . $gallery->image) }}"
+             alt="" width="300px" height="300px">
         <br>
         {{ $gallery->image }}
     </td>

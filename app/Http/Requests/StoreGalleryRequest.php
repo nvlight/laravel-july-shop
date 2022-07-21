@@ -23,14 +23,15 @@ class StoreGalleryRequest extends FormRequest
      */
     public function rules()
     {
+        $maxUploadImageSize = config('product.gallery.max_image_upload_size');
         return [
             'parent_id' => 'required|exists:products,id',
             //'image' => 'required|file|mimes:jpg,png,webp|',
-            'image.0' => 'required|image|max:5120',
-            'image.1' => 'image|max:5120',
-            'image.2' => 'image|max:5120',
-            'image.3' => 'image|max:5120',
-            'image.4' => 'image|max:5120',
+            'image.0' => 'required|image|max:' . $maxUploadImageSize,
+            'image.1' => 'image|max:' . $maxUploadImageSize,
+            'image.2' => 'image|max:' . $maxUploadImageSize,
+            'image.3' => 'image|max:' . $maxUploadImageSize,
+            'image.4' => 'image|web:' . $maxUploadImageSize,
             'is_main' => 'required|gt:0',
         ];
     }

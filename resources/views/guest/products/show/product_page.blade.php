@@ -2,6 +2,12 @@
      data-link="{on 'click mouseenter mousedown' '.j-wba-card-item' cardCommonActionEventsWba}     {on 'mouseenter elementInViewportEvent' '.j-wba-card-item-show' cardCommonShowEventsWba}     class{merge: product^adult &amp;&amp;  !$adult^isConfirmed toggle='for-adults'}id{:id}"
      id="1aab5db7-e68b-6313-2da9-7ba2ce30b8ba">
 
+    <div>
+        @php
+            //dump(gd_info());
+        @endphp
+    </div>
+
     @include('guest.products.show.product_line__product_card_line')
     <div class="product-page__top-wrap">
         <div class="product-page__breadcrumbs breadcrumbs">

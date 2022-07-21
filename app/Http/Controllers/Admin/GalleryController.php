@@ -9,14 +9,17 @@ use App\Models\Gallery;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Admin\ImageCompressionController as ImageCompression;
 
 class GalleryController extends Controller
 {
+
+
     protected $maxImgsCountForProduct;
 
     public function __construct()
     {
-        $this->maxImgsCountForProduct = env('PRODUCT_MAX_IMGS_COUNT', 5);
+        $this->maxImgsCountForProduct = config('product.gallery.max_upload_image_count');
     }
 
     /**
@@ -29,11 +32,13 @@ class GalleryController extends Controller
         //$galleries = Gallery::all();
         $galleries = Gallery::
               join('products', 'products.id', '=', 'galleries.parent_id')
-            ->select('galleries.*', 'products.title')
+            ->select('galleries.*', 'products.title', 'products.id as product_id')
+            ->orderBy('products.id', 'desc')
+            ->orderBy('galleries.is_main', 'desc')
             ->get()
             //->toArray()
         ;
-        //dd($galleries);
+        //dump($galleries);
 
         return view('admin.gallery.index', compact('galleries'));
     }
@@ -51,9 +56,52 @@ class GalleryController extends Controller
     }
 
     /**
-     *
+     * Сохранить картинку с номером и путем
+     * @param $image
+     * @return array
      */
-    protected function saveUploadImages()
+    protected function saveImage($image, $path='', $imageNumber='1')
+    {
+        $result = [];
+        $originalName  = $image->getClientOriginalName();
+        $baseName = Str::random() . '___' . time() . '-' . $imageNumber;
+        $name = $baseName . '.' . $image->extension();
+
+        try {
+            Storage::disk('public')->putFileAs($path, $image, $name); // ->put($image_name, $image);
+
+            $result['clientOriginalName'] = $originalName;
+            $result['name']     = $name;
+            $result['baseName'] = $baseName;
+            $result['fullName'] = $path . '/' . $name;
+            $result['success'] = true;
+        } catch (\Exception $e) {
+            $result['success'] = false;
+            $result['message'] = 'file upload is failed!';
+        }
+
+        return $result;
+    }
+
+    /**
+     * Получить путь сохранения оригинальной картинки вместе с ИД продукта.
+     * @param int $productId
+     * @return string
+     */
+    protected function getProductImageSavePath(int $productId)
+    {
+        $path = config('product.gallery.paths.products_path');
+        $path .= '/' . $productId . '/';
+        $path .= config('product.gallery.paths.orig_path');
+
+        return $path;
+    }
+
+    /**
+     * Сохранить загруженные картинки
+     * @return array
+     */
+    protected function saveUploadImages(int $productId)
     {
         if (! \request()->exists('image')){
             $result = ['success' => false, 'message' => 'there is no image in request!'];
@@ -65,20 +113,25 @@ class GalleryController extends Controller
 
         $result = ['success' => true, 'message' => 'all files uploaded!'];
 
+        $i = 1;
         foreach($images as $image) {
-            $originalName = $image->getClientOriginalName();
-            $newImageName = Str::random() . '---' . time() . '.' . $image->extension();
-            try {
-                //$image->store($image_name);
-                Storage::disk('public')->putFileAs('', $image, $newImageName);// ->put($image_name, $image);
-                $tmp = [];
-                $tmp['newImageName'] = $newImageName;
-                $tmp['originalName'] = $originalName;
-                $uploadedImages[] = $tmp;
-            } catch (\Exception $e) {
-                $result = ['success' => false, 'message' => 'file upload is failed!'];
-                return $result;
-            }
+            $path = $this->getProductImageSavePath($productId);
+            $this->saveImage($image, $i, $path);
+
+//            $originalName = $image->getClientOriginalName();
+//            $newImageName = Str::random() . '---' . time() . '.' . $image->extension();
+//            try {
+//                Storage::disk('public')->putFileAs('', $image, $newImageName);// ->put($image_name, $image);
+//                $tmp = [];
+//                $tmp['newImageName'] = $newImageName;
+//                $tmp['originalName'] = $originalName;
+//                $uploadedImages[] = $tmp;
+//            } catch (\Exception $e) {
+//                $result = ['success' => false, 'message' => 'file upload is failed!'];
+//                return $result;
+//            }
+
+            $i++;
         }
 
         $result['uploaded'] = $uploadedImages;
@@ -89,6 +142,11 @@ class GalleryController extends Controller
         //return Storage::disk('public')->download($newImageName, $originalName);
     }
 
+    /**
+     * Помечает картинку не главной
+     * @param int $productId
+     * @return bool
+     */
     protected function resetMainImage(int $productId){
         $imgs = Gallery::where('parent_id', $productId)->get();
         if ($imgs){
@@ -100,9 +158,15 @@ class GalleryController extends Controller
         return true;
     }
 
-    protected function productImagesCountByColumnAndValue($column, $equal)
+    /**
+     * Добалвяет к запросу where c нужным column && value
+     * @param $column
+     * @param $equal
+     * @return mixed
+     */
+    protected function productImagesCountByColumnAndValue($column, $value)
     {
-        return Gallery::where($column, $equal)->count();
+        return Gallery::where($column, $value)->count();
     }
 
     /**
@@ -139,12 +203,12 @@ class GalleryController extends Controller
                     'message' => "Максимальное количество изображений для одного продукта = {$this->maxImgsCountForProduct}, " .
                         " превышение составило {$diffProductImages['diff']} картинок",
                 ]);
-            return redirect()->route('gallery.index');
+            return redirect()->route('admin.gallery.index');
         }
 
         // todo - сохранение картинки и записи в бд нужно отрефакторить, обе действия делать не по отдельности
         // todo   а в цикле и также в цикле перехватывать ошибки
-        $uploadedFiles = $this->saveUploadImages();
+        $uploadedFiles = $this->saveUploadImages($request->parent_id);
 
         // now save to DB all filenames with gallery
         $i = 1;
@@ -176,7 +240,6 @@ class GalleryController extends Controller
 
     /**
      * Display the specified resource.
-     *
      * @param  \App\Models\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
@@ -194,6 +257,35 @@ class GalleryController extends Controller
     public function edit(Gallery $gallery)
     {
         return view('admin.gallery.update', compact('gallery'));
+    }
+
+    /**
+     * Тестирование функции сжатия файла и создания 3-х пресетов
+     * @return void
+     */
+    public function test_compress_image()
+    {
+        $staticImg = "86s2TBWmig9n1NIi___1658421247-1.jpg";
+        $fullImgPath = config('product.gallery.paths.products_show_path') . '/17/'
+                     . config('product.gallery.paths.orig_path') . $staticImg;
+
+        $imgPresets = config('product.gallery.convert_presets');
+        $imgPresetsPath = [];
+        foreach($imgPresets as $key => $value){
+            $staticPart = config('product.gallery.paths.products_show_path') . '/17/';
+            $convFullImgPath = $staticPart . $key . $staticImg;
+            $imageCompress = ImageCompression::convertToWebp($fullImgPath, $convFullImgPath, $value['width'], $value['height']);
+            //dump($imageCompress);
+            $imgPresetsPath[$key] = [
+                'src' => $imageCompress['image'],
+                'width' => $value['width'],
+                'height' => $value['height'],
+            ];
+        }
+
+        $fullImgPathAsset = asset($fullImgPath);
+        return view('admin.gallery.test.test_compress_image',
+                compact('fullImgPath', 'fullImgPathAsset', 'imgPresetsPath'));
     }
 
     /**
@@ -216,24 +308,43 @@ class GalleryController extends Controller
             return redirect()->route('admin.gallery.edit', $gallery->id);
         }
 
-        try{
-            // part 1 - image. Delete old image && save new image
-            if ($request->exists('image')){
-                Storage::disk('public')->delete($gallery->image);
 
-                // todo - код сохранение картинки повторяется, исправить
-                $image = request()->file('image')[0];
-                $newImageName = Str::random() . '---' . time() . '.' . $image->extension();
-                $gallery->image = $newImageName;
-                Storage::disk('public')->putFileAs('', $image, $newImageName);
+        if ($request->exists('image')){
+            // part 1.0 - image. Delete old image && save new image
+            $path = $this->getProductImageSavePath($gallery->parent_id);
+            $imageFullName = $path . '/' . $gallery->image;
+            Storage::disk('public')->delete($imageFullName);
+
+            // todo - код сохранение картинки повторяется, исправить
+            $image = request()->file('image')[0];
+            //$newImageName = Str::random() . '---' . time() . '.' . $image->extension();
+            //$gallery->image = $newImageName;
+            //Storage::disk('public')->putFileAs('', $image, $newImageName);
+
+            $saveImage = $this->saveImage($image, $path);
+            if (!$saveImage['success']){
+                session()->flash('gallery_update', ['success' => false, 'message' => $saveImage['message']]);
+                return redirect()->route('admin.gallery.edit', $gallery->id);
             }
 
+            // part 1.1 - image. compress image, create 3 folders with different dimension
+            $imgSize = ImageCompression::getImageSize($saveImage['fullName']);
+            if (!$imgSize['success']){
+                session()->flash('gallery_update', ['success' => false, 'message' => $imgSize['message']]);
+                return redirect()->route('admin.gallery.edit', $gallery->id);
+            }
+
+            $imageCompress = ImageCompression::convertToWebp($saveImage['fullName'], $imgSize['width'], $imgSize['height']);
+            //dd($imageCompress);
+        }
+
+        try{
             // part 2 - checkbox is_main
             if ($request->exists('is_main')){
                 $this->resetMainImage($gallery->parent_id);
                 $gallery->is_main = 1;
             }
-
+            $gallery->image = $saveImage['name'];
             $gallery->save();
         }catch (\Exception $e){
             session()->flash('gallery_update', ['success' => false, 'message' => 'Ошибка при обновлении картинки продукта!']);
@@ -253,7 +364,6 @@ class GalleryController extends Controller
     public function destroy(Gallery $gallery)
     {
         //return $gallery;
-
         try{
             Storage::disk('public')->delete($gallery->image);
             $gallery->delete();

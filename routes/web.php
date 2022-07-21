@@ -6,6 +6,7 @@ use \App\Http\Controllers\Guest\GuestController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use \App\Http\Controllers\Guest\CategoryController as GuestCategoryController;
 use \App\Http\Controllers\Guest\ProductController  as GuestProductController;
+use App\Http\Controllers\Admin\GalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::group([
     Route::resource('category', 'App\Http\Controllers\Admin\CategoryController');
     Route::resource('product', 'App\Http\Controllers\Admin\ProductController');
     Route::resource('gallery', 'App\Http\Controllers\Admin\GalleryController');
+    Route::get('gallery_test_compress_img', [ GalleryController::class, 'test_compress_image'])
+        ->name('gallery_test_compress_img');
 });
 
 Route::group([

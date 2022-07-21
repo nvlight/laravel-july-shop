@@ -22,9 +22,9 @@
             @endif
 
             <?php
-            isset($galleries[$key+1]) && $galleries[$key+1]->parent_id != $galleries[$key]->parent_id ?
-                $start = 0 :
-                $start++;
+            isset($galleries[$key+1]) && $galleries[$key+1]->parent_id != $galleries[$key]->parent_id
+                ? $start = 0
+                : $start++;
             ?>
         @endforeach
         </tbody>
