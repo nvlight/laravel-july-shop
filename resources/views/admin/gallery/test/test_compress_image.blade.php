@@ -32,7 +32,7 @@
                             <tr>
                                 <td>orig</td>
                                 <td>
-                                    <img src="{{$fullImgPathAsset}}" style="" alt="">
+                                    <img src="{{asset($fullImgPath)}}" style="" alt="">
                                 </td>
                                 <td>
                                     {{filesize($fullImgPath)}}

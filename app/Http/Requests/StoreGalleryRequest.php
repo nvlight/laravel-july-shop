@@ -32,7 +32,7 @@ class StoreGalleryRequest extends FormRequest
             'image.2' => 'image|max:' . $maxUploadImageSize,
             'image.3' => 'image|max:' . $maxUploadImageSize,
             'image.4' => 'image|web:' . $maxUploadImageSize,
-            'is_main' => 'required|gt:0',
+            'is_main' => 'nullable|integer|gte:0',
         ];
     }
 }

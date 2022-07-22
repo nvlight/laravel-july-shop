@@ -62,9 +62,17 @@
 
             <div class="col-md-8">
                 <div>
-                    <img src="{{ asset(env('PRODUCT_IMAGES_SHOW_PATH') . $gallery->parent_id . '/' .
-                                config('product.gallery.paths.orig_path') . $gallery->image) }}"
-                         style="width: 100%; height: auto;" alt="" >
+                    @php
+                        $preset = config('product.gallery.paths.big');
+                        $imgPathPartsArr = explode('/', $gallery->image);
+                        $imgName = $imgPathPartsArr[count($imgPathPartsArr)-1];
+                        $imgFullName = config('product.gallery.paths.products_show_path') . '/' . $gallery->parent_id . '/'
+                            . $preset . '/' . $imgName . '.webp';
+                    @endphp
+                    <p>preset: {{$preset}}</p>
+                    <p>Size: {{filesize($imgFullName)}}</p>
+                    <img src="{{ asset($imgFullName) }}"
+                         style="width: 100%; height: auto;" alt="">
                 </div>
             </div>
         </div>

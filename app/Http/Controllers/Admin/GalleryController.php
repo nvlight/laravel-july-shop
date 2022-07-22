@@ -56,30 +56,35 @@ class GalleryController extends Controller
     }
 
     /**
+     * Получить рендомное имя для картинки с добавленнием суффикса "-$number"
+     * @param string $number
+     * @return string
+     */
+    public function getRandomImageNameWithNumber(string $number = '1')
+    {
+        $baseName = Str::random() . '___' . time() . '-' . $number;
+        return $baseName;
+    }
+
+    /**
      * Сохранить картинку с номером и путем
-     * @param $image
+     * @param $srcImage
+     * @param $distImgPath
+     * @param $distImgName
      * @return array
      */
-    protected function saveImage($image, $path='', $imageNumber='1')
+    protected function saveImage($srcImage, $distImgPath='', $distImgName)
     {
-        $result = [];
-        $originalName  = $image->getClientOriginalName();
-        $baseName = Str::random() . '___' . time() . '-' . $imageNumber;
-        $name = $baseName . '.' . $image->extension();
-
         try {
-            Storage::disk('public')->putFileAs($path, $image, $name); // ->put($image_name, $image);
+            // ->put($image_name, $image);
+            Storage::disk('public')->putFileAs($distImgPath, $srcImage, $distImgName);
 
-            $result['clientOriginalName'] = $originalName;
-            $result['name']     = $name;
-            $result['baseName'] = $baseName;
-            $result['fullName'] = $path . '/' . $name;
             $result['success'] = true;
+            $result['message'] = 'file upload is success!';
         } catch (\Exception $e) {
             $result['success'] = false;
             $result['message'] = 'file upload is failed!';
         }
-
         return $result;
     }
 
@@ -98,48 +103,38 @@ class GalleryController extends Controller
     }
 
     /**
+     * Получить часть пути сохранения пресетов картинки вместе с ИД продукта.
+     * @param int $productId
+     * @return string
+     */
+    protected function getProductImageSavePresetPathPart(int $productId)
+    {
+        $path = config('product.gallery.paths.products_show_path');
+        $path .= '/' . $productId . '/';
+
+        return $path;
+    }
+
+    /**
+     * Получить путь изображения для удаления пресетов картинки
+     * @param int $productId
+     * @return string
+     */
+    protected function getProductImageDeletePathPart(int $productId)
+    {
+        $path = config('product.gallery.paths.products_path');
+        $path .= '/' . $productId . '/';
+
+        return $path;
+    }
+
+    /**
      * Сохранить загруженные картинки
      * @return array
      */
     protected function saveUploadImages(int $productId)
     {
-        if (! \request()->exists('image')){
-            $result = ['success' => false, 'message' => 'there is no image in request!'];
-            return $result;
-        }
 
-        $uploadedImages = [];
-        $images = request()->file('image');
-
-        $result = ['success' => true, 'message' => 'all files uploaded!'];
-
-        $i = 1;
-        foreach($images as $image) {
-            $path = $this->getProductImageSavePath($productId);
-            $this->saveImage($image, $i, $path);
-
-//            $originalName = $image->getClientOriginalName();
-//            $newImageName = Str::random() . '---' . time() . '.' . $image->extension();
-//            try {
-//                Storage::disk('public')->putFileAs('', $image, $newImageName);// ->put($image_name, $image);
-//                $tmp = [];
-//                $tmp['newImageName'] = $newImageName;
-//                $tmp['originalName'] = $originalName;
-//                $uploadedImages[] = $tmp;
-//            } catch (\Exception $e) {
-//                $result = ['success' => false, 'message' => 'file upload is failed!'];
-//                return $result;
-//            }
-
-            $i++;
-        }
-
-        $result['uploaded'] = $uploadedImages;
-
-        return $result;
-
-        // for download file
-        //return Storage::disk('public')->download($newImageName, $originalName);
     }
 
     /**
@@ -206,35 +201,53 @@ class GalleryController extends Controller
             return redirect()->route('admin.gallery.index');
         }
 
-        // todo - сохранение картинки и записи в бд нужно отрефакторить, обе действия делать не по отдельности
-        // todo   а в цикле и также в цикле перехватывать ошибки
-        $uploadedFiles = $this->saveUploadImages($request->parent_id);
 
-        // now save to DB all filenames with gallery
         $i = 1;
-        $isMain = ( $request->is_main > (count($request->image))) ? 1 : $request->is_main;
-        foreach($uploadedFiles['uploaded'] as $file){
-
+        $images = request()->file('image');
+        foreach($images as $image)
+        {
             $gallery = new Gallery();
             $gallery->parent_id = $request->parent_id;
-            //$tmp['newImageName'] = $newImageName;
-            //$tmp['originalName'] = $originalName;
-            $gallery->image = $file['newImageName'];
 
-            if ($i == $isMain){
-                $this->resetMainImage($gallery->parent_id);
-                $gallery->is_main = 1;
+            $img = [];
+            $img['baseName']  = $this->getRandomImageNameWithNumber($i);
+            $img['extension'] = $image->extension();
+            $img['name']      = $img['baseName'] . '.' . $img['extension'];
+            $img['savePath']  = $this->getProductImageSavePath($gallery->parent_id);
+            $img['fullName']  = $img['savePath'] . '/' . $img['name'];
+
+            $gallery->image = $img['fullName'];
+            $gallery->is_main = ($i == 1) ? 1 : 0;
+
+            try{
+                $gallery->save();
+            }catch (\Exception $e) {
+                $result = [
+                    'success' => false,
+                    'message' => 'Ошибка при обновлении картинки (изменение имени) продукта!'
+                ];
+                session()->flash('gallery_update', $result);
+                return redirect()->route('admin.gallery.edit', $gallery->id);
             }
 
-            // todo - add check for save();
-            $gallery->save();
+            // todo - код сохранение картинки повторяется, исправить
+            $saveOrigImage = $this->saveImage($image, $img['savePath'], $img['name']);
+            if (!$saveOrigImage['success']){
+                session()->flash('gallery_update', ['success' => false, 'message' => $saveOrigImage['message']]);
+                return redirect()->route('admin.gallery.edit', $gallery->id);
+            }
+
+            // compress/resize/save with presets
+            $compressAndResizeImgsPresets = $this->compressAndResizeImagesWithThreePreset($img, $gallery->parent_id);
+            if (!$compressAndResizeImgsPresets['success']){
+                session()->flash('gallery_update', ['success' => false, 'message' => $compressAndResizeImgsPresets['message']]);
+                return redirect()->route('admin.gallery.edit', $gallery->id);
+            }
+
             $i++;
         }
 
-        session()->flash('gallery_images_created',
-            ['success' => true,
-             'message' => 'Картинки продукта сохранены!']);
-
+        session()->flash('gallery_images_created', ['success' => true, 'message' => 'Картинки продукта сохранены!']);
         return redirect()->route('admin.gallery.index');
     }
 
@@ -260,20 +273,68 @@ class GalleryController extends Controller
     }
 
     /**
+     * Удаление файла
+     * @param string $file
+     * @return array
+     */
+    protected function deleteFile(string $file)
+    {
+        try{
+            Storage::disk('public')->delete($file);
+        }catch (\Exception $e){
+            return ['success' => false, 'message' => 'Ошибка при удалении!'];
+        }
+        return ['success' => true, 'message' => 'Файл удален'];
+    }
+
+    /**
+     * Удаление всех пресетов выбранной картинки
+     * @param string $path
+     * @param string $image
+     * @return array
+     */
+    protected function deleteImagePresets($gallery)
+    {
+        $productId = $gallery->parent_id;
+        $image = $gallery->image . '.webp';
+
+        $imgDeletePath = $this->getProductImageDeletePathPart($productId);
+
+        $convertPresets = config('product.gallery.convert_presets');
+        foreach ($convertPresets as $preset => $value)
+        {
+            $fileName = $imgDeletePath . '/' . $preset . '/' . $image;
+            $tryDelete = $this->deleteFile($fileName);
+
+            if ( !$tryDelete['success']){
+                return [
+                    'success' => false,
+                    'message' => $tryDelete['message'] . ' - fileName: ' . $fileName
+                ];
+            }
+        }
+        return ['success' => true, 'message' => 'Весь пресет картинки удален'];
+    }
+
+    /**
      * Тестирование функции сжатия файла и создания 3-х пресетов
      * @return void
      */
     public function test_compress_image()
     {
-        $staticImg = "86s2TBWmig9n1NIi___1658421247-1.jpg";
-        $fullImgPath = config('product.gallery.paths.products_show_path') . '/17/'
-                     . config('product.gallery.paths.orig_path') . $staticImg;
+        $staticImg   = "J7qEjtnIdtfmPeHH___1658509034-1.jpg";
+        $pathPart    = config('product.gallery.paths.products_show_path') . '/19/';
+        $fullImgPath = $pathPart . config('product.gallery.paths.orig_path') . '/' . $staticImg;
 
         $imgPresets = config('product.gallery.convert_presets');
         $imgPresetsPath = [];
         foreach($imgPresets as $key => $value){
-            $staticPart = config('product.gallery.paths.products_show_path') . '/17/';
-            $convFullImgPath = $staticPart . $key . $staticImg;
+            $newDir = $pathPart . $key;
+            $convFullImgPath = $newDir . '/' . $staticImg;
+
+            //mkdir($newDir, 0777, true);
+            mkdir($newDir);
+
             $imageCompress = ImageCompression::convertToWebp($fullImgPath, $convFullImgPath, $value['width'], $value['height']);
             //dump($imageCompress);
             $imgPresetsPath[$key] = [
@@ -283,72 +344,157 @@ class GalleryController extends Controller
             ];
         }
 
-        $fullImgPathAsset = asset($fullImgPath);
+//        $compressAndResizeImgsPresets = $this->compressAndResizeImagesWithThreePreset($img, $gallery->parent_id);
+//            if (!$compressAndResizeImgsPresets['success']){
+//                session()->flash('gallery_update', ['success' => false, 'message' => $compressAndResizeImgsPresets['message']]);
+//                return redirect()->route('admin.gallery.edit', $gallery->id);
+//            }
+
         return view('admin.gallery.test.test_compress_image',
-                compact('fullImgPath', 'fullImgPathAsset', 'imgPresetsPath'));
+                compact('fullImgPath',  'imgPresetsPath'));
+    }
+
+    /**
+     * Преобразование картинки в webP, изменение размеров и сохранение с разными пресетами в разных папках
+     * @param string $path
+     * @param string $image
+     * @return array
+     */
+    protected function compressAndResizeImagesWithThreePreset(array $image, int $parentId)
+    {
+        $imgSavePath = $this->getProductImageSavePresetPathPart($parentId);
+        $imgPresets = config('product.gallery.convert_presets');
+        $imgPresetsPath = [];
+
+        foreach($imgPresets as $preset => $value)
+        {
+            $newDir          = $imgSavePath . $preset;
+            mkdir($newDir); // ! нужно создать эту папку, иначе imagewebp выдает ошибку !
+
+            $convFullImgName = $newDir . '/' . $image['name'];
+            $convFullImgNameWithWebpExtension =  $convFullImgName . '.webp';
+
+            $imageCompress = ImageCompression::convertToWebp(
+                'storage/' . $image['fullName'],
+                $convFullImgNameWithWebpExtension,
+                $value['width'],
+                $value['height']
+            );
+
+            if ( !$imageCompress['success']){
+                return [
+                    'success' => false,
+                    'message' => 'Ошибка при преобразовании пресетов. ' . $imageCompress['message'] ];
+            }
+
+            $imgPresetsPath[$preset] = [
+                'src'    => $imageCompress['image'],
+                'width'  => $value['width'],
+                'height' => $value['height'],
+            ];
+
+        }
+        return ['success' => true, 'message' => 'Картинки преобразованы в webP, изменены размеры и занесены в нужные папки'];
+    }
+
+    /**
+     * Сохранение оригинальной картинки в папку orig
+     * @param string $image
+     * @param int $productId
+     * @return array
+     */
+    protected function saveOrigImage($image, int $productId)
+    {
+        $path = $this->getProductImageSavePath($productId);
+        $saveImage = $this->saveImage($image, $path);
+
+        return $saveImage;
+    }
+
+    /**
+     * Удаление оригинальной картинки
+     * @param $gallery
+     * @return array
+     */
+    protected function deleteOriginalImage($gallery)
+    {
+        $imgDeletePath = $this->getProductImageDeletePathPart($gallery->parent_id);
+
+        $fileName = $imgDeletePath . config('product.gallery.paths.orig_path') . '/' . $gallery->image;
+        $tryDelete = $this->deleteFile($fileName);
+        dump($fileName);
+        if ( !$tryDelete['success']){
+            return [
+                'success' => false,
+                'message' => $tryDelete['message'] . ' - fileName: ' . $fileName
+            ];
+        }
+
+        return ['success' => true, 'message' => 'Оригинальная картинка удалена!'];
     }
 
     /**
      * Update the specified resource in storage.
-     *
      * @param  \App\Http\Requests\UpdateGalleryRequest  $request
      * @param  \App\Models\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateGalleryRequest $request, Gallery $gallery)
     {
-        //dump($request->all());
-        //dump($gallery);
-        //dump($request->exists('is_main'));
-        //dump($request->exists('image'));
-
-        if (!$request->exists('is_main') && !$request->exists('image')){
+        if ( !$request->exists('is_main') && !$request->exists('image')){
             $defaultFlash = ['success' => true, 'message' => 'Новая картинка не выбрана и/или не помечена новой, все осталось как и было ранее'];
             session()->flash('gallery_update', $defaultFlash);
             return redirect()->route('admin.gallery.edit', $gallery->id);
         }
 
-
-        if ($request->exists('image')){
-            // part 1.0 - image. Delete old image && save new image
-            $path = $this->getProductImageSavePath($gallery->parent_id);
-            $imageFullName = $path . '/' . $gallery->image;
-            Storage::disk('public')->delete($imageFullName);
+        if ($request->exists('image'))
+        {
+            $this->deleteOriginalImage($gallery);
+            $this->deleteImagePresets($gallery);
 
             // todo - код сохранение картинки повторяется, исправить
-            $image = request()->file('image')[0];
-            //$newImageName = Str::random() . '---' . time() . '.' . $image->extension();
-            //$gallery->image = $newImageName;
-            //Storage::disk('public')->putFileAs('', $image, $newImageName);
-
-            $saveImage = $this->saveImage($image, $path);
-            if (!$saveImage['success']){
-                session()->flash('gallery_update', ['success' => false, 'message' => $saveImage['message']]);
+            // save new image file to orig path
+            $saveOrigImage = $this->saveOrigImage(request()->file('image')[0], $gallery->parent_id);
+            if (!$saveOrigImage['success']){
+                session()->flash('gallery_update', ['success' => false, 'message' => $saveOrigImage['message']]);
                 return redirect()->route('admin.gallery.edit', $gallery->id);
             }
 
-            // part 1.1 - image. compress image, create 3 folders with different dimension
-            $imgSize = ImageCompression::getImageSize($saveImage['fullName']);
-            if (!$imgSize['success']){
-                session()->flash('gallery_update', ['success' => false, 'message' => $imgSize['message']]);
+            // change imageName in DB
+            try{
+                $gallery->image = $saveOrigImage['name'];
+                $gallery->save();
+            }catch (\Exception $e){
+                $result = [
+                    'success' => false,
+                    'message' => 'Ошибка при обновлении картинки (изменение имени) продукта!'
+                ];
+                session()->flash('gallery_update', $result);
                 return redirect()->route('admin.gallery.edit', $gallery->id);
             }
 
-            $imageCompress = ImageCompression::convertToWebp($saveImage['fullName'], $imgSize['width'], $imgSize['height']);
-            //dd($imageCompress);
+            // compress/resize/save with presets
+
+            $compressAndResizeImgsPresets = $this->compressAndResizeImagesWithThreePreset($saveOrigImage, $gallery->parent_id);
+            if (!$compressAndResizeImgsPresets['success']){
+                session()->flash('gallery_update', ['success' => false, 'message' => $compressAndResizeImgsPresets['message']]);
+                return redirect()->route('admin.gallery.edit', $gallery->id);
+            }
         }
 
-        try{
-            // part 2 - checkbox is_main
-            if ($request->exists('is_main')){
-                $this->resetMainImage($gallery->parent_id);
-                $gallery->is_main = 1;
-            }
-            $gallery->image = $saveImage['name'];
-            $gallery->save();
-        }catch (\Exception $e){
-            session()->flash('gallery_update', ['success' => false, 'message' => 'Ошибка при обновлении картинки продукта!']);
-            return redirect()->route('admin.gallery.edit', $gallery->id);
+        if ($request->exists('is_main'))
+        {
+            // todo: сделать ли эту картинку главной? пока в представлении нет кнопки, позже сделать
+//        try{
+//            if ($request->exists('is_main')){
+//                $this->resetMainImage($gallery->parent_id);
+//                $gallery->is_main = 1;
+//                $gallery->save();
+//            }
+//        }catch (\Exception $e){
+//            session()->flash('gallery_update', ['success' => false, 'message' => 'Ошибка при обновлении картинки продукта!']);
+//            return redirect()->route('admin.gallery.edit', $gallery->id);
+//        }
         }
 
         session()->flash('gallery_update', ['success' => true, 'message' => 'Картинка продукта обновлена']);
@@ -363,14 +509,9 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
-        //return $gallery;
-        try{
-            Storage::disk('public')->delete($gallery->image);
-            $gallery->delete();
-        }catch (\Exception $e){
-            session()->flash('gallery_delete', ['success' => false, 'message' => 'Ошибка при удалении картинки продукта!']);
-            return redirect()->route('admin.gallery.index');
-        }
+        // todo: add try/catch
+        $this->deleteFile($gallery->image);
+        $gallery->delete();
 
         session()->flash('gallery_delete', ['success' => true, 'message' => 'Картинка продукта удалена']);
         return redirect()->route('admin.gallery.index');

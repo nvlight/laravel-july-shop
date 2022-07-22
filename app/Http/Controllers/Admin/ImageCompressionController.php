@@ -35,29 +35,14 @@ class ImageCompressionController extends Controller
     /**
      * Преобразование картинки в формат webP
      * @param $srcImg
+     * @param $distImg
+     * @param $newWidth
+     * @param $newHeight
      * @param $compression_quality
      * @return array|false|string
      */
     public static function convertToWebp($srcImg, $distImg, $newWidth, $newHeight, $compression_quality = 80)
     {
-        // check if src image file exists
-        if (!file_exists($srcImg)) {
-            return [
-                'success' => false,
-                'message' => 'file is not exists',
-            ];
-        }
-
-        // check if image already converted
-        $output_file =  $distImg . '.webp';
-        if (file_exists($output_file)) {
-            return [
-                'success' => true,
-                'message' => 'file is exists and its already converted!',
-                'image'   => $output_file,
-            ];
-        }
-
         $file_type = exif_imagetype($srcImg);
         if (function_exists('imagewebp')) {
             switch ($file_type) {
@@ -96,9 +81,14 @@ class ImageCompressionController extends Controller
             // resize
             imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight,
                 $imgSize['width'], $imgSize['height']);
+            //dd($newImage);
 
             // Save the image
-            $result = imagewebp($newImage, $output_file, $compression_quality);
+            $result = imagewebp(
+                $newImage,
+                $distImg,
+                $compression_quality
+            );
             if (false === $result) {
                 return false;
             }
@@ -107,7 +97,7 @@ class ImageCompressionController extends Controller
             return [
                 'success' => true,
                 'message' => 'image success converted!',
-                'image'   => $output_file,
+                'image'   => $distImg,
             ];
         } elseif (class_exists('Imagick')) {
             $image = new Imagick();
@@ -117,8 +107,8 @@ class ImageCompressionController extends Controller
                 $image->setImageCompressionQuality($compression_quality);
                 $image->setOption('webp:lossless', 'true');
             }
-            $image->writeImage($output_file);
-            return $output_file;
+            $image->writeImage($distImg);
+            return $distImg;
         }
 
         return [
