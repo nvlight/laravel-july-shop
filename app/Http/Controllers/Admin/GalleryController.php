@@ -13,8 +13,6 @@ use App\Http\Controllers\Admin\ImageCompressionController as ImageCompression;
 
 class GalleryController extends Controller
 {
-
-
     protected $maxImgsCountForProduct;
 
     public function __construct()
@@ -126,15 +124,6 @@ class GalleryController extends Controller
         $path .= '/' . $productId . '/';
 
         return $path;
-    }
-
-    /**
-     * Сохранить загруженные картинки
-     * @return array
-     */
-    protected function saveUploadImages(int $productId)
-    {
-
     }
 
     /**
@@ -295,10 +284,12 @@ class GalleryController extends Controller
      */
     protected function deleteImagePresets($gallery)
     {
-        $productId = $gallery->parent_id;
-        $image = $gallery->image . '.webp';
+        $imgPathPartsArr = explode('/', $gallery->image);
+        $imgName = $imgPathPartsArr[count($imgPathPartsArr)-1];
 
-        $imgDeletePath = $this->getProductImageDeletePathPart($productId);
+        $image = $imgName . '.webp';
+
+        $imgDeletePath = $this->getProductImageDeletePathPart($gallery->parent_id);
 
         $convertPresets = config('product.gallery.convert_presets');
         foreach ($convertPresets as $preset => $value)
@@ -333,7 +324,9 @@ class GalleryController extends Controller
             $convFullImgPath = $newDir . '/' . $staticImg;
 
             //mkdir($newDir, 0777, true);
-            mkdir($newDir);
+            if (!is_dir($newDir)){
+                mkdir($newDir);
+            }
 
             $imageCompress = ImageCompression::convertToWebp($fullImgPath, $convFullImgPath, $value['width'], $value['height']);
             //dump($imageCompress);
@@ -369,7 +362,9 @@ class GalleryController extends Controller
         foreach($imgPresets as $preset => $value)
         {
             $newDir          = $imgSavePath . $preset;
-            mkdir($newDir); // ! нужно создать эту папку, иначе imagewebp выдает ошибку !
+            if (!is_dir($newDir)){
+                mkdir($newDir); // ! нужно создать эту папку, иначе imagewebp выдает ошибку !
+            }
 
             $convFullImgName = $newDir . '/' . $image['name'];
             $convFullImgNameWithWebpExtension =  $convFullImgName . '.webp';
@@ -412,28 +407,6 @@ class GalleryController extends Controller
     }
 
     /**
-     * Удаление оригинальной картинки
-     * @param $gallery
-     * @return array
-     */
-    protected function deleteOriginalImage($gallery)
-    {
-        $imgDeletePath = $this->getProductImageDeletePathPart($gallery->parent_id);
-
-        $fileName = $imgDeletePath . config('product.gallery.paths.orig_path') . '/' . $gallery->image;
-        $tryDelete = $this->deleteFile($fileName);
-        dump($fileName);
-        if ( !$tryDelete['success']){
-            return [
-                'success' => false,
-                'message' => $tryDelete['message'] . ' - fileName: ' . $fileName
-            ];
-        }
-
-        return ['success' => true, 'message' => 'Оригинальная картинка удалена!'];
-    }
-
-    /**
      * Update the specified resource in storage.
      * @param  \App\Http\Requests\UpdateGalleryRequest  $request
      * @param  \App\Models\Gallery  $gallery
@@ -449,22 +422,24 @@ class GalleryController extends Controller
 
         if ($request->exists('image'))
         {
-            $this->deleteOriginalImage($gallery);
+            // удалим сначала сам рисунок и его пресеты-рисунки.
+            $this->deleteFile($gallery->image);
             $this->deleteImagePresets($gallery);
 
-            // todo - код сохранение картинки повторяется, исправить
-            // save new image file to orig path
-            $saveOrigImage = $this->saveOrigImage(request()->file('image')[0], $gallery->parent_id);
-            if (!$saveOrigImage['success']){
-                session()->flash('gallery_update', ['success' => false, 'message' => $saveOrigImage['message']]);
-                return redirect()->route('admin.gallery.edit', $gallery->id);
-            }
+            // тут фактически повторяется код из метода store
+            $image = request()->file('image')[0];
+            $img = [];
+            $img['baseName']  = $this->getRandomImageNameWithNumber(1);
+            $img['extension'] = $image->extension();
+            $img['name']      = $img['baseName'] . '.' . $img['extension'];
+            $img['savePath']  = $this->getProductImageSavePath($gallery->parent_id);
+            $img['fullName']  = $img['savePath'] . '/' . $img['name'];
 
-            // change imageName in DB
+            $gallery->image = $img['fullName'];
+
             try{
-                $gallery->image = $saveOrigImage['name'];
                 $gallery->save();
-            }catch (\Exception $e){
+            }catch (\Exception $e) {
                 $result = [
                     'success' => false,
                     'message' => 'Ошибка при обновлении картинки (изменение имени) продукта!'
@@ -473,13 +448,20 @@ class GalleryController extends Controller
                 return redirect()->route('admin.gallery.edit', $gallery->id);
             }
 
-            // compress/resize/save with presets
+            // todo - код сохранение картинки повторяется, исправить
+            $saveOrigImage = $this->saveImage($image, $img['savePath'], $img['name']);
+            if (!$saveOrigImage['success']){
+                session()->flash('gallery_update', ['success' => false, 'message' => $saveOrigImage['message']]);
+                return redirect()->route('admin.gallery.edit', $gallery->id);
+            }
 
-            $compressAndResizeImgsPresets = $this->compressAndResizeImagesWithThreePreset($saveOrigImage, $gallery->parent_id);
+            // compress/resize/save with presets
+            $compressAndResizeImgsPresets = $this->compressAndResizeImagesWithThreePreset($img, $gallery->parent_id);
             if (!$compressAndResizeImgsPresets['success']){
                 session()->flash('gallery_update', ['success' => false, 'message' => $compressAndResizeImgsPresets['message']]);
                 return redirect()->route('admin.gallery.edit', $gallery->id);
             }
+
         }
 
         if ($request->exists('is_main'))
@@ -511,6 +493,7 @@ class GalleryController extends Controller
     {
         // todo: add try/catch
         $this->deleteFile($gallery->image);
+        $this->deleteImagePresets($gallery);
         $gallery->delete();
 
         session()->flash('gallery_delete', ['success' => true, 'message' => 'Картинка продукта удалена']);

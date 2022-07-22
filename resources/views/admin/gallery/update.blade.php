@@ -15,6 +15,9 @@
     <div class="mb-3">
         @include('admin.gallery.session_messages.gallery_update')
     </div>
+    <div class="mb-3">
+        @include('admin.gallery.parts.buttons.show', ['id' => $gallery->id, 'class' => ''])
+    </div>
 
     <div class="card p-3">
         <div class="row">
