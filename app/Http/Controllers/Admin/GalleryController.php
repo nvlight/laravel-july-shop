@@ -172,6 +172,75 @@ class GalleryController extends Controller
     }
 
     /**
+     * Обработчик проверки на превышение лимита картинок на один продукт.
+     * @param $request
+     * @return bool[]|false[]
+     */
+    protected function isProductHaveMaxImageCountHandler($request)
+    {
+        $diffProductImages = $this->isProductHaveMaxImageCount($request->parent_id, count($request->image));
+        if ( !($diffProductImages['success']) ){
+            session()->flash('default_message', [
+                'success' => false,
+                'message' => "Максимальное количество изображений для одного продукта = {$this->maxImgsCountForProduct}, " .
+                    " превышение составило {$diffProductImages['diff']} картинок",
+            ]);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Создать новую запись с картинкой
+     * @param $gallery
+     * @return bool
+     */
+    protected function saveImageQueryHandler($gallery)
+    {
+        try{
+            $gallery->save();
+        }catch (\Exception $e) {
+            $result = [
+                'success' => false,
+                'message' => 'Ошибка при обновлении картинки (изменение имени) продукта!'
+            ];
+            session()->flash('gallery_update', $result);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Обновить поле is_main - является картинка главной.
+     * @param $gallery
+     * @param $request
+     * @param $i
+     * @return mixed
+     */
+    protected function updateIsMainForProduct($gallery, $request, $i)
+    {
+        // todo: эта штука не сработает! нужно ввести поле Number - 1,2,3,4,5 найти по номеру нужный и сделать активным
+        if ( !Gallery::where('parent_id', $gallery->parent_id)->count())
+        {
+            if (is_null($request->is_main)){
+                $isMain = 1;
+            }else{
+                $tmp = intval($request->is_main);
+                if ($tmp >= 1 && $tmp <= count($request->file('image')) ){
+                    $isMain = $tmp;
+                }else{
+                    $isMain = 1;
+                }
+            }
+
+            if ($i == $isMain){
+                $gallery->is_main = 1;
+            }
+        }
+        return $gallery;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreGalleryRequest  $request
@@ -179,21 +248,14 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
-        $diffProductImages = $this->isProductHaveMaxImageCount($request->parent_id, count($request->image));
-        if ( !($diffProductImages['success']) ){
-            session()->flash('default_message',
-                [
-                    'success' => false,
-                    'message' => "Максимальное количество изображений для одного продукта = {$this->maxImgsCountForProduct}, " .
-                        " превышение составило {$diffProductImages['diff']} картинок",
-                ]);
+
+
+        if ( !$this->isProductHaveMaxImageCountHandler($request)){
             return redirect()->route('admin.gallery.index');
         }
 
-
         $i = 1;
-        $images = request()->file('image');
-        foreach($images as $image)
+        foreach($request->file('image') as $image)
         {
             $gallery = new Gallery();
             $gallery->parent_id = $request->parent_id;
@@ -206,16 +268,10 @@ class GalleryController extends Controller
             $img['fullName']  = $img['savePath'] . '/' . $img['name'];
 
             $gallery->image = $img['fullName'];
-            $gallery->is_main = ($i == 1) ? 1 : 0;
 
-            try{
-                $gallery->save();
-            }catch (\Exception $e) {
-                $result = [
-                    'success' => false,
-                    'message' => 'Ошибка при обновлении картинки (изменение имени) продукта!'
-                ];
-                session()->flash('gallery_update', $result);
+            $gallery = $this->updateIsMainForProduct($gallery, $request, $i);
+
+            if ( !$this->saveImageQueryHandler($gallery)){
                 return redirect()->route('admin.gallery.edit', $gallery->id);
             }
 
