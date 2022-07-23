@@ -30,8 +30,9 @@ class GalleryController extends Controller
         //$galleries = Gallery::all();
         $galleries = Gallery::
               join('products', 'products.id', '=', 'galleries.parent_id')
-            ->select('galleries.*', 'products.title', 'products.id as product_id')
+            ->select('galleries.*', 'products.title', 'products.id as product_id', 'galleries.number as number')
             ->orderBy('products.id', 'desc')
+            ->orderBy('number', 'asc')
             ->orderBy('galleries.is_main', 'desc')
             ->get()
             //->toArray()
@@ -202,7 +203,7 @@ class GalleryController extends Controller
         }catch (\Exception $e) {
             $result = [
                 'success' => false,
-                'message' => 'Ошибка при обновлении картинки (изменение имени) продукта!'
+                'message' => 'Ошибка при обновлении картинки продукта!'
             ];
             session()->flash('gallery_update', $result);
             return false;
@@ -211,33 +212,42 @@ class GalleryController extends Controller
     }
 
     /**
-     * Обновить поле is_main - является картинка главной.
-     * @param $gallery
+     * Посчитать номер картинки по умолчанию для продукта из галереи
      * @param $request
-     * @param $i
-     * @return mixed
+     * @return int
      */
-    protected function updateIsMainForProduct($gallery, $request, $i)
+    protected function calclulateIsMainForGalleryProduct($request)
     {
-        // todo: эта штука не сработает! нужно ввести поле Number - 1,2,3,4,5 найти по номеру нужный и сделать активным
-        if ( !Gallery::where('parent_id', $gallery->parent_id)->count())
-        {
-            if (is_null($request->is_main)){
-                $isMain = 1;
+        // определить номер рисунка, который нужно поставить главным.
+        $isMain = 1;
+        if ( !is_null($request->is_main)){
+            $tmp = intval($request->is_main);
+            if ($tmp >= 1 && $tmp <= count($request->file('image')) ){
+                $isMain = $tmp;
             }else{
-                $tmp = intval($request->is_main);
-                if ($tmp >= 1 && $tmp <= count($request->file('image')) ){
-                    $isMain = $tmp;
-                }else{
-                    $isMain = 1;
-                }
-            }
-
-            if ($i == $isMain){
-                $gallery->is_main = 1;
+                $isMain = 1;
             }
         }
-        return $gallery;
+        return $isMain;
+    }
+
+    /**
+     * Обновить поле is_main - является картинка главной.
+     * @param $request
+     * @return bool
+     */
+    protected function setIsMainForGalleryProduct($request)
+    {
+        $isMain = $this->calclulateIsMainForGalleryProduct($request);
+
+        $tgImg = Gallery::where('parent_id', $request->parent_id)
+               ->where('number', $isMain)
+               ->first();
+        if ($tgImg){
+            $tgImg->is_main = 1;
+        }
+
+        return $this->saveImageQueryHandler($tgImg);
     }
 
     /**
@@ -248,7 +258,18 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
-
+//        $isMain = $this->calclulateIsMainForGalleryProduct($request);
+//        dump($isMain);
+//
+//        $tgImg = Gallery::where('parent_id', $request->parent_id)
+//            ->where('number', $isMain)
+//            ->first();
+//        if ($tgImg){
+//            $tgImg->is_main = 1;
+//        }
+//        dump($tgImg);
+//
+//        dd($request->all());
 
         if ( !$this->isProductHaveMaxImageCountHandler($request)){
             return redirect()->route('admin.gallery.index');
@@ -267,9 +288,8 @@ class GalleryController extends Controller
             $img['savePath']  = $this->getProductImageSavePath($gallery->parent_id);
             $img['fullName']  = $img['savePath'] . '/' . $img['name'];
 
-            $gallery->image = $img['fullName'];
-
-            $gallery = $this->updateIsMainForProduct($gallery, $request, $i);
+            $gallery->image  = $img['fullName'];
+            $gallery->number = $i;
 
             if ( !$this->saveImageQueryHandler($gallery)){
                 return redirect()->route('admin.gallery.edit', $gallery->id);
@@ -291,6 +311,8 @@ class GalleryController extends Controller
 
             $i++;
         }
+
+        $this->setIsMainForGalleryProduct($request);
 
         session()->flash('gallery_images_created', ['success' => true, 'message' => 'Картинки продукта сохранены!']);
         return redirect()->route('admin.gallery.index');

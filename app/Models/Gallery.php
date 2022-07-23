@@ -11,5 +11,6 @@ class Gallery extends Model
 
     protected $fillable = [
         'parent_id',
+        'number',
     ];
 }
