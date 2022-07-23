@@ -19,7 +19,7 @@
 
                                 @endphp
                                 <img src="{{asset( $imgFullNameWithWebpExt )}}"
-                                 alt="Main img" width="48" height="64">
+                                 alt="Main img - woow" width="48" height="64" >
                             </a>
                         @endif
                     @endforeach
