@@ -236,7 +236,7 @@ class GalleryController extends Controller
      * @param $request
      * @return bool
      */
-    protected function setIsMainForGalleryProduct($request)
+    protected function setIsMainForGalleryProductList($request)
     {
         $isMain = $this->calclulateIsMainForGalleryProduct($request);
 
@@ -312,7 +312,7 @@ class GalleryController extends Controller
             $i++;
         }
 
-        $this->setIsMainForGalleryProduct($request);
+        $this->setIsMainForGalleryProductList($request);
 
         session()->flash('gallery_images_created', ['success' => true, 'message' => 'Картинки продукта сохранены!']);
         return redirect()->route('admin.gallery.index');
@@ -485,6 +485,35 @@ class GalleryController extends Controller
     }
 
     /**
+     * Обнулить все 'главная картинка' для продукта
+     * @param int $parentId
+     * @return bool
+     */
+    protected function dropAllIsMainForGalleryProduct(int $parentId)
+    {
+        $gs = Gallery::where('parent_id', $parentId)->get();
+        if (!$gs) return false;
+
+        foreach($gs as $key => $value){
+            $value->is_main = 0;
+            $value->save();
+        }
+
+        return true;
+    }
+
+    /**
+     * Установить картинку галереи основной
+     * @param $gallery
+     * @return mixed
+     */
+    protected function setIsMainForGalleryProductSingle($gallery)
+    {
+        $gallery->is_main = 1;
+        return $gallery->save();
+    }
+
+    /**
      * Update the specified resource in storage.
      * @param  \App\Http\Requests\UpdateGalleryRequest  $request
      * @param  \App\Models\Gallery  $gallery
@@ -544,17 +573,9 @@ class GalleryController extends Controller
 
         if ($request->exists('is_main'))
         {
-            // todo: сделать ли эту картинку главной? пока в представлении нет кнопки, позже сделать
-//        try{
-//            if ($request->exists('is_main')){
-//                $this->resetMainImage($gallery->parent_id);
-//                $gallery->is_main = 1;
-//                $gallery->save();
-//            }
-//        }catch (\Exception $e){
-//            session()->flash('gallery_update', ['success' => false, 'message' => 'Ошибка при обновлении картинки продукта!']);
-//            return redirect()->route('admin.gallery.edit', $gallery->id);
-//        }
+            // todo: ошибки добавить в лог
+            $this->dropAllIsMainForGalleryProduct($gallery->parent_id);
+            $this->setIsMainForGalleryProductSingle($gallery);
         }
 
         session()->flash('gallery_update', ['success' => true, 'message' => 'Картинка продукта обновлена']);

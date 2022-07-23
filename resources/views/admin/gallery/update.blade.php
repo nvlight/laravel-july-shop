@@ -48,14 +48,19 @@
                         @enderror
                     </div>
 
-                    @if( !$gallery->is_main)
+                    @if( $gallery->is_main)
+                        <div class="mb-3">
+                            <strong disabled="">Картинка является главной</strong>
+                        </div>
+                    @else
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" value="" id="is_main" name="is_main">
                             <label class="form-check-label" for="is_main">
-                                Сделать главной картинкой
+                                Сделать картинку главной!
                             </label>
                         </div>
                     @endif
+
                     @error('is_main')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
