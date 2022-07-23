@@ -40,6 +40,41 @@ class ProductController extends Controller
         //
     }
 
+    /**/
+    protected function getImgWithWebPConcated($image, $ext='.webp')
+    {
+        return $image . $ext;
+    }
+
+    public static function getImgWithWebPConcated_static($image, $ext='.webp')
+    {
+        return $image . $ext;
+    }
+
+    /**/
+    protected function extractImgNameFromFullName(string $image)
+    {
+        return explode('/', $image)[ count(explode('/', $image)) -1];
+    }
+
+    /**/
+    public static function extractImgNameFromFullName_static(string $image)
+    {
+        return explode('/', $image)[ count(explode('/', $image)) -1];
+    }
+
+    /**/
+    public static function image_c246x328_path_static($product, $image)
+    {
+        return asset(config('product.gallery.paths.products_show_path')
+            . '/' . $product . '/'
+            . config('product.gallery.paths.c246x328') . '/'
+            . self::getImgWithWebPConcated(
+                self::extractImgNameFromFullName_static($image)
+            ),
+        );
+    }
+
     /**
      * Выдать путь до рисунка для разрешения c246x328
      * @param $product
@@ -48,10 +83,12 @@ class ProductController extends Controller
      */
     protected function image_c246x328_path($product, $image)
     {
-        return asset(env('PRODUCT_IMAGES_SHOW_PATH')
-            . $product
-            . env('PRODUCT_IMAGES_SHOW_c246x328_folder')
-            . $image
+        return asset(config('product.gallery.paths.products_show_path')
+            . '/' . $product . '/'
+            . config('product.gallery.paths.c246x328') . '/'
+            . $this->getImgWithWebPConcated(
+                $this->extractImgNameFromFullName($image)
+            ),
         );
     }
 
@@ -63,6 +100,14 @@ class ProductController extends Controller
      */
     protected function image_big_path($product, $image)
     {
+        return asset(config('product.gallery.paths.products_show_path')
+            . '/' . $product . '/'
+            . config('product.gallery.paths.big') . '/'
+            . $this->getImgWithWebPConcated(
+                $this->extractImgNameFromFullName($image)
+            ),
+        );
+
         return asset(env('PRODUCT_IMAGES_SHOW_PATH')
             . $product
             . env('PRODUCT_IMAGES_SHOW_big_folder')

@@ -8,11 +8,17 @@
                     @foreach($product->images as $image)
                         @if($image->is_main)
                             <a class="product-line__img img-plug" href="#">
-                                <img src="{{asset(env('PRODUCT_IMAGES_SHOW_PATH')
-                                            . $product->id
-                                            . env('PRODUCT_IMAGES_SHOW_c246x328_folder')
-                                            . $image->image
-                                        )}}"
+                                @php
+                                    $imgName = \App\Http\Controllers\Guest\ProductController::extractImgNameFromFullName_static($image->image);
+                                    $imgFullName =  config('product.gallery.paths.products_show_path') . '/'
+                                            . $product->id . '/'
+                                            . config('product.gallery.paths.c246x328') . '/'
+                                            . $imgName;
+
+                                    $imgFullNameWithWebpExt = \App\Http\Controllers\Guest\ProductController::getImgWithWebPConcated_static($imgFullName);
+
+                                @endphp
+                                <img src="{{asset( $imgFullNameWithWebpExt )}}"
                                  alt="Main img" width="48" height="64">
                             </a>
                         @endif
