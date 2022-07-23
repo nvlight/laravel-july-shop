@@ -1,3 +1,6 @@
+@php
+    use \App\Http\Controllers\Guest\ProductController;
+@endphp
 {{-- hide скрыл hide --}}
 <div class="" data-link="{include tmpl='productCardMiniCard'}">
     <div class="product-line j-product-card-line product-line--invisible" id="f0ccf25a-5b82-1dc4-c640-0bf999fe3bc7"
@@ -8,18 +11,8 @@
                     @foreach($product->images as $image)
                         @if($image->is_main)
                             <a class="product-line__img img-plug" href="#">
-                                @php
-                                    $imgName = \App\Http\Controllers\Guest\ProductController::extractImgNameFromFullName_static($image->image);
-                                    $imgFullName =  config('product.gallery.paths.products_show_path') . '/'
-                                            . $product->id . '/'
-                                            . config('product.gallery.paths.c246x328') . '/'
-                                            . $imgName;
-
-                                    $imgFullNameWithWebpExt = \App\Http\Controllers\Guest\ProductController::getImgWithWebPConcated_static($imgFullName);
-
-                                @endphp
-                                <img src="{{asset( $imgFullNameWithWebpExt )}}"
-                                 alt="Main img - woow" width="48" height="64" >
+                                <img src="{{ asset(ProductController::image_c246x328_path_static($product->id, $image->image)) }}"
+                                 alt="Main img" width="48" height="64">
                             </a>
                         @endif
                     @endforeach

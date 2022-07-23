@@ -1,7 +1,9 @@
+@php
+    use \App\Http\Controllers\Guest\ProductController;
+@endphp
 {{-- если нам нужен товар-реклама, то add class 'j-advert-card-item advert-card-item' --}}
 <div id="c24811954" class="product-card j-card-item j-advert-card-item advert-card-item j-good-for-listing-event"
-     data-card-index="0" data-popup-nm-id="24811954"
-     style="min-height: 488px;">
+     data-card-index="0" data-popup-nm-id="24811954" style="min-height: 488px;">
     <div class="product-card__wrapper">
         <a draggable="false" class="product-card__main j-card-link"
            href="/product/{{$product->id}}">
@@ -10,21 +12,11 @@
                 <div class="product-card__img-wrap img-plug j-thumbnail-wrap">
                     @if(count($product->images))
                         @foreach($product->images as $image)
-
-                            @php
-                                $imageName = explode('/', $image->image)[count(explode('/', $image->image))-1];
-                            @endphp
-
                             @if($image->is_main)
                                 <img class="j-thumbnail thumbnail" alt="{{$product->title}} main_thumbnail"
-                                    {{-- todo: потом занести src в отдельный файл и обернуть image --}}
-                                     src="{{asset(config('product.gallery.paths.products_show_path') . '/' .
-                                            $product->id . '/' .
-                                            config('product.gallery.paths.big') . '/' . $imageName.'.webp')}}"
-                                     {{-- src="https://images.wbstatic.net/c516x688/new/24810000/24811954-1.jpg"--}}
+                                     src="{{ asset(ProductController::image_big_path_static($product->id, $image->image)) }}"
                                      width="{{config('product.gallery.convert_presets.big.width')}}"
-                                     height="{{config('product.gallery.convert_presets.big.height')}}"
-                                >
+                                     height="{{config('product.gallery.convert_presets.big.height')}}">
                             @endif
                         @endforeach
                     @endif
@@ -91,7 +83,8 @@
                             type="button" aria-label="Добавить в избранное">
                     </button>
                 </div>
-                <span class="product-card__sizes j-sizes"></span></div>
+                <span class="product-card__sizes j-sizes"></span>
+            </div>
         </div>
     </div>
 </div>

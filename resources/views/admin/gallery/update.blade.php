@@ -1,6 +1,10 @@
+@php
+    use \App\Http\Controllers\Guest\ProductController;
+@endphp
+
 @extends('_layouts.admin_main')
 
-@section('title', 'Product - create')
+@section('title', 'Gallery/edit')
 
 @section('sidebar')
     sidebar
@@ -70,16 +74,9 @@
 
             <div class="col-md-8">
                 <div>
-                    @php
-                        $preset = config('product.gallery.paths.big');
-                        $imgPathPartsArr = explode('/', $gallery->image);
-                        $imgName = $imgPathPartsArr[count($imgPathPartsArr)-1];
-                        $imgFullName = config('product.gallery.paths.products_show_path') . '/' . $gallery->parent_id . '/'
-                            . $preset . '/' . $imgName . '.webp';
-                    @endphp
-                    <p>preset: {{$preset}}</p>
-                    <p>Size: {{filesize($imgFullName)}}</p>
-                    <img src="{{ asset($imgFullName) }}"
+                    <p>preset: {{ config('product.gallery.paths.big') }}</p>
+                    <p>Size: {{ filesize(ProductController::image_big_path_static($gallery->parent_id, $gallery->image))}}</p>
+                    <img src="{{ asset(ProductController::image_big_path_static($gallery->parent_id, $gallery->image)) }}"
                          style="width: 100%; height: auto;" alt="">
                 </div>
             </div>

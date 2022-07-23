@@ -10,69 +10,93 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Добавление к рисунку суффикса в видер расширения
+     * @param $image
+     * @param $ext
+     * @return string
      */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**/
     protected function getImgWithWebPConcated($image, $ext='.webp')
     {
         return $image . $ext;
     }
 
+    /**
+     * Добавление к рисунку суффикса в видер расширения статично
+     * @param $image
+     * @param $ext
+     * @return string
+     */
     public static function getImgWithWebPConcated_static($image, $ext='.webp')
     {
         return $image . $ext;
     }
 
-    /**/
-    protected function extractImgNameFromFullName(string $image)
+    /**
+     * Получить имя рисунка с полного пути рисунка статично
+     * @param string $image
+     * @return mixed|string
+     */
+    public function extractImgNameFromFullName(string $image)
     {
         return explode('/', $image)[ count(explode('/', $image)) -1];
     }
 
-    /**/
+    /**
+     * Получить имя рисунка с полного пути рисунка статично
+     * @param string $image
+     * @return mixed|string
+     */
     public static function extractImgNameFromFullName_static(string $image)
     {
         return explode('/', $image)[ count(explode('/', $image)) -1];
     }
 
-    /**/
-    public static function image_c246x328_path_static($product, $image)
+    /**
+     * Возвращает полный путь картинки для мобильного разрешения
+     * @param int $productId
+     * @param $image
+     * @return string
+     */
+    public static function image_c246x328_path_static(int $productId, $image)
     {
-        return asset(config('product.gallery.paths.products_show_path')
-            . '/' . $product . '/'
+        return config('product.gallery.paths.products_show_path')
+            . '/' . $productId . '/'
             . config('product.gallery.paths.c246x328') . '/'
-            . self::getImgWithWebPConcated(
+            . self::getImgWithWebPConcated_static(
                 self::extractImgNameFromFullName_static($image)
-            ),
-        );
+            );
+    }
+
+    /**
+     * Возвращает полный путь картинки для таблет разрешения
+     * @param int $productId
+     * @param $image
+     * @return string
+     */
+    public static function image_c516x688_path_static(int $productId, $image)
+    {
+        return config('product.gallery.paths.products_show_path')
+            . '/' . $productId . '/'
+            . config('product.gallery.paths.c516x688') . '/'
+            . self::getImgWithWebPConcated_static(
+                self::extractImgNameFromFullName_static($image)
+            );
+    }
+
+    /**
+     * Возвращает полный путь картинки для десктопного разрешения
+     * @param int $productId
+     * @param $image
+     * @return string
+     */
+    public static function image_big_path_static(int $productId, $image)
+    {
+        return config('product.gallery.paths.products_show_path')
+            . '/' . $productId . '/'
+            . config('product.gallery.paths.big') . '/'
+            . self::getImgWithWebPConcated_static(
+                self::extractImgNameFromFullName_static($image)
+            );
     }
 
     /**
@@ -93,28 +117,10 @@ class ProductController extends Controller
     }
 
     /**
-     * Выдать путь до рисунка для разрешения big
-     * @param $product
-     * @param $image
-     * @return string
+     * Показать продукт
+     * @param Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    protected function image_big_path($product, $image)
-    {
-        return asset(config('product.gallery.paths.products_show_path')
-            . '/' . $product . '/'
-            . config('product.gallery.paths.big') . '/'
-            . $this->getImgWithWebPConcated(
-                $this->extractImgNameFromFullName($image)
-            ),
-        );
-
-        return asset(env('PRODUCT_IMAGES_SHOW_PATH')
-            . $product
-            . env('PRODUCT_IMAGES_SHOW_big_folder')
-            . $image
-        );
-    }
-
     public function show(Product $product)
     {
         $categories = Category::where('parent_id', 0)->get();
@@ -128,16 +134,10 @@ class ProductController extends Controller
             ;
             $newImages = [];
             foreach($sliderImages as $image){
-                //$newImages[] = asset(env('PRODUCT_IMAGES_SHOW_PATH') . $image);
                 $newImages[] = $this->image_c246x328_path($product->id, $image);
             }
             $sliderImages = $newImages;
-            //dd($sliderImages);
         }
-
-        // todo: 900 * 1200, это размер главной картинки слайдера на десктопе
-        // todo: 516 * 688,  это размеры картинок, когда показывается список продуктов на десктопе
-        // todo: 246 * 328,  это размеры маленьких картинок слайдера на десктопе, она также в верхней всплывашке
 
         return view('guest.products.show.show_product', [
             'product' => $product,
@@ -147,41 +147,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
-     * Получение картинок продукта по Id Ajax запросом
+     * Получение картинок пресета big продукта по Id Ajax запросом
      * @param Product $product
      * @return \Illuminate\Http\JsonResponse
      */
@@ -195,8 +161,7 @@ class ProductController extends Controller
 
             $newImages = [];
             foreach($images as $image){
-                //$image->image = asset(env('PRODUCT_IMAGES_SHOW_PATH') . $image->image);
-                $image->image = $this->image_big_path($product->id, $image->image);
+                $image->image = asset(self::image_big_path_static($product->id, $image->image));
                 $newImages[] = $image;
             }
 

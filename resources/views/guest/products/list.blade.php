@@ -65,7 +65,7 @@
             <div class="">
                 <ul class="sidemenu" >
                     <li class="selected opened haschild">
-                        <a href="{{route('guest.category.show', $parentCategory->id)}}">Художественная литература</a>
+                        <a href="{{route('guest.category.show', $parentCategory->id)}}">{{$parentCategory->title}}</a>
                         <ul>
                             <li class="selected hasnochild">
                                 <a href="{{route('guest.category.show', $currentCategory->id)}}">{{$currentCategory->title}}</a>
@@ -110,9 +110,7 @@
 
                 @include('guest.products.show.sorter-mobile__select')
 
-                <div class="sorter-mobile__card-refresh"
-                     data-link="class{merge: model.sizerModel.value == 'big' toggle='big'}{on model.applyNextSize}"
-                     data-jsv="#17917^/17917^"></div>
+                <div class="sorter-mobile__card-refresh"></div>
             </div>
             <div class="your-choice" style="display: none;">
                 <ul data-jsv-df=""></ul>
