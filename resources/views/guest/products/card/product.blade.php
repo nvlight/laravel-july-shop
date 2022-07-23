@@ -10,13 +10,21 @@
                 <div class="product-card__img-wrap img-plug j-thumbnail-wrap">
                     @if(count($product->images))
                         @foreach($product->images as $image)
+
+                            @php
+                                $imageName = explode('/', $image->image)[count(explode('/', $image->image))-1];
+                            @endphp
+
                             @if($image->is_main)
                                 <img class="j-thumbnail thumbnail" alt="{{$product->title}} main_thumbnail"
                                     {{-- todo: потом занести src в отдельный файл и обернуть image --}}
-                                     src="{{asset(env('PRODUCT_IMAGES_SHOW_PATH').$product->id
-                                        .env('PRODUCT_IMAGES_SHOW_c516x688_folder').$image->image)}}"
+                                     src="{{asset(config('product.gallery.paths.products_show_path') . '/' .
+                                            $product->id . '/' .
+                                            config('product.gallery.paths.big') . '/' . $imageName.'.webp')}}"
                                      {{-- src="https://images.wbstatic.net/c516x688/new/24810000/24811954-1.jpg"--}}
-                                     width="516" height="688">
+                                     width="{{config('product.gallery.convert_presets.big.width')}}"
+                                     height="{{config('product.gallery.convert_presets.big.height')}}"
+                                >
                             @endif
                         @endforeach
                     @endif
